@@ -34,9 +34,9 @@ namespace MET.API.Controllers
 
             userForrRegisterDto.Username = userForrRegisterDto.Username.ToLower();
 
-            if (await _repo.UserExists(userForrRegisterDto.Username))
+            if (await _repo.UserExists(userForrRegisterDto.Username, userForrRegisterDto.Email))
             {
-                return BadRequest("Username already exists");
+                return BadRequest("Username or Email Id already exists");
             }
 
             var userToCreate = new User
