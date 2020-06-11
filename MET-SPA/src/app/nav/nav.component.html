@@ -1,41 +1,124 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">MET</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <i class="fa fa-gg" style="font-size:33px;color:red"></i>
+  <a class="navbar-brand ml-2" href="#">MET</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarColor01"
+    aria-controls="navbarColor01"
+  >
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <div class="dropdown mr-1" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        |&nbsp;Change Requests
+      </a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" href="#"
+          ><i class="fa fa-hourglass-half mr-2"></i>Add New Request</a
+        >
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"
+          ><i class="fa fa-calendar mr-2"></i>List of Request</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown mr-1" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        |&nbsp;Admin Panel
+      </a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" href="#"
+          ><i class="fa fa-address-book mr-2"></i>Add User</a
+        >
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"
+          ><i class="fa fa-address-card mr-2"></i>List of User</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown mr-1" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        |&nbsp;AMS Panel
+      </a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" href="#"
+          ><i class="fa fa-hourglass-half mr-2"></i>Effort Update</a
+        >
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"
+          ><i class="fa fa-calendar mr-2"></i>Timelines Update</a
+        >
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"
+          ><i class="fa fa-rocket mr-2"></i>Release Update</a
+        >
+      </div>
+    </div>
+
+    <div class="dropdown mr-2" dropdown>
+      <a  class="dropdown-toggle text-light" dropdownToggle>
+       |&nbsp;IT Team Panel
+      </a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" href="#"><i class="fa fa-thumbs-o-up mr-2"></i>Effort Approvals</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#"><i class="fa fa-tachometer mr-2"></i>IT Dashboard</a>
+      </div>
+    </div>
+
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">|&nbsp;&nbsp;Admin Panel </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">|&nbsp;&nbsp;New Request </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">|&nbsp;&nbsp;List of Enhancements </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">|&nbsp;&nbsp;Effort Approvals&nbsp;&nbsp;| </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" (click)="loggedOut()">|&nbsp;&nbsp;Log Out&nbsp;&nbsp;| </a>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
       </li>
     </ul>
-    
-      <a *ngIf="loggedIn()" class="dropdown-toggle text-light">
-        Welcome User
+
+    <div *ngIf="loggedIn()" class="dropdown" dropdown>
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        Welcome {{ authservices.decodedToken?.unique_name | titlecase }}
       </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit Profile</a>
+      <div class="dropdown-menu mt-3" *dropdownMenu>
+        <a class="dropdown-item" href="#"
+          ><i class="fa fa-user"></i>Edit Profile</a
+        >
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Logout</a>
+        <a class="dropdown-item" (click)="loggedOut()">Logout</a>
       </div>
-    
-    <form *ngIf="!loggedIn()" #loginForm='ngForm' class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
-      <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" required [(ngModel)]="model.username">
-      <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password" required [(ngModel)]="model.password" >
-      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+    </div>
+    <form
+      *ngIf="!loggedIn()"
+      #loginForm="ngForm"
+      class="form-inline my-2 mr-sm-2"
+      (ngSubmit)="login()"
+    >
+      <input
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Username"
+        name="username"
+        required
+        [(ngModel)]="model.username"
+      />
+      <input
+        class="form-control mr-sm-2"
+        type="password"
+        placeholder="Password"
+        name="password"
+        required
+        [(ngModel)]="model.password"
+      />
+      <button
+        [disabled]="!loginForm.valid"
+        class="btn btn-success my-2 my-sm-0"
+        type="submit"
+      >
+        Login
+      </button>
     </form>
   </div>
 </nav>
