@@ -62,7 +62,8 @@ namespace MET.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userForRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userForRepo.Username)
+                new Claim(ClaimTypes.Name, userForRepo.Username),
+                new Claim(ClaimTypes.Role, userForRepo.Role)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8

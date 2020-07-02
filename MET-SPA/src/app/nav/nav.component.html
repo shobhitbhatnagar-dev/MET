@@ -14,7 +14,7 @@
 
     <!--Admin Panel-->
     <li *ngIf="loggedIn()" class="dropdown mt-2" dropdown>
-      <a class="dropdown-toggle text-light" dropdownToggle>
+      <a *ngIf="checkRole('admin')" class="dropdown-toggle text-light" dropdownToggle>
         |&nbsp;Adminstrator
       </a>
       <div class="dropdown-menu mt-2" *dropdownMenu>
@@ -58,7 +58,7 @@
 
     <!--AMS Panel-->
     <li *ngIf="loggedIn()" class="dropdown mt-2" dropdown>
-      <a class="dropdown-toggle text-light" dropdownToggle>
+      <a *ngIf="checkRole('dev')"  class="dropdown-toggle text-light" dropdownToggle>
         |&nbsp;AMS Panel
       </a>
       <div class="dropdown-menu mt-2" *dropdownMenu>
@@ -87,7 +87,7 @@
 
     <!--IT Panel-->
     <li *ngIf="loggedIn()" class="dropdown mt-2" dropdown>
-      <a class="dropdown-toggle text-light" dropdownToggle>
+      <a *ngIf="checkRole('it')" class="dropdown-toggle text-light" dropdownToggle>
         |&nbsp;IT Team Panel
       </a>
       <div class="dropdown-menu mt-2" *dropdownMenu>
@@ -123,7 +123,7 @@
 
   <div *ngIf="loggedIn()" class="dropdown" dropdown>
     <a class="dropdown-toggle text-light" dropdownToggle>
-      Welcome {{ authservices.decodedToken?.unique_name | titlecase }}
+      Welcome {{ authservices.decodedToken?.unique_name | titlecase }} | ({{authservices.decodedToken?.role | titlecase }})
     </a>
     <div class="dropdown-menu mt-3" *dropdownMenu>
       <a class="dropdown-item" href="#"

@@ -14,7 +14,7 @@
                 <strong>Request Id&nbsp;</strong>{{ request.id }}
               </div>
               <div class="p-2 bd-highlight">
-                <strong>Title:</strong>&nbsp;{{ request.title | titlecase }}
+                <strong>Title:</strong>&nbsp;{{ request.title }}
               </div>
               <div class="p-2 bd-highlight">
                 <strong>Status:</strong>&nbsp;{{ request.status | titlecase }}
@@ -65,7 +65,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">
-            {{ requestbyid.title | titlecase }} |&nbsp;&nbsp; Status:&nbsp;
+            {{ requestbyid.title}} |&nbsp;&nbsp; Status:&nbsp;
             <span class="badge badge-primary">
               {{ requestbyid.status | titlecase }}
             </span>
@@ -116,7 +116,7 @@
                 *ngIf="requestbyid.attachmentUrl"
                 href="{{ requestbyid.attachmentUrl }}"
                 target="_blank"
-                >Attachment</a
+                >{{requestbyid.attachmentTitle}}</a
               >
               <p *ngIf="!requestbyid.attachmentUrl">No Attachments</p>
             </div>

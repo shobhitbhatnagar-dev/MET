@@ -31,4 +31,8 @@ model: any = {};
     this.alertify.message('logged out');
   }
 
+  checkRole(role: string) {
+    return this.authservices.checkRole(role);
+  }
+
 }

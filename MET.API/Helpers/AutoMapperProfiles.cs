@@ -12,9 +12,8 @@ namespace MET.API.Helpers
             CreateMap<User, UserDto>();
             CreateMap<Project, ProjectDto>();
             CreateMap<Module, ModuleDto>();
-            CreateMap<Request, RequestforlistDto>();
-            CreateMap<Request, RequestforDetailsDto>();
-
+            CreateMap<Request, RequestforlistDto>().ForMember(dest => dest.AttachmentTitle, opt => opt.MapFrom(src => src.Attachment.Title));
+            CreateMap<Request, RequestforDetailsDto>().ForMember(dest => dest.AttachmentTitle, opt => opt.MapFrom(src => src.Attachment.Title));
         }
     }
 }

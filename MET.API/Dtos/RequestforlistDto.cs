@@ -14,6 +14,7 @@ namespace MET.API.Dtos
         public string Priority { get; set; }
         public string Justification { get; set; }
         public string AttachmentUrl { get; set; }
+        public string AttachmentTitle { get; set; }
         public DateTime CreationDate { get; set; }
         public string Status { get; set; }
     }

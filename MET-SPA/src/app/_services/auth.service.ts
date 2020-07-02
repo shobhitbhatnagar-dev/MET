@@ -11,6 +11,7 @@ export class AuthService {
  baseUrl = environment.apiUrl + 'auth/';
  jwtHelper = new JwtHelperService();
  decodedToken: any;
+ userRole: string;
 
 constructor(private http: HttpClient) { }
 
@@ -35,5 +36,12 @@ register(model: any) {
 loggedIn() {
   const token  = localStorage.getItem('token');
   return !this.jwtHelper.isTokenExpired(token);
+}
+
+checkRole(role: string) {
+  this.userRole = this.decodedToken.role;
+  if ( this.userRole === role) {
+    return true;
+ }return false;
 }
 }

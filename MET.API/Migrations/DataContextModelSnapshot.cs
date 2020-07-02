@@ -197,9 +197,9 @@ namespace MET.API.Migrations
 
                     b.Property<byte[]>("PasswordSalt");
 
-                    b.Property<int>("Role");
+                    b.Property<string>("Role");
 
-                    b.Property<bool>("Status");
+                    b.Property<int>("Status");
 
                     b.Property<string>("Username");
 
