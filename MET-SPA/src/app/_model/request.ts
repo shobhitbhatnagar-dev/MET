@@ -16,6 +16,7 @@ export interface Request {
     priority?: string;
     justification?: string;
     attachmentUrl?: string;
+    attachmentTitle?: string;
     creationDate: Date;
     status: string;
     effort?: Effort;

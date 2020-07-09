@@ -24,6 +24,12 @@ import { ItDashboarddComponent } from './it-panel/it-dashboardd/it-dashboardd.co
 import { EffortApprovalComponent} from './it-panel/effort-approval/effort-approval.component';
 import { AboutComponent } from './about/about.component';
 import { appRoutes } from './routes';
+import { RequestDetailsComponent } from './requests/request-details/request-details.component';
+import { AlertifyService } from './_services/alertify.service';
+import { AuthGuard } from './_guards/auth.guard';
+import { RequestService } from './_services/request.service';
+import { RequestDetailsResolver } from './_resolvers/request-details.resolver';
+import { RequestListResolver } from './_resolvers/request-list.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -44,6 +50,7 @@ export function tokenGetter() {
       TimelineUpdateComponent,
       ItDashboarddComponent,
       EffortApprovalComponent,
+      RequestDetailsComponent,
       AboutComponent
    ],
    imports: [
@@ -64,7 +71,12 @@ export function tokenGetter() {
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      AlertifyService,
+      AuthGuard,
+      RequestService,
+      RequestDetailsResolver,
+      RequestListResolver
    ],
    bootstrap: [
       AppComponent

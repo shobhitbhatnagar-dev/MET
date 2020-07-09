@@ -1,0 +1,162 @@
+<div class="container mt-3">
+    <div class="row">
+      <div class="col"></div>
+      <div class="col-12">
+        <h2>Request ID :&nbsp;{{ requestbyid.id }}</h2>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ requestbyid.title}} |&nbsp;&nbsp; Status:&nbsp;
+              <span class="badge badge-primary">
+                {{ requestbyid.status | titlecase }}
+              </span>
+              <span class="card-subtitle ml-2">
+               |&nbsp;&nbsp;Requested On:{{
+                  requestbyid.creationDate | date: "shortDate"
+                }}</span
+              >
+            </h5>
+            <hr />
+            <!--Flex Row 1 - Project, Module, Priority-->
+            <div class="d-flex flex-row bd-highlight mb-3">
+              <div class="p-2 bd-highlight">
+                <strong>Project:&nbsp;</strong
+                >{{ requestbyid.project.projectName | titlecase }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Module:&nbsp;</strong>{{ requestbyid.module.moduleName }}
+              </div>
+  
+              <div class="p-2 bd-highlight">
+                <strong>Priority:&nbsp;</strong
+                >{{ requestbyid.priority | titlecase }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Justification:&nbsp;</strong
+                >{{ requestbyid.justification }}
+              </div>
+            </div>
+            <hr />
+  
+            <!--Flex Row 2 - Requierments-->
+            <div class="d-flex flex-row bd-highlight ">
+              <div class="bd-highlight">
+                <div class="alert alert-dismissible alert-secondary">
+                  <strong>Requiements :&nbsp;</strong
+                  >{{ requestbyid.requierment }}
+                </div>
+              </div>
+            </div>
+            <hr />
+  
+            <!--Flex Row 3 - Attachment Conditional-->
+            <div class="d-flex flex-row bd-highlight mb-3">
+              <div class="p-2 bd-highlight">
+                <strong>Attachment:&nbsp;</strong
+                ><a
+                  *ngIf="requestbyid.attachmentUrl"
+                  href="{{ requestbyid.attachmentUrl }}"
+                  target="_blank"
+                  >{{requestbyid.attachmentTitle}}</a
+                >
+                <p *ngIf="!requestbyid.attachmentUrl">No Attachments</p>
+              </div>
+            </div>
+            <hr />
+  
+            <!--Flex Row 4 - Efforts Conditional-->
+            <div
+              *ngIf="requestbyid.effort"
+              class="d-flex flex-row bd-highlight mb-3"
+            >
+              <div class="p-2 bd-highlight">
+                <strong>Estimated Efforts:&nbsp;</strong
+                >{{ requestbyid.effort.estimation }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Work Breakdown:&nbsp;</strong
+                ><a href="{{ requestbyid.effort.wbsUrl }}" target="_blank">WBS</a>
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Efforts Submitted On:&nbsp;</strong
+                >{{ requestbyid.effort.submittedDate | date: "mediumDate" }}
+              </div>
+            </div>
+            <hr *ngIf="requestbyid.effort" />
+  
+            <!--Flex Row 5 - Approval Conditional-->
+            <div
+              *ngIf="requestbyid.approval"
+              class="d-flex flex-row bd-highlight mb-3"
+            >
+              <div class="p-2 bd-highlight">
+                <strong>Final Efforts:&nbsp;</strong
+                >{{ requestbyid.approval.finalEfforts }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Approved By:&nbsp;</strong
+                >{{ requestbyid.approval.approver }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Approved On:&nbsp;</strong
+                >{{ requestbyid.approval.approvalDate | date: "mediumDate" }}
+              </div>
+            </div>
+            <hr *ngIf="requestbyid.approval" />
+  
+            <!--Flex Row 6 - Timeline Conditional-->
+            <div
+              *ngIf="requestbyid.timeline"
+              class="d-flex flex-row bd-highlight mb-3"
+            >
+              <div class="p-2 bd-highlight">
+                <strong>Timelines:&nbsp;</strong
+                >{{ requestbyid.timeline.plannedDate | date: "mediumDate" }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Submitted On:&nbsp;</strong
+                >{{ requestbyid.timeline.updatedOn | date: "mediumDate" }}
+              </div>
+            </div>
+            <hr *ngIf="requestbyid.timeline" />
+  
+            <!--Flex Row 7 - Release Conditional-->
+            <div
+              *ngIf="requestbyid.release"
+              class="d-flex flex-row bd-highlight mb-3"
+            >
+              <div class="p-2 bd-highlight">
+                <strong>Release Date:&nbsp;</strong
+                >{{ requestbyid.release.releaseDate | date: "mediumDate" }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Release Note:&nbsp;</strong
+                ><a href="{{ requestbyid.release.releaseNoteUrl }}" target="_blank">WBS</a>
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Submitted On:&nbsp;</strong
+                >{{ requestbyid.release.updatedOn | date: "mediumDate" }}
+              </div>
+            </div>
+            <hr *ngIf="requestbyid.release" />
+  
+            <!--Flex Row Last : Back Button -->
+            <div class="d-flex flex-row bd-highlight">
+              <div class="p-2 bd-highlight"></div>
+            </div>
+            <h6 class="card-subtitle mb-2"></h6>
+            <p class="card-text muted"></p>
+            <button
+              type="button"
+              [routerLink]="['/requests']"
+              class="btn btn-warning"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+  

@@ -14,6 +14,9 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AdminGuard } from './_guards/admin.guard';
 import { DevGuard } from './_guards/dev.guard';
 import { ItGuard } from './_guards/it.guard';
+import { RequestDetailsComponent } from './requests/request-details/request-details.component';
+import { RequestDetailsResolver } from './_resolvers/request-details.resolver';
+import { RequestListResolver } from './_resolvers/request-list.resolver';
 
 
 export const appRoutes: Routes = [
@@ -25,7 +28,8 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'newrequest', component: NewRequestComponent},
-            {path: 'requests', component: ListRequestComponent},
+            {path: 'requests', component: ListRequestComponent, resolve: {requests: RequestListResolver}},
+            {path: 'requests/:id', component: RequestDetailsComponent, resolve: {request: RequestDetailsResolver}},
         ]
     },
     {
