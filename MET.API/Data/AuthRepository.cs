@@ -73,5 +73,11 @@ namespace MET.API.Data
             
             return false;
         }
+
+        public async Task<User> GetUser(int Id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == Id);
+            return user;
+        }
     }
 }

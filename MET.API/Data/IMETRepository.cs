@@ -18,6 +18,7 @@ namespace MET.API.Data
         Task<IEnumerable<Module>> GetModulesByProject(int projectId);
         Task<Request> GetRequest(int requestId);     
         Task<IEnumerable<Request>> GetRequests();
-
+        Task<Request> AddRequests(Request request);
+        Task<Attachment> AddAttachment(Attachment attachment);
     }
 }

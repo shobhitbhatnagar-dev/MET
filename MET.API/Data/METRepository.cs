@@ -106,5 +106,21 @@ namespace MET.API.Data
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<Request> AddRequests(Request request)
+        {
+            await _context.Requests.AddAsync(request);
+            await _context.SaveChangesAsync();
+
+            return request;
+        }
+
+        public async Task<Attachment> AddAttachment(Attachment attachment)
+        {
+            await _context.Attachments.AddAsync(attachment);
+            await _context.SaveChangesAsync();
+
+            return attachment;
+        }
     }
 }

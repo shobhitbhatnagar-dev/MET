@@ -5,6 +5,7 @@ namespace MET.API.Controllers
     using AutoMapper;
     using MET.API.Data;
     using MET.API.Dtos;
+    using MET.API.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +16,12 @@ namespace MET.API.Controllers
     {
         private readonly IMETRepository _repo;
         private readonly IMapper _mapper;
-        public RequestsController(IMETRepository repo, IMapper mapper)
+        private readonly IAuthRepository _auth;
+        public RequestsController(IMETRepository repo, IMapper mapper, IAuthRepository auth)
         {
+            _auth = auth;
             _mapper = mapper;
             _repo = repo;
-
         }
 
         [HttpGet]
@@ -42,5 +44,36 @@ namespace MET.API.Controllers
             return Ok(requestToReturn);
         }
 
+        [HttpPost("add")]
+        public async Task<IActionResult> Add(AddRequestDto request)
+        {
+            var user = await _auth.GetUser(request.UserId);
+            var project = await _repo.GetProject(request.ProjectId);
+            var module = await _repo.GetModule(request.ModuleId);
+            var newattachment = new Attachment
+            {
+                Title = request.Title,
+                Url = request.AttachmentUrl
+            };
+
+            var createdattachment = await _repo.AddAttachment(newattachment);
+             
+            var newRequest = new Request
+            {
+                User = user,
+                Project = project,
+                Module = module,
+                Title = request.Title,
+                Requierment = request.Requierment,
+                Priority = request.Priority,
+                Justification = request.Justification,
+                Attachment = createdattachment,
+                Status = "new"
+            };
+
+            var createdRequest = await _repo.AddRequests(newRequest);
+
+            return Ok(createdRequest.Id);
+        }
     }
 }
