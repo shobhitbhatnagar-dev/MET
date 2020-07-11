@@ -12,6 +12,7 @@ export class AuthService {
  jwtHelper = new JwtHelperService();
  decodedToken: any;
  userRole: string;
+ userId: any;
 
 constructor(private http: HttpClient) { }
 
@@ -43,5 +44,11 @@ checkRole(role: string) {
   if ( this.userRole === role) {
     return true;
  }return false;
+}
+
+getUserId() {
+ this.userId = this.decodedToken.nameid;
+ console.log(this.userId);
+ return this.userId;
 }
 }

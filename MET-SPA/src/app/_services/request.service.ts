@@ -19,4 +19,8 @@ getRequest(id): Observable<Request> {
   return this.http.get<Request> (this.baseUrl + 'requests/' + id);
 }
 
+addRequest(model: any) {
+  return this.http.post(this.baseUrl + 'requests/add', model);
+ }
+
 }

@@ -51,6 +51,7 @@ export function tokenGetter() {
       ItDashboarddComponent,
       EffortApprovalComponent,
       RequestDetailsComponent,
+      NewRequestComponent,
       AboutComponent
    ],
    imports: [
@@ -76,7 +77,8 @@ export function tokenGetter() {
       AuthGuard,
       RequestService,
       RequestDetailsResolver,
-      RequestListResolver
+      RequestListResolver,
+      RequestService
    ],
    bootstrap: [
       AppComponent

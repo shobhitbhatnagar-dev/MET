@@ -50,14 +50,8 @@ namespace MET.API.Controllers
             var user = await _auth.GetUser(request.UserId);
             var project = await _repo.GetProject(request.ProjectId);
             var module = await _repo.GetModule(request.ModuleId);
-            var newattachment = new Attachment
-            {
-                Title = request.Title,
-                Url = request.AttachmentUrl
-            };
 
-            var createdattachment = await _repo.AddAttachment(newattachment);
-             
+
             var newRequest = new Request
             {
                 User = user,
@@ -67,9 +61,20 @@ namespace MET.API.Controllers
                 Requierment = request.Requierment,
                 Priority = request.Priority,
                 Justification = request.Justification,
-                Attachment = createdattachment,
                 Status = "new"
             };
+
+            if (request.AttachmentTitle != null || request.AttachmentTitle != null)
+            {
+                var newattachment = new Attachment
+                {
+                    Title = request.AttachmentTitle,
+                    Url = request.AttachmentUrl
+                };
+                var createdattachment = await _repo.AddAttachment(newattachment);
+                newRequest.Attachment = createdattachment;
+            }
+
 
             var createdRequest = await _repo.AddRequests(newRequest);
 
