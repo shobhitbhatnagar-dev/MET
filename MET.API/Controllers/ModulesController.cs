@@ -25,11 +25,21 @@ namespace MET.API.Controllers
             return Ok(modules);
         }
 
+        [HttpGet("byproject/{id}")]
+        public async Task<IActionResult> GetModulebyProject(int id)
+        {
+            var modules = await _repo.GetModulesByProject(id);
+            return Ok(modules);
+        }
+
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetModule(int id)
         {
             var module = await _repo.GetModule(id);
             return Ok(module);
         }
+
+        
     }
 }

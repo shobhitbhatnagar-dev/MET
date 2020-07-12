@@ -30,6 +30,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { RequestService } from './_services/request.service';
 import { RequestDetailsResolver } from './_resolvers/request-details.resolver';
 import { RequestListResolver } from './_resolvers/request-list.resolver';
+import { MasterService } from './_services/master.service';
 
 export function tokenGetter() {
    return localStorage.getItem('token');

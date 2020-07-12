@@ -13,17 +13,12 @@
             <div class="form-row">
               <div class="col-md-6 mb-2">
                 <label for="project">Project</label>
-                <select
-                  class="custom-select"
-                  name="project"
-                  (change)="onChangeProject($event)"
+                <select class="custom-select" name="project" (change)="onChangeProject($event)"
                   [(ngModel)]="model.projectId"
-                  required
-                >
-                  <option selected disabled>Select a Project</option>
-                  <option value="1">Skill India Portal</option>
-                  <option value="2">E-Learning Aggregator</option>
-                </select>
+                  required>
+                  <option selected disabled value="">Select a Module</option>
+                  <option *ngFor="let p of projects" value={{p.id}}>{{p.projectName}}</option>
+                 </select>
               </div>
               <div class="col-md-6 mb-2">
                 <label for="module">Module</label>
@@ -32,11 +27,10 @@
                   name="module"
                   required
                   [(ngModel)]="model.moduleId"
+                  [disabled]="!moduleActive"
                 >
                   <option selected disabled value="">Select a Module</option>
-                  <option value="1">SMART</option>
-                  <option value="2">TOT & TOA</option>
-                  <option value="3">ELA-SIP SSO</option>
+                  <option *ngFor="let m of modules" value={{m.id}}>{{m.moduleName}}</option>
                 </select>
               </div>
             </div>
@@ -94,7 +88,6 @@
                   type="text"
                   class="form-control"
                   name="justification"
-                  required
                   [(ngModel)]="model.justification"
                 />
               </div>
@@ -108,7 +101,6 @@
                   type="text"
                   class="form-control"
                   name="attachmentTitle"
-                  required
                   [(ngModel)]="model.attachmentTitle"
                 />
               </div>
@@ -125,26 +117,7 @@
               </div>
             </div>
 
-            <!--Disclaimer   Row-->
-            <div class="form-row">
-              <div class="form-group">
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="invalidCheck2"
-                    required
-                  />
-                  <label class="form-check-label" for="invalidCheck2">
-                    I have reviewed my requierment and understand the IT process
-                    that post approval only it will be conifirment that this
-                    request will be considered or not.
-                  </label>
-                </div>
-              </div>
-            </div>
-            <button [disabled]="!newRequestForm" class="btn btn-success" type="submit">Submit</button>
+            <button class="btn btn-success" type="submit">Submit</button>
           </form>
           <!--Card Body Ends-->
         </div>

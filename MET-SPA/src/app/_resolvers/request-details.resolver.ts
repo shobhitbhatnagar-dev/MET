@@ -20,6 +20,6 @@ constructor( private requestService: RequestService, private router: Router, pri
              this.router.navigate(['/requests']);
              return of(null);
          })
-     )
+     );
  }
 }
