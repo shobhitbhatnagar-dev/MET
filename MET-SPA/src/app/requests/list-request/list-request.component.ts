@@ -39,8 +39,8 @@ viewRequest: boolean;
     }, error => {
       this.alertify.error(error);
     }, () => {
-      if(this.requestbyid) {
-        this.viewRequest =true;
+      if (this.requestbyid) {
+        this.viewRequest = true;
       }
     });
   }

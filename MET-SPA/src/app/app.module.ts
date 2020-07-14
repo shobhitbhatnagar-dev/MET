@@ -31,6 +31,9 @@ import { RequestService } from './_services/request.service';
 import { RequestDetailsResolver } from './_resolvers/request-details.resolver';
 import { RequestListResolver } from './_resolvers/request-list.resolver';
 import { MasterService } from './_services/master.service';
+import { RequestByUserResolver } from './_resolvers/request-by-user.resolver';
+import { RequestByStatusResolver } from './_resolvers/request-by-status.resolver';
+import { RequestByStatusComponent } from './requests/request-by-status/request-by-status.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -53,7 +56,8 @@ export function tokenGetter() {
       EffortApprovalComponent,
       RequestDetailsComponent,
       NewRequestComponent,
-      AboutComponent
+      AboutComponent,
+      RequestByStatusComponent,
    ],
    imports: [
       BrowserModule,
@@ -79,7 +83,9 @@ export function tokenGetter() {
       RequestService,
       RequestDetailsResolver,
       RequestListResolver,
-      RequestService
+      RequestService,
+      RequestByUserResolver,
+      RequestByStatusResolver,
    ],
    bootstrap: [
       AppComponent

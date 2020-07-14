@@ -122,5 +122,39 @@ namespace MET.API.Data
 
             return attachment;
         }
+
+        public async Task<IEnumerable<Request>> GetRequestsbyStatus(string status)
+        {
+            var requests = await _context.Requests
+            .Include(p => p.Project)
+            .Include(m => m.Module)
+            .Include(e => e.Effort)
+            .Include(a => a.Approval)
+            .Include(t => t.Timeline)
+            .Include(r => r.Release)
+            .Include(u => u.User)
+            .Include(a => a.Attachment)
+            .Where(r => r.Status == status )
+            .ToListAsync();
+
+            return requests;
+        }
+
+        public async Task<IEnumerable<Request>> GetRequestsbyUser(int id)
+        {
+            var requests = await _context.Requests
+            .Include(p => p.Project)
+            .Include(m => m.Module)
+            .Include(e => e.Effort)
+            .Include(a => a.Approval)
+            .Include(t => t.Timeline)
+            .Include(r => r.Release)
+            .Include(u => u.User)
+            .Include(a => a.Attachment)
+            .Where(u => u.User.Id == id )
+            .ToListAsync();
+
+            return requests;
+        }
     }
 }

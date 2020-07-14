@@ -17,6 +17,9 @@ import { ItGuard } from './_guards/it.guard';
 import { RequestDetailsComponent } from './requests/request-details/request-details.component';
 import { RequestDetailsResolver } from './_resolvers/request-details.resolver';
 import { RequestListResolver } from './_resolvers/request-list.resolver';
+import { RequestByUserResolver } from './_resolvers/request-by-user.resolver';
+import { RequestByStatusComponent } from './requests/request-by-status/request-by-status.component';
+import { RequestByStatusResolver } from './_resolvers/request-by-status.resolver';
 
 
 export const appRoutes: Routes = [
@@ -28,8 +31,10 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'newrequest', component: NewRequestComponent},
-            {path: 'requests', component: ListRequestComponent, resolve: {requests: RequestListResolver}},
             {path: 'requests/:id', component: RequestDetailsComponent, resolve: {request: RequestDetailsResolver}},
+            {path: 'requests', component: ListRequestComponent , resolve: {requests: RequestListResolver}},
+            {path: 'requests/status/:status', component: RequestByStatusComponent, resolve: {requests: RequestByStatusResolver}},
+            {path: 'requests/user/:id', component: ListRequestComponent, resolve: {requests: RequestByUserResolver}},
         ]
     },
     {

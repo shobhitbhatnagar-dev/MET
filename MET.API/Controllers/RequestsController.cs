@@ -33,6 +33,26 @@ namespace MET.API.Controllers
 
             return Ok(requestToReturn);
         }
+        
+        [HttpGet("bystatus/{status}")]
+        public async Task<IActionResult> GetRequestsbyStatus(string status)
+        {
+            var requests = await _repo.GetRequestsbyStatus(status);
+
+            var requestToReturn = _mapper.Map<IEnumerable<RequestforlistDto>>(requests);
+
+            return Ok(requestToReturn);
+        }
+
+        [HttpGet("byuser/{id}")]
+        public async Task<IActionResult> GetRequestsbyUser(int id)
+        {
+            var requests = await _repo.GetRequestsbyUser(id);
+
+            var requestToReturn = _mapper.Map<IEnumerable<RequestforlistDto>>(requests);
+
+            return Ok(requestToReturn);
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRequest(int id)

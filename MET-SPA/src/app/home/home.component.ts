@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent implements OnInit {
 registerMode = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
  
@@ -23,5 +24,10 @@ registerToggle() {
 cancelRegisterMode(registerMode: boolean) {
   this.registerMode = registerMode;
 }
+
+goAddRequest() {
+ this.router.navigate(['newrequest']);
+}
+
 
 }

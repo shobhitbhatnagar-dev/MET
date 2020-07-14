@@ -34,28 +34,6 @@
       </div>
     </li>
 
-    <!--Request Panel-->
-    <li *ngIf="loggedIn()" class="dropdown mt-2" dropdown>
-      <a class="dropdown-toggle text-light" dropdownToggle>
-        |&nbsp;Change Requests
-      </a>
-      <div class="dropdown-menu mt-2" *dropdownMenu>
-        <a
-          class="dropdown-item"
-          [routerLink]="['/newrequest']"
-          routerLinkActive="active"
-          ><i class="fa fa-hourglass-half mr-2"></i>Add New Request</a
-        >
-        <div class="dropdown-divider"></div>
-        <a
-          class="dropdown-item"
-          [routerLink]="['/requests']"
-          routerLinkActive="active"
-          ><i class="fa fa-calendar mr-2"></i>List of Request</a
-        >
-      </div>
-    </li>
-
     <!--AMS Panel-->
     <li *ngIf="loggedIn()" class="dropdown mt-2" dropdown>
       <a *ngIf="checkRole('dev')"  class="dropdown-toggle text-light" dropdownToggle>
@@ -64,23 +42,25 @@
       <div class="dropdown-menu mt-2" *dropdownMenu>
         <a
           class="dropdown-item"
-          [routerLink]="['/effots']"
-          routerLinkActive="active"
-          ><i class="fa fa-hourglass-half mr-2"></i>Effort Update</a
-        >
+          [routerLink]="['/requests/status/new']"
+          ><i class="fa fa-hourglass-half mr-2"></i>Effort Update</a>
         <div class="dropdown-divider"></div>
         <a
           class="dropdown-item"
-          [routerLink]="['/timelines']"
-          routerLinkActive="active"
+          [routerLink]="['/requests/status/approval']"
           ><i class="fa fa-calendar mr-2"></i>Timelines Update</a
         >
         <div class="dropdown-divider"></div>
         <a
           class="dropdown-item"
-          [routerLink]="['/release']"
-          routerLinkActive="active"
+          [routerLink]="['/requests/status/timelines']"
           ><i class="fa fa-rocket mr-2"></i>Release Update</a
+        >
+        <div class="dropdown-divider"></div>
+        <a
+          class="dropdown-item"
+          [routerLink]="['/requests']"
+          ><i class="fa fa-book mr-2"></i>List of All Requests</a
         >
       </div>
     </li>
@@ -93,7 +73,7 @@
       <div class="dropdown-menu mt-2" *dropdownMenu>
         <a
           class="dropdown-item"
-          [routerLink]="['/approvals']"
+          [routerLink]="['/requests/status/effort']"
           routerLinkActive="active"
           ><i class="fa fa-thumbs-o-up mr-2"></i>Effort Approvals</a
         >
@@ -107,17 +87,27 @@
         <div class="dropdown-divider"></div>
         <a
           class="dropdown-item"
-          [routerLink]="['/release']"
+          [routerLink]="['/requests/status/completed']"
           routerLinkActive="active"
           ><i class="fa fa-rocket mr-2"></i>Release Update</a
         >
       </div>
     </li>
 
+    <li *ngIf="loggedIn()"  class="nav-item" routerLinkActive="router-link-active">
+      <a class="nav-link" *ngIf="checkRole('requester')"   (click)="requestbyUser()" routerLinkActive="active"
+        >|&nbsp;&nbsp;Your Requests</a>
+    </li>
+
+    <li *ngIf="loggedIn()"  class="nav-item" routerLinkActive="router-link-active">
+     <a class="nav-link" [routerLink]="['/newrequest']"
+      routerLinkActive="active"
+        >|&nbsp;&nbsp;Add Request</a>
+    </li>
+
     <li class="nav-item" routerLinkActive="router-link-active">
-      <a class="nav-link" [routerLink]="['/about']" routerLinkActive="active"
-        >|&nbsp;About</a
-      >
+      <a class="nav-link"  routerLinkActive="active"
+        >|&nbsp;&nbsp;About</a>
     </li>
   </ul>
 

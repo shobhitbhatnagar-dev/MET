@@ -15,6 +15,14 @@ getRequests(): Observable<Request[]> {
   return this.http.get<Request[]> (this.baseUrl + 'requests');
 }
 
+getRequestsbyUser(id): Observable<Request[]> {
+  return this.http.get<Request[]> (this.baseUrl + 'requests/byuser/' + id);
+}
+
+getRequestsbyStatus(status): Observable<Request[]> {
+  return this.http.get<Request[]> (this.baseUrl + 'requests/bystatus/' + status);
+}
+
 getRequest(id): Observable<Request> {
   return this.http.get<Request> (this.baseUrl + 'requests/' + id);
 }

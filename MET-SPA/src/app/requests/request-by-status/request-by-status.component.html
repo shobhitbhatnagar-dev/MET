@@ -1,0 +1,63 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col"></div>
+
+    <!-- Requests List-->
+    <div class="col-12">
+      <div class="col-1"></div>
+      <div class="col-12">
+        <h2>List of Requests</h2>
+        <div *ngFor="let request of requests" class="card mb-2">
+          <div class="card-body">
+            <div class="d-flex flex-row bd-highlight mb-3">
+              <div class="p-2 bd-highlight">
+                <strong>Request Id&nbsp;</strong>{{ request.id }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Title:</strong>&nbsp;{{ request.title }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Status:</strong>&nbsp;{{ request.status | titlecase }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Priority:</strong>&nbsp;{{
+                  request.priority | titlecase
+                }}
+              </div>
+            </div>
+            <div class="d-flex flex-row bd-highlight mb-3">
+              <div class="p-2 bd-highlight">
+                <strong>Project:</strong>&nbsp;{{
+                  request.project.projectName | titlecase
+                }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Module:</strong>&nbsp;{{ request.module.moduleName }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Requested On:</strong>&nbsp;{{
+                  request.creationDate | date: "mediumDate"
+                }}
+              </div>
+              <div class="p-2 bd-highlight">
+                <strong>Requested By:</strong>&nbsp;{{
+                  request.user.username | titlecase
+                }}
+              </div>
+            </div>
+            <div class="d-flex flex-row bd-highlight mb-3">
+              <button
+                type="button"
+                [routerLink]="['/requests/', request.id]"  
+                class="btn btn-info"
+              >
+                Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

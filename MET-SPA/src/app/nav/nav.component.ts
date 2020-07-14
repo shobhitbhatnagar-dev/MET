@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -9,7 +10,10 @@ import { AlertifyService } from '../_services/alertify.service';
 })
 export class NavComponent implements OnInit {
 model: any = {};
-  constructor(public authservices: AuthService, private alertify: AlertifyService) { }
+userId: any;
+requestUrl: any;
+
+  constructor(public authservices: AuthService, private alertify: AlertifyService, private route: Router) { }
 
   ngOnInit() {
   }
@@ -28,11 +32,19 @@ model: any = {};
 
   loggedOut() {
     localStorage.removeItem('token');
+    this.route.navigate(['/home']);
     this.alertify.message('logged out');
   }
 
   checkRole(role: string) {
     return this.authservices.checkRole(role);
+  }
+
+  requestbyUser() {
+    this.userId = this.authservices.getUserId();
+    this.requestUrl  = 'requests/user/' + this.userId ;
+    console.log(this.requestUrl);
+    this.route.navigate([this.requestUrl]);
   }
 
 }
