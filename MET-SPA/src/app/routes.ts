@@ -51,9 +51,9 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard, DevGuard],
         children: [
-            {path: 'effots', component: EffortsUpdateComponent},
-            {path: 'release', component: ReleaseUpdateComponent},
-            {path: 'timelines', component: TimelineUpdateComponent},
+            {path: 'efforts/:id', component: EffortsUpdateComponent},
+            {path: 'release/:id', component: ReleaseUpdateComponent},
+            {path: 'timelines/:id', component: TimelineUpdateComponent},
         ]
     },
     {
@@ -61,7 +61,7 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard, ItGuard],
         children: [
-            {path: 'approvals', component: EffortApprovalComponent},
+            {path: 'approvals/:id', component: EffortApprovalComponent},
             {path: 'itdashboard', component: ItDashboarddComponent},
         ]
     },
