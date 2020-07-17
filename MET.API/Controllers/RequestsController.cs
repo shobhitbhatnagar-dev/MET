@@ -132,5 +132,37 @@ namespace MET.API.Controllers
             
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
+
+        [HttpPut("approval/{id}")]
+        public async Task<IActionResult> UpdateApproval(int id, AddApproval ApprovalDto)
+        {
+            var requestfromRepo = await _repo.GetRequest(id);
+            if(requestfromRepo == null)
+            {
+                throw new Exception($"Unable to find Request Id - {id}");
+            }
+
+            var ApprovalToAdd = new Approval
+            {
+                FinalEfforts = ApprovalDto.FinalEfforts,
+                Approver = ApprovalDto.Approver,
+                ApproverId = ApprovalDto.ApproverId
+            };
+
+            var newApproval = await _repo.AddApproval(ApprovalToAdd);
+
+            if (newApproval == null)
+            {
+                throw new Exception($"Unable to update efforts for Request Id - {id}");
+            }
+
+            requestfromRepo.Approval = newApproval;  
+            requestfromRepo.Status = "approval";
+        
+            if(await _repo.SaveAll() )
+            return NoContent();
+            
+            throw new Exception($"Updating Efforts for Request - {id} failed on Save");
+        }
     }
 }

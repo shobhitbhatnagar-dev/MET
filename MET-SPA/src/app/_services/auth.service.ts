@@ -13,6 +13,7 @@ export class AuthService {
  decodedToken: any;
  userRole: string;
  userId: any;
+ userName: any;
 
 constructor(private http: HttpClient) { }
 
@@ -49,4 +50,10 @@ getUserId() {
  this.userId = this.decodedToken.nameid;
  return this.userId;
 }
+
+getUsername() {
+  this.userName = this.decodedToken.unique_name;
+  return this.userName;
+ }
+
 }

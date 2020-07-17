@@ -165,5 +165,13 @@ namespace MET.API.Data
 
             return Effort;
         }
+
+        public async Task<Approval> AddApproval(Approval Approval)
+        {
+            await _context.Approvals.AddAsync(Approval);
+            await _context.SaveChangesAsync();
+
+            return Approval;
+        }
     }
 }

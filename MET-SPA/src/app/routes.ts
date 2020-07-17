@@ -61,7 +61,7 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard, ItGuard],
         children: [
-            {path: 'approvals/:id', component: EffortApprovalComponent},
+            {path: 'approvals/:id', component: EffortApprovalComponent,resolve: {request: RequestDetailsResolver}},
             {path: 'itdashboard', component: ItDashboarddComponent},
         ]
     },

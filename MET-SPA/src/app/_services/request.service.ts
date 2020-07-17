@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Request } from '../_model/request';
 import { Effort } from '../_model/effort';
+import { Approval } from '../_model/approval';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +34,11 @@ addRequest(model: any) {
  }
 
 UpdateEfforts(id: number, effort: Effort) {
-  console.log(this.baseUrl + 'requests/effort/' + id);
-  console.log(effort)
   return this.http.put(this.baseUrl + 'requests/effort/' + id, effort);
+ }
+
+ UpdateApproval(id: number, approval: Approval) {
+  return this.http.put(this.baseUrl + 'requests/approval/' + id, approval);
  }
 
 }

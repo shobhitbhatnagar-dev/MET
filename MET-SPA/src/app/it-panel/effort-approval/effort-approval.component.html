@@ -1,3 +1,132 @@
-<p>
-  effort-approval works!
-</p>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-12">
+      <h2>Request ID :&nbsp;{{ requestbyid.id }}</h2>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ requestbyid.title }} |&nbsp;&nbsp; Status:&nbsp;
+            <span class="badge badge-primary">
+              {{ requestbyid.status | titlecase }}
+            </span>
+            <span class="card-subtitle ml-2">
+              |&nbsp;&nbsp;Requested On:{{
+                requestbyid.creationDate | date: "shortDate"
+              }}</span
+            >
+          </h5>
+          <hr />
+          <!--Flex Row 1 - Project, Module, Priority-->
+          <div class="d-flex flex-row bd-highlight mb-3">
+            <div class="p-2 bd-highlight">
+              <strong>Project:&nbsp;</strong
+              >{{ requestbyid.project.projectName | titlecase }}
+            </div>
+            <div class="p-2 bd-highlight">
+              <strong>Module:&nbsp;</strong>{{ requestbyid.module.moduleName }}
+            </div>
+          </div>
+          <hr />
+
+          <!--Flex Row 2 - Requierments-->
+          <div class="d-flex flex-row bd-highlight">
+            <div class="p-2 bd-highlight">
+              <strong>Priority:&nbsp;</strong
+              >{{ requestbyid.priority | titlecase }}
+            </div>
+            <div class="p-2 bd-highlight">
+              <strong>Justification:&nbsp;</strong
+              >{{ requestbyid.justification }}
+            </div>
+          </div>
+          <hr />
+
+          <!--Flex Row 2 - Requierments-->
+          <div class="d-flex flex-row bd-highlight">
+            <div class="bd-highlight">
+              <div class="alert alert-dismissible alert-secondary">
+                <strong>Requiements :&nbsp;</strong
+                >{{ requestbyid.requierment }}
+              </div>
+            </div>
+          </div>
+          <hr />
+
+          <!--Flex Row 3 - Attachment Conditional-->
+          <div class="d-flex flex-row bd-highlight mb-3">
+            <div class="p-2 bd-highlight">
+              <strong>Attachment:&nbsp;</strong
+              ><a
+                *ngIf="requestbyid.attachmentUrl"
+                href="{{ requestbyid.attachmentUrl }}"
+                target="_blank"
+                >{{ requestbyid.attachmentTitle }}</a
+              >
+              <p *ngIf="!requestbyid.attachmentUrl">No Attachments</p>
+            </div>
+          </div>
+          <hr />
+
+          <!--Flex Row 4 - Efforts Conditional-->
+          <div
+            *ngIf="requestbyid.effort"
+            class="d-flex flex-row bd-highlight mb-3"
+          >
+            <div class="p-2 bd-highlight">
+              <strong>Estimated Efforts:&nbsp;</strong
+              >{{ requestbyid.effort.estimation }}
+            </div>
+            <div class="p-2 bd-highlight">
+              <strong>Work Breakdown:&nbsp;</strong
+              ><a href="{{ requestbyid.effort.wbsUrl }}" target="_blank">WBS</a>
+            </div>
+            <div class="p-2 bd-highlight">
+              <strong>Efforts Submitted On:&nbsp;</strong
+              >{{ requestbyid.effort.submittedDate | date: "mediumDate" }}
+            </div>
+          </div>
+          <hr *ngIf="requestbyid.effort" />
+
+          <!--Flex Row 5 - Approval Conditional-->
+          <div class="d-flex flex-row bd-highlight">
+            <div class="p-2 bd-highlight">
+              <h5 mb-3><strong>Update Approvals&nbsp;</strong></h5>
+              <form #effortForm="ngForm" (ngSubmit)="updateApproval()">
+                <div class="form-row">
+                  <div class="col">
+                    <label for="finalEfforts">Final Approved Estimation</label>
+                    <input
+                      type="number"
+                      name="finalEfforts"
+                      class="form-control"
+                      placeholder="Enter Final Approved Efforts"
+                      [(ngModel)]="model.finalEfforts"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col">
+                    <button
+                      type="button"
+                      [routerLink]="['/requests/status/effort']"
+                      class="btn btn-warning mt-3">
+                      Back
+                    </button>
+                    <div class="btn-group" role="group">
+                      <button class="btn btn-success mt-3 ml-2" type="submit">
+                        Update Approvals
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>

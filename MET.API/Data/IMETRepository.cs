@@ -24,5 +24,6 @@ namespace MET.API.Data
         Task<Request> AddRequests(Request request);
         Task<Attachment> AddAttachment(Attachment attachment);
         Task<Effort> AddEfforts(Effort Effort);
+        Task<Approval> AddApproval(Approval Approval);
     }
 }
