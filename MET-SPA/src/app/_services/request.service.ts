@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Request } from '../_model/request';
+import { Effort } from '../_model/effort';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,12 @@ getRequest(id): Observable<Request> {
 
 addRequest(model: any) {
   return this.http.post(this.baseUrl + 'requests/add', model);
+ }
+
+UpdateEfforts(id: number, effort: Effort) {
+  console.log(this.baseUrl + 'requests/effort/' + id);
+  console.log(effort)
+  return this.http.put(this.baseUrl + 'requests/effort/' + id, effort);
  }
 
 }

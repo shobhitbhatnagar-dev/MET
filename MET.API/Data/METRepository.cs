@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MET.API.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using MET.API.Dtos;
 
 namespace MET.API.Data
 {
@@ -155,6 +156,14 @@ namespace MET.API.Data
             .ToListAsync();
 
             return requests;
+        }
+
+        public async Task<Effort> AddEfforts(Effort Effort)
+        {
+            await _context.Efforts.AddAsync(Effort);
+            await _context.SaveChangesAsync();
+
+            return Effort;
         }
     }
 }

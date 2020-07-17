@@ -51,7 +51,7 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard, DevGuard],
         children: [
-            {path: 'efforts/:id', component: EffortsUpdateComponent},
+            {path: 'efforts/:id', component: EffortsUpdateComponent, resolve: {request: RequestDetailsResolver}},
             {path: 'release/:id', component: ReleaseUpdateComponent},
             {path: 'timelines/:id', component: TimelineUpdateComponent},
         ]

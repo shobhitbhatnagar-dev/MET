@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MET.API.Dtos;
 using MET.API.Models;
 
 namespace MET.API.Data
@@ -22,5 +23,6 @@ namespace MET.API.Data
         Task<IEnumerable<Request>> GetRequestsbyStatus(string status);
         Task<Request> AddRequests(Request request);
         Task<Attachment> AddAttachment(Attachment attachment);
+        Task<Effort> AddEfforts(Effort Effort);
     }
 }

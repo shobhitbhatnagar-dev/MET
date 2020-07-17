@@ -18,6 +18,8 @@ export class NewRequestComponent implements OnInit {
   projects: Project[];
   modules: Module[];
   moduleActive = false;
+  userId: any;
+  requestUrl: any;
 
   constructor(
     private requestService: RequestService,
@@ -47,7 +49,7 @@ export class NewRequestComponent implements OnInit {
         this.alertify.error(error);
       },
       () => {
-        this.router.navigate(['/requests/']);
+        this.requestbyUser();
       }
     );
   }
@@ -63,5 +65,11 @@ export class NewRequestComponent implements OnInit {
     this.moduleActive = true;
   });
  }
+
+ requestbyUser() {
+  this.userId = this.auth.getUserId();
+  this.requestUrl  = 'requests/user/' + this.userId ;
+  this.router.navigate([this.requestUrl]);
+}
 
 }

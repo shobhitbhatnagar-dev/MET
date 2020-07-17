@@ -24,7 +24,6 @@ login(model: any) {
       {
         localStorage.setItem('token', user.token);
         this.decodedToken = this.jwtHelper.decodeToken(user.token);
-        console.log(this.decodedToken);
       }
     })
   );
@@ -48,7 +47,6 @@ checkRole(role: string) {
 
 getUserId() {
  this.userId = this.decodedToken.nameid;
- console.log(this.userId);
  return this.userId;
 }
 }

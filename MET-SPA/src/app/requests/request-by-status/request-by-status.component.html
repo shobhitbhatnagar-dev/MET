@@ -5,7 +5,10 @@
     <!-- Requests List-->
     <div class="col-12">
       <div class="col-1"></div>
-      <div class="col-12">
+      <div *ngIf="!requests" class="col-12">
+        <h5>No Requests</h5>
+      </div>
+      <div *ngIf="requests" class="col-12">
         <h2>List of Requests</h2>
         <div *ngFor="let request of requests" class="card mb-2">
           <div class="card-body">

@@ -1,5 +1,6 @@
 namespace MET.API.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
@@ -95,10 +96,41 @@ namespace MET.API.Controllers
                 newRequest.Attachment = createdattachment;
             }
 
-
             var createdRequest = await _repo.AddRequests(newRequest);
 
             return Ok(createdRequest.Id);
+        }
+
+
+        [HttpPut("effort/{id}")]
+        public async Task<IActionResult> UpdateEffort(int id, AddEffortDto EffortDto)
+        {
+            var requestfromRepo = await _repo.GetRequest(id);
+            if(requestfromRepo == null)
+            {
+                throw new Exception($"Unable to find Request Id - {id}");
+            }
+
+            var effortToAdd = new Effort
+            {
+                Estimation = EffortDto.Estimation,
+                WbsUrl = EffortDto.WbsUrl
+            };
+
+            var newEffort = await _repo.AddEfforts(effortToAdd);
+
+            if(newEffort == null)
+            {
+                throw new Exception($"Unable to update efforts for Request Id - {id}");
+            }
+
+            requestfromRepo.Effort = newEffort;  
+            requestfromRepo.Status = "effort";
+        
+            if(await _repo.SaveAll() )
+            return NoContent();
+            
+            throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
     }
 }
