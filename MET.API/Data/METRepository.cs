@@ -173,5 +173,13 @@ namespace MET.API.Data
 
             return Approval;
         }
+
+        public async Task<Timeline> AddTimeline(Timeline Timeline)
+        {
+            await _context.AddAsync(Timeline);
+            await _context.SaveChangesAsync();
+
+            return Timeline;
+        }
     }
 }

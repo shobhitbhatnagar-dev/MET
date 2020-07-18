@@ -133,8 +133,8 @@ namespace MET.API.Controllers
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
 
-        [HttpPut("approval/{id}")]
-        public async Task<IActionResult> UpdateApproval(int id, AddApproval ApprovalDto)
+        [HttpPut("timeline/{id}")]
+        public async Task<IActionResult> UpdateTimeline(int id, AddTimelineDto AddTimelineDto)
         {
             var requestfromRepo = await _repo.GetRequest(id);
             if(requestfromRepo == null)
@@ -142,22 +142,20 @@ namespace MET.API.Controllers
                 throw new Exception($"Unable to find Request Id - {id}");
             }
 
-            var ApprovalToAdd = new Approval
+            var TimelineToAdd = new Timeline
             {
-                FinalEfforts = ApprovalDto.FinalEfforts,
-                Approver = ApprovalDto.Approver,
-                ApproverId = ApprovalDto.ApproverId
+                PlannedDate = AddTimelineDto.PlannedDate
             };
 
-            var newApproval = await _repo.AddApproval(ApprovalToAdd);
+            var newTimeline = await _repo.AddTimeline(TimelineToAdd);
 
-            if (newApproval == null)
+            if (newTimeline == null)
             {
                 throw new Exception($"Unable to update efforts for Request Id - {id}");
             }
 
-            requestfromRepo.Approval = newApproval;  
-            requestfromRepo.Status = "approval";
+            requestfromRepo.Timeline = newTimeline;  
+            requestfromRepo.Status = "timelines";
         
             if(await _repo.SaveAll() )
             return NoContent();

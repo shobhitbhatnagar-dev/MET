@@ -53,7 +53,7 @@ export const appRoutes: Routes = [
         children: [
             {path: 'efforts/:id', component: EffortsUpdateComponent, resolve: {request: RequestDetailsResolver}},
             {path: 'release/:id', component: ReleaseUpdateComponent},
-            {path: 'timelines/:id', component: TimelineUpdateComponent},
+            {path: 'timelines/:id', component: TimelineUpdateComponent, resolve: {request: RequestDetailsResolver}},
         ]
     },
     {

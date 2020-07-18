@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Request } from '../_model/request';
 import { Effort } from '../_model/effort';
 import { Approval } from '../_model/approval';
+import { Timeline } from '../_model/timeline';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,10 @@ UpdateEfforts(id: number, effort: Effort) {
  UpdateApproval(id: number, approval: Approval) {
   return this.http.put(this.baseUrl + 'requests/approval/' + id, approval);
  }
+
+ UpdateTimeline(id: number, timeline: Timeline) {
+  return this.http.put(this.baseUrl + 'requests/timeline/' + id, timeline);
+ }
+
 
 }

@@ -33,7 +33,7 @@ export class EffortsUpdateComponent implements OnInit {
     console.log(this.model );
     this.requestService.UpdateEfforts(this.requestbyid.id, this.model).subscribe(next => {
       this.alertify.success('Efforts has been updated sucessfully');
-      this.route.navigate(['requests/status/new' + this.requestbyid.id ]);
+      this.route.navigate(['requests/status/new']);
     });
   }
 }
