@@ -26,5 +26,6 @@ namespace MET.API.Data
         Task<Effort> AddEfforts(Effort Effort);
         Task<Approval> AddApproval(Approval Approval);
         Task<Timeline> AddTimeline(Timeline Timeline);
+        Task<Release> AddRelease(Release Release);
     }
 }

@@ -6,6 +6,7 @@ import { Request } from '../_model/request';
 import { Effort } from '../_model/effort';
 import { Approval } from '../_model/approval';
 import { Timeline } from '../_model/timeline';
+import { Release } from '../_model/release';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +35,8 @@ addRequest(model: any) {
   return this.http.post(this.baseUrl + 'requests/add', model);
  }
 
-UpdateEfforts(id: number, effort: Effort) {
-  return this.http.put(this.baseUrl + 'requests/effort/' + id, effort);
+UpdateEfforts(id: number, model: any) {
+  return this.http.put(this.baseUrl + 'requests/effort/' + id, model);
  }
 
  UpdateApproval(id: number, approval: Approval) {
@@ -46,5 +47,8 @@ UpdateEfforts(id: number, effort: Effort) {
   return this.http.put(this.baseUrl + 'requests/timeline/' + id, timeline);
  }
 
+ UpdateRelease(id: number, release: Release) {
+  return this.http.put(this.baseUrl + 'requests/release/' + id, release);
+ }
 
 }

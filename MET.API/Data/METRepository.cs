@@ -181,5 +181,13 @@ namespace MET.API.Data
 
             return Timeline;
         }
+
+        public async Task<Release> AddRelease(Release Release)
+        {
+            await _context.AddAsync(Release);
+            await _context.SaveChangesAsync();
+
+            return Release;
+        }
     }
 }

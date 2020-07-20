@@ -162,5 +162,37 @@ namespace MET.API.Controllers
             
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
+
+         [HttpPut("release/{id}")]
+        public async Task<IActionResult> UpdateRelease(int id, AddReleaseDto AddReleaseDto)
+        {
+            var requestfromRepo = await _repo.GetRequest(id);
+            if(requestfromRepo == null)
+            {
+                throw new Exception($"Unable to find Request Id - {id}");
+            }
+
+            var ReleaseToAdd = new Release
+            {
+                ReleaseDate = AddReleaseDto.ReleaseDate,
+                ReleaseNoteUrl = AddReleaseDto.ReleaseNoteUrl
+                
+            };
+
+            var newRelease = await _repo.AddRelease(ReleaseToAdd);
+
+            if (newRelease == null)
+            {
+                throw new Exception($"Unable to update efforts for Request Id - {id}");
+            }
+
+            requestfromRepo.Release = newRelease;  
+            requestfromRepo.Status = "Complete";
+        
+            if(await _repo.SaveAll() )
+            return NoContent();
+            
+            throw new Exception($"Updating Efforts for Request - {id} failed on Save");
+        }
     }
 }

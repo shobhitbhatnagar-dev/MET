@@ -52,7 +52,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard, DevGuard],
         children: [
             {path: 'efforts/:id', component: EffortsUpdateComponent, resolve: {request: RequestDetailsResolver}},
-            {path: 'release/:id', component: ReleaseUpdateComponent},
+            {path: 'release/:id', component: ReleaseUpdateComponent, resolve: {request: RequestDetailsResolver}},
             {path: 'timelines/:id', component: TimelineUpdateComponent, resolve: {request: RequestDetailsResolver}},
         ]
     },

@@ -19,3 +19,11 @@ public async Task UploadFileToS3(IFormFile file)
         }
     }
 }
+
+https://www.thetopsites.net/article/52613512.shtml
+
+
+
+
+
+https://docs.amazonaws.cn/en_us/AmazonS3/latest/dev/UploadObjSingleOpNET.html

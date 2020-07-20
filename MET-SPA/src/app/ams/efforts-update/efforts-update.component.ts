@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class EffortsUpdateComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
+  toFile: any;
+  fileSelected: any = null;
 
   constructor(
     private requestService: RequestService,
@@ -30,10 +32,25 @@ export class EffortsUpdateComponent implements OnInit {
   }
 
   updateEfforts() {
+    // if (this.toFile)
+    // {
+    //   this.model.wbsUrl = this.toFile;
+    //
+    // }
     console.log(this.model );
     this.requestService.UpdateEfforts(this.requestbyid.id, this.model).subscribe(next => {
-      this.alertify.success('Efforts has been updated sucessfully');
-      this.route.navigate(['requests/status/new']);
-    });
+    this.alertify.success('Efforts has been updated sucessfully');
+    this.route.navigate(['requests/status/new']);
+   });
   }
+
+  onChange(event) {
+    this.toFile = event.target.files[0];
+    console.log(this.toFile);
+    if (this.toFile)
+    {
+      this.fileSelected = this.toFile.name;
+    }
+  }
+
 }

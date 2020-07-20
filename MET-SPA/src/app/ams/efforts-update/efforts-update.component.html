@@ -86,28 +86,49 @@
                     />
                   </div>
                   <div class="col">
-                    <label for="wbsUrl">Upload WBS</label>
+                    <label for="wbsUrl">Work Breakdown</label>
                     <input
                       type="url"
-                      class="form-control"
                       name="wbsUrl"
-                      placeholder="WBS Url"
+                      class="form-control"
+                      placeholder="Work Breakdown Structure"
                       [(ngModel)]="model.wbsUrl"
+                      required
                     />
                   </div>
                 </div>
+               <!-- <div class="form-row">
+                  <div class="col mt-3">
+                    <label
+                      class="custom-file-label"
+                      name="wbslabel"
+                      for="wbsUrl"
+                    >
+                      <span *ngIf="!fileSelected">Upload Work Break Down</span>
+                      <span *ngIf="fileSelected">{{ fileSelected }}</span>
+                    </label>
+                    <input
+                      type="file"
+                      class="custom-file-input mt-3"
+                      (change)="onChange($event)"
+                      id="wbsUrl"
+                      name="wbsUrl"
+                    />
+                  </div>
+                </div>-->
                 <div class="form-row">
                   <div class="col">
                     <button
-                    type="button"
-                    [routerLink]="['/requests/status/new']"
-                    class="btn btn-warning mt-3">
-                    Back
-                  </button>
-                    <div class="btn-group" role="group">
-                    <button class="btn btn-success mt-3 ml-2" type="submit">
-                      Update Efforts
+                      type="button"
+                      [routerLink]="['/requests/status/new']"
+                      class="btn btn-warning mt-3"
+                    >
+                      Back
                     </button>
+                    <div class="btn-group" role="group">
+                      <button [disabled]="!effortForm.valid" class="btn btn-success mt-3 ml-2" type="submit">
+                        Update Efforts
+                      </button>
                     </div>
                   </div>
                 </div>
