@@ -1,0 +1,32 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          Add New Project Form
+        </div>
+        <div class="card-body text-dark">
+          <!--Card Body Starts-->
+          <form #newRequestForm="ngForm" (ngSubmit)="addProject()">
+            <!--Project Row-->
+            <div class="form-row">
+              <div class="col-md-6 mb-2">
+                <label for="project">Project</label>
+                <input
+                type="text"
+                class="form-control"
+                name="projectName"
+                [(ngModel)]="model.projectName"
+              />
+              </div>
+            </div>
+            <button class="btn btn-success mt-2" type="submit">Submit</button>
+          </form>
+          <!--Card Body Ends-->
+        </div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>

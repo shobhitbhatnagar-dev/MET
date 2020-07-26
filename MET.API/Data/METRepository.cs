@@ -189,5 +189,21 @@ namespace MET.API.Data
 
             return Release;
         }
+
+        public async Task<Project> AddProject(Project Project)
+        {
+            await _context.AddAsync(Project);
+            await _context.SaveChangesAsync();
+
+            return Project;
+        }
+
+        public async Task<Module> AddModule(Module Module)
+        {
+            await _context.AddAsync(Module);
+            await _context.SaveChangesAsync();
+
+            return Module;
+        }
     }
 }

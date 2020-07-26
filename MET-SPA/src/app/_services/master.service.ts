@@ -21,4 +21,12 @@ getModulesbyProject(id): Observable<Module[]> {
   return this.http.get<Module[]> (this.baseUrl + 'modules/byproject/' + id);
 }
 
+addProject(model: any) {
+  return this.http.post(this.baseUrl + 'projects', model);
+ }
+
+addModule(model: any) {
+  return this.http.post(this.baseUrl + 'modules', model);
+}
+
 }

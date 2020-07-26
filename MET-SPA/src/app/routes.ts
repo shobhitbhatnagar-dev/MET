@@ -20,6 +20,9 @@ import { RequestListResolver } from './_resolvers/request-list.resolver';
 import { RequestByUserResolver } from './_resolvers/request-by-user.resolver';
 import { RequestByStatusComponent } from './requests/request-by-status/request-by-status.component';
 import { RequestByStatusResolver } from './_resolvers/request-by-status.resolver';
+import { AddProjectComponent } from './admin/add-project/add-project.component';
+import { ListProjectComponent } from './admin/list-project/list-project.component';
+import { AddModuleComponent } from './admin/add-module/add-module.component';
 
 
 export const appRoutes: Routes = [
@@ -44,6 +47,9 @@ export const appRoutes: Routes = [
         children: [
             {path: 'adduser', component: AddUserComponent},
             {path: 'users', component: ListUserComponent},
+            {path: 'project', component: ListProjectComponent},
+            {path: 'project/add', component: AddProjectComponent},
+            {path: 'module/add', component: AddModuleComponent}
         ]
     },
     {

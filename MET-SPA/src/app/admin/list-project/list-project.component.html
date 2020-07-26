@@ -1,0 +1,55 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header text-white bg-dark">
+          List of Projects
+        </div>
+        <div class="card-body text-dark">
+          <ul *ngFor="let p of projectlist" class="list-group">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-6">{{ p.id }}. {{ p.projectName }}</div>
+                <div class="col-1"></div>
+                <div class="col-3" style="text-align:end;">
+                  <button
+                    type="button"
+                    class="btn btn-info"
+                    (click)="onChangeProject(p.id, p.projectName)"
+                  >
+                    Get Modules
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-5">
+            <button type="button" class="btn btn-info mb-3" [routerLink]="['/project/add']" >Add New Project</button>
+            <button type="button" class="btn btn-info mb-3 ml-3" [routerLink]="['/module/add']" >Add New Module</button>
+          </div>
+          <div class="col-2"></div>
+        </div>
+      </div>
+      <div *ngIf="modules" class="card mt-4">
+        <div class="card">
+          <div class="card-header bg-dark text-white">
+            List of Modules under {{ projectSelected | titlecase }}
+          </div>
+          <div class="card-body text-dark">
+            <div class="container">
+              <p *ngIf="modules.length == 0">There are no modules under this project</p>
+              <ul *ngFor="let m of modules" class="list-group">
+                <li class="list-group-item">{{ m.id }}. {{ m.moduleName }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
+</div>

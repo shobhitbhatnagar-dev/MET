@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using MET.API.Data;
+using MET.API.Dtos;
+using MET.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +42,19 @@ namespace MET.API.Controllers
             return Ok(module);
         }
 
-        
+        [HttpPost]
+        public async Task<IActionResult> Add(AddModuleDto module)
+        {
+          var projectofMoule = await _repo.GetProject(module.projectId);
+          var moduleToCreate = new Module {
+              Project = projectofMoule,
+              ModuleName = module.ModuleName
+          };
+
+          var createdModule = await _repo.AddModule(moduleToCreate);
+          
+          return Ok(createdModule); 
+
+        }
     }
 }

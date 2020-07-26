@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule} from '@angular/router';
@@ -34,6 +35,9 @@ import { RequestListResolver } from './_resolvers/request-list.resolver';
 import { RequestByUserResolver } from './_resolvers/request-by-user.resolver';
 import { RequestByStatusResolver } from './_resolvers/request-by-status.resolver';
 import { RequestByStatusComponent } from './requests/request-by-status/request-by-status.component';
+import { ListProjectComponent } from './admin/list-project/list-project.component';
+import { AddProjectComponent } from './admin/add-project/add-project.component';
+import { AddModuleComponent } from './admin/add-module/add-module.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -57,7 +61,10 @@ export function tokenGetter() {
       RequestDetailsComponent,
       NewRequestComponent,
       AboutComponent,
-      RequestByStatusComponent
+      RequestByStatusComponent,
+      ListProjectComponent,
+      AddProjectComponent,
+      AddModuleComponent
    ],
    imports: [
       BrowserModule,
@@ -66,6 +73,7 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      AccordionModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {
