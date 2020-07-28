@@ -40,6 +40,7 @@ UpdateEfforts(id: number, model: any) {
  }
 
  UpdateApproval(id: number, approval: Approval) {
+  console.log('Service' + this.baseUrl + 'requests/approval/' + id, approval);
   return this.http.put(this.baseUrl + 'requests/approval/' + id, approval);
  }
 

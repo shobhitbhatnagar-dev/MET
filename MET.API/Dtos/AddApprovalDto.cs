@@ -2,7 +2,7 @@ using System;
 
 namespace MET.API.Dtos
 {
-    public class AddApproval
+    public class AddApprovalDto
     {
         public int FinalEfforts { get; set; }
         public string Approver { get; set; }
