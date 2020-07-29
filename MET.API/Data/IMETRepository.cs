@@ -29,5 +29,6 @@ namespace MET.API.Data
         Task<Release> AddRelease(Release Release);
         Task<Project> AddProject(Project Project);
         Task<Module> AddModule(Module Module);
+        Task<Attachment> GetAttachment(int id);
     }
 }

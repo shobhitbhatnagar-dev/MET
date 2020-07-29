@@ -1,10 +1,12 @@
-namespace MET.API.Models
+using Microsoft.AspNetCore.Http;
+
+namespace MET.API.Dtos
 {
-    public class Attachment
+    public class AttachmentDto
     {
         public int Id { get; set; }
+        public IFormFile File { get; set; }
         public string Title { get; set; }
-        public string Url { get; set; }
         public string PublicId { get; set; }
     }
 }

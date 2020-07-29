@@ -205,5 +205,12 @@ namespace MET.API.Data
 
             return Module;
         }
+
+        public async Task<Attachment> GetAttachment(int id)
+        {
+            var attachment = await _context.Attachments.FirstOrDefaultAsync(a => a.Id == id);
+
+            return attachment;
+        }
     }
 }
