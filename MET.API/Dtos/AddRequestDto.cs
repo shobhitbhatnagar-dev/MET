@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using MET.API.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace MET.API.Dtos
 {
@@ -22,6 +23,8 @@ namespace MET.API.Dtos
         public string Justification { get; set; }
         public string AttachmentUrl { get; set; }
         public string AttachmentTitle { get; set; }
+        public int AttachmentId {get; set;}
+        public string PublicId {get; set;}
         [Required]
         public string Status { get; set; }
     }

@@ -7,6 +7,7 @@ import { Effort } from '../_model/effort';
 import { Approval } from '../_model/approval';
 import { Timeline } from '../_model/timeline';
 import { Release } from '../_model/release';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -52,4 +53,17 @@ UpdateEfforts(id: number, model: any) {
   return this.http.put(this.baseUrl + 'requests/release/' + id, release);
  }
 
+ UploadAttachment(fileRecived: FormData) {
+  return this.http.post(this.baseUrl + 'attachments/', fileRecived).pipe(
+    map((response: any) => {
+    const attachment = response;
+    if (attachment)
+      {
+        localStorage.setItem('attachmentTitle', attachment.title);
+        localStorage.setItem('attachmentUrl', attachment.url);
+        localStorage.setItem('publicId', attachment.publicId);
+      }
+    })
+  );
+ }
 }

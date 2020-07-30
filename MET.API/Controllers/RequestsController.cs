@@ -6,9 +6,11 @@ namespace MET.API.Controllers
     using AutoMapper;
     using MET.API.Data;
     using MET.API.Dtos;
+    using MET.API.Helpers;
     using MET.API.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
 
     [Authorize]
     [Route("api/[controller]")]
@@ -34,7 +36,7 @@ namespace MET.API.Controllers
 
             return Ok(requestToReturn);
         }
-        
+
         [HttpGet("bystatus/{status}")]
         public async Task<IActionResult> GetRequestsbyStatus(string status)
         {
@@ -72,7 +74,6 @@ namespace MET.API.Controllers
             var project = await _repo.GetProject(request.ProjectId);
             var module = await _repo.GetModule(request.ModuleId);
 
-
             var newRequest = new Request
             {
                 User = user,
@@ -84,18 +85,21 @@ namespace MET.API.Controllers
                 Justification = request.Justification,
                 Status = "new"
             };
-
-            if (request.AttachmentTitle != null || request.AttachmentTitle != null)
+            
+            if ( request.AttachmentTitle != null && request.AttachmentUrl != null && request.PublicId != null )
             {
-                var newattachment = new Attachment
-                {
-                    Title = request.AttachmentTitle,
-                    Url = request.AttachmentUrl
-                };
-                var createdattachment = await _repo.AddAttachment(newattachment);
-                newRequest.Attachment = createdattachment;
-            }
+            var attachmentToCreate = new Attachment
+            {
+                Url = request.AttachmentUrl,
+                Title = request.AttachmentTitle,
+                PublicId = request.PublicId,
+            };
 
+            var addedAttachment = await _repo.AddAttachment(attachmentToCreate);
+
+            newRequest.Attachment = addedAttachment;
+            }
+            
             var createdRequest = await _repo.AddRequests(newRequest);
 
             return Ok(createdRequest.Id);
@@ -106,7 +110,7 @@ namespace MET.API.Controllers
         public async Task<IActionResult> UpdateEffort(int id, AddEffortDto EffortDto)
         {
             var requestfromRepo = await _repo.GetRequest(id);
-            if(requestfromRepo == null)
+            if (requestfromRepo == null)
             {
                 throw new Exception($"Unable to find Request Id - {id}");
             }
@@ -119,17 +123,17 @@ namespace MET.API.Controllers
 
             var newEffort = await _repo.AddEfforts(effortToAdd);
 
-            if(newEffort == null)
+            if (newEffort == null)
             {
                 throw new Exception($"Unable to update efforts for Request Id - {id}");
             }
 
-            requestfromRepo.Effort = newEffort;  
+            requestfromRepo.Effort = newEffort;
             requestfromRepo.Status = "effort";
-        
-            if(await _repo.SaveAll() )
-            return NoContent();
-            
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
 
@@ -137,7 +141,7 @@ namespace MET.API.Controllers
         public async Task<IActionResult> UpdateTimeline(int id, AddApprovalDto AddApprovalDto)
         {
             var requestfromRepo = await _repo.GetRequest(id);
-            if(requestfromRepo == null)
+            if (requestfromRepo == null)
             {
                 throw new Exception($"Unable to find Request Id - {id}");
             }
@@ -156,21 +160,21 @@ namespace MET.API.Controllers
                 throw new Exception($"Unable to update efforts for Request Id - {id}");
             }
 
-            requestfromRepo.Approval = newApproval;  
+            requestfromRepo.Approval = newApproval;
             requestfromRepo.Status = "approval";
-        
-            if(await _repo.SaveAll() )
-            return NoContent();
-            
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
-        
+
 
         [HttpPut("timeline/{id}")]
         public async Task<IActionResult> UpdateTimeline(int id, AddTimelineDto AddTimelineDto)
         {
             var requestfromRepo = await _repo.GetRequest(id);
-            if(requestfromRepo == null)
+            if (requestfromRepo == null)
             {
                 throw new Exception($"Unable to find Request Id - {id}");
             }
@@ -187,12 +191,12 @@ namespace MET.API.Controllers
                 throw new Exception($"Unable to update efforts for Request Id - {id}");
             }
 
-            requestfromRepo.Timeline = newTimeline;  
+            requestfromRepo.Timeline = newTimeline;
             requestfromRepo.Status = "timelines";
-        
-            if(await _repo.SaveAll() )
-            return NoContent();
-            
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
 
@@ -200,7 +204,7 @@ namespace MET.API.Controllers
         public async Task<IActionResult> UpdateRelease(int id, AddReleaseDto AddReleaseDto)
         {
             var requestfromRepo = await _repo.GetRequest(id);
-            if(requestfromRepo == null)
+            if (requestfromRepo == null)
             {
                 throw new Exception($"Unable to find Request Id - {id}");
             }
@@ -209,7 +213,7 @@ namespace MET.API.Controllers
             {
                 ReleaseDate = AddReleaseDto.ReleaseDate,
                 ReleaseNoteUrl = AddReleaseDto.ReleaseNoteUrl
-                
+
             };
 
             var newRelease = await _repo.AddRelease(ReleaseToAdd);
@@ -219,12 +223,12 @@ namespace MET.API.Controllers
                 throw new Exception($"Unable to update efforts for Request Id - {id}");
             }
 
-            requestfromRepo.Release = newRelease;  
+            requestfromRepo.Release = newRelease;
             requestfromRepo.Status = "Complete";
-        
-            if(await _repo.SaveAll() )
-            return NoContent();
-            
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
     }

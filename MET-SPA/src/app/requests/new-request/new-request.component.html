@@ -13,12 +13,18 @@
             <div class="form-row">
               <div class="col-md-6 mb-2">
                 <label for="project">Project</label>
-                <select class="custom-select" name="project" (change)="onChangeProject($event)"
+                <select
+                  class="custom-select"
+                  name="project"
+                  (change)="onChangeProject($event)"
                   [(ngModel)]="model.projectId"
-                  required>
+                  required
+                >
                   <option selected disabled value="">Select a Module</option>
-                  <option *ngFor="let p of projects" value={{p.id}}>{{p.projectName}}</option>
-                 </select>
+                  <option *ngFor="let p of projects" value="{{ p.id }}">{{
+                    p.projectName
+                  }}</option>
+                </select>
               </div>
               <div class="col-md-6 mb-2">
                 <label for="module">Module</label>
@@ -30,7 +36,9 @@
                   [disabled]="!moduleActive"
                 >
                   <option selected disabled value="">Select a Module</option>
-                  <option *ngFor="let m of modules" value={{m.id}}>{{m.moduleName}}</option>
+                  <option *ngFor="let m of modules" value="{{ m.id }}">{{
+                    m.moduleName
+                  }}</option>
                 </select>
               </div>
             </div>
@@ -93,26 +101,29 @@
               </div>
             </div>
 
+            <hr/>
+
             <!--Attachment Row-->
             <div class="form-row">
-              <div class="col-md-6 mb-2">
-                <label for="attachmentTitle">Attachment Name</label>
+              <p>
+                Please Upload the BRD of the Requierment in this word format
+                <a href="../IBM - CBR_Template.doc" target="_blank">(BRD Template)</a>
+              </p>
+              <div class="col-6">
+                <label
+                  class="custom-file-label"
+                  name="attachment"
+                  for="attachment"
+                >
+                  <span *ngIf="!fileSelected">No Attachment</span>
+                  <span *ngIf="fileSelected">{{ fileSelected.name }}</span>
+                </label>
                 <input
-                  type="text"
-                  class="form-control"
-                  name="attachmentTitle"
-                  [(ngModel)]="model.attachmentTitle"
-                />
-              </div>
-
-              <div class="col-md-6 mb-2">
-                <label for="attachmentUrl">Attachment Url</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="attachmentUrl"
-                  required
-                  [(ngModel)]="model.attachmentUrl"
+                  type="file"
+                  class="custom-file-input mt-3"
+                  (change)="onChange($event)"
+                  id="attachment"
+                  name="attchment"
                 />
               </div>
             </div>

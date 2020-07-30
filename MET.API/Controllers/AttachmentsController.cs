@@ -10,11 +10,12 @@ using MET.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Http;
 
 namespace MET.API.Controllers
 {
     [Authorize]
-    [Route("api/attachments/{requestId}")]
+    [Route("api/attachments/")]
     [ApiController]
     public class AttachmentsController : ControllerBase
     {
@@ -49,45 +50,51 @@ namespace MET.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddAttachment(int requestId, [FromForm]AttachmentDto attachmentDto)
+        public IActionResult AddAttachment([FromForm] IFormFile fileRecived)
         {
-            var requestfromRepo = await _repo.GetRequest(requestId);
-            if (requestfromRepo == null)
+            var files = Request.Form.Files;
+
+            foreach (var file in files)
             {
-                throw new Exception($"Unable to find Request Id - {requestId}");
-            }
+                var uploadResult = new RawUploadResult();
 
-            var file = attachmentDto.File;
-
-            var uploadResult = new RawUploadResult();
-
-            if (file.Length > 0)
-            {
-                using (var stream = file.OpenReadStream())
+                if (file == null)
                 {
-                    var uploadParams = new RawUploadParams()
-                    {
-                        File = new FileDescription(file.FileName , stream)
-                    };
-
-                   uploadResult = _cloudinary.Upload(uploadParams);
+                    return BadRequest("No File Provided");
                 }
+
+                if (file.Length > 0)
+                {
+                    using (var stream = file.OpenReadStream())
+                    {
+                        var uploadParams = new RawUploadParams()
+                        {
+                            File = new FileDescription(file.FileName, stream)
+                        };
+
+                        uploadResult = _cloudinary.Upload(uploadParams);
+                    }
+                }
+
+                var attachmentToCreate = new Attachment
+                {
+                    Url = uploadResult.Url.ToString(),
+                    PublicId = uploadResult.PublicId,
+                    Title = uploadResult.OriginalFilename,
+                };
+
+                //var addedAttachment = await _repo.AddAttachment(attachmentToCreate);
+
+                if (attachmentToCreate == null)
+                {
+                    return BadRequest("Could not upload the attachment");
+                }
+
+                // return CreatedAtRoute("GetAttachment", new {id = addedAttachment.Id}, addedAttachment);
+                return Ok(attachmentToCreate);
             }
 
-            var attachmentToCreate = new Attachment{
-                Url = uploadResult.Url.ToString(),
-                PublicId = uploadResult.PublicId,
-                Title = attachmentDto.File.FileName,
-            };
-
-            var addedAttachment = await _repo.AddAttachment(attachmentToCreate);
-
-            if(addedAttachment == null)
-            {
-                return BadRequest("Could not upload the attachment");
-            }
-
-            return CreatedAtRoute("GetAttachment", new {id = addedAttachment.Id}, addedAttachment);
+            return BadRequest("Some Issue has occured");
         }
     }
 }

@@ -33,7 +33,7 @@ requestUrl: any;
   loggedOut() {
     localStorage.removeItem('token');
     this.route.navigate(['/home']);
-    this.alertify.message('logged out');
+    this.alertify.success('logged out');
   }
 
   checkRole(role: string) {
