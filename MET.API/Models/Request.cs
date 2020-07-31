@@ -17,6 +17,7 @@ namespace MET.API.Models
         public Approval Approval { get; set; }
         public Release Release { get; set; }
         public Timeline Timeline { get; set; }
+        public UAT UAT { get; set; }
         public DateTime CreationDate { get; set; }= DateTime.Now;
         public string Status { get; set; }
     }

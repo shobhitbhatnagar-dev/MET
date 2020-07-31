@@ -92,7 +92,7 @@ namespace MET.API.Data
 
         public async Task<User> GetUser(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync( u => u.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
         }
@@ -135,7 +135,7 @@ namespace MET.API.Data
             .Include(r => r.Release)
             .Include(u => u.User)
             .Include(a => a.Attachment)
-            .Where(r => r.Status == status )
+            .Where(r => r.Status == status)
             .ToListAsync();
 
             return requests;
@@ -152,7 +152,7 @@ namespace MET.API.Data
             .Include(r => r.Release)
             .Include(u => u.User)
             .Include(a => a.Attachment)
-            .Where(u => u.User.Id == id )
+            .Where(u => u.User.Id == id)
             .ToListAsync();
 
             return requests;
@@ -180,6 +180,14 @@ namespace MET.API.Data
             await _context.SaveChangesAsync();
 
             return Timeline;
+        }
+
+        public async Task<UAT> AddUAT(UAT UAT)
+        {
+            await _context.AddAsync(UAT);
+            await _context.SaveChangesAsync();
+
+            return UAT;
         }
 
         public async Task<Release> AddRelease(Release Release)

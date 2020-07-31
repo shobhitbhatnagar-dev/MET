@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { Observable, identity } from 'rxjs';
 import { Module } from '../_model/module';
 import { Project } from '../_model/project';
+import { Value } from '../_model/value';
+import { User } from '../_model/user';
 
 
 @Injectable({
@@ -12,6 +14,10 @@ import { Project } from '../_model/project';
 export class MasterService {
   baseUrl = environment.apiUrl;
 constructor(private http: HttpClient) { }
+
+getValueByType(type: string): Observable<Value[]> {
+  return this.http.get<Value[]> (this.baseUrl + 'values/bytype/' + type);
+}
 
 getProjects(): Observable<Project[]> {
   return this.http.get<Project[]> (this.baseUrl + 'projects');
@@ -27,6 +33,10 @@ addProject(model: any) {
 
 addModule(model: any) {
   return this.http.post(this.baseUrl + 'modules', model);
+}
+
+getUsers(): Observable<User[]> {
+  return this.http.get<User[]> (this.baseUrl + 'users');
 }
 
 }

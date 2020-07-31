@@ -26,6 +26,7 @@ namespace MET.API.Data
         Task<Effort> AddEfforts(Effort Effort);
         Task<Approval> AddApproval(Approval Approval);
         Task<Timeline> AddTimeline(Timeline Timeline);
+        Task<UAT> AddUAT(UAT UAT);
         Task<Release> AddRelease(Release Release);
         Task<Project> AddProject(Project Project);
         Task<Module> AddModule(Module Module);

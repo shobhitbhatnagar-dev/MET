@@ -13,21 +13,26 @@
             <div class="form-row">
               <div class="col-md-6 mb-2">
                 <label for="project">Project</label>
-                <select class="custom-select" name="project"
+                <select
+                  class="custom-select"
+                  name="project"
                   [(ngModel)]="model.projectId"
-                  required>
+                  required
+                >
                   <option selected disabled value="">Select a Module</option>
-                  <option *ngFor="let p of projects" value={{p.id}}>{{p.projectName}}</option>
-                 </select>
+                  <option *ngFor="let p of projects" value="{{ p.id }}">{{
+                    p.projectName
+                  }}</option>
+                </select>
               </div>
               <div class="col-md-6 mb-2">
                 <label for="module">Module</label>
                 <input
-                type="text"
-                class="form-control"
-                name="moduleName"
-                [(ngModel)]="model.moduleName"
-              />
+                  type="text"
+                  class="form-control"
+                  name="moduleName"
+                  [(ngModel)]="model.moduleName"
+                />
               </div>
             </div>
 

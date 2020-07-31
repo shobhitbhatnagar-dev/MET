@@ -42,7 +42,10 @@ namespace MET.API.Controllers
             var userToCreate = new User
             {
                 Username = userForrRegisterDto.Username,
-                EmailId = userForrRegisterDto.Email
+                EmailId = userForrRegisterDto.Email,
+                Department = userForrRegisterDto.Department,
+                Role = userForrRegisterDto.Role,
+                Status = 1
             };
 
             var createdUser = await _repo.Register(userToCreate, userForrRegisterDto.Password);
@@ -58,6 +61,9 @@ namespace MET.API.Controllers
 
             if (userForRepo == null)
                 return Unauthorized();
+
+            if (userForRepo.Status == 0)
+                return Unauthorized("User is Disabled");
 
             var claims = new[]
             {

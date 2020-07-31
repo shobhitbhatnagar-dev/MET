@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MET.API.Data;
+using MET.API.Dtos;
+using MET.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,11 +39,27 @@ namespace MET.API.Controllers
             var value = await _context.Values.FirstOrDefaultAsync( x => x.Id == id);
             return Ok(value);
         }
+        
+        [HttpGet("bytype/{type}")]
+        public async Task<IActionResult> GetValuebytype(string type)
+        { 
+            var values = await _context.Values.Where(v => v.Type == type).ToListAsync();
+            return Ok(values);
+        }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> AddValue(AddValueDto addValueDto)
         {
+            var valueToAdd = new Value {
+                Name = addValueDto.Name,
+                Type = addValueDto.Type
+            };
+
+            await _context.AddAsync(valueToAdd);
+            var valueCreated = await _context.SaveChangesAsync();
+
+            return Ok(valueCreated);
         }
 
         // PUT api/values/5

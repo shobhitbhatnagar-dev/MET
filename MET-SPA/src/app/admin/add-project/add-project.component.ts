@@ -12,7 +12,6 @@ import { MasterService } from 'src/app/_services/master.service';
 })
 export class AddProjectComponent implements OnInit {
   model: any = {};
-  id: any;
 
   constructor(
     private requestService: RequestService,
@@ -27,7 +26,7 @@ export class AddProjectComponent implements OnInit {
   addProject() {
 
     console.log(this.model);
-    this.id = this.master.addProject(this.model).subscribe(
+    this.master.addProject(this.model).subscribe(
       () => {
         this.alertify.success('Project Added Sucessfully');
       },

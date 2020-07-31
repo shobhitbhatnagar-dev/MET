@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { RouterModule} from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -13,8 +15,6 @@ import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ListRequestComponent } from './requests/list-request/list-request.component';
 import { NewRequestComponent } from './requests/new-request/new-request.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
@@ -38,6 +38,7 @@ import { RequestByStatusComponent } from './requests/request-by-status/request-b
 import { ListProjectComponent } from './admin/list-project/list-project.component';
 import { AddProjectComponent } from './admin/add-project/add-project.component';
 import { AddModuleComponent } from './admin/add-module/add-module.component';
+import { UserListResolver } from './_resolvers/user-list.resolver';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -66,6 +67,7 @@ export function tokenGetter() {
       AddProjectComponent,
       AddModuleComponent
    ],
+
    imports: [
       BrowserModule,
       HttpClientModule,
@@ -94,7 +96,8 @@ export function tokenGetter() {
       RequestListResolver,
       RequestService,
       RequestByUserResolver,
-      RequestByStatusResolver
+      RequestByStatusResolver,
+      UserListResolver
    ],
    bootstrap: [
       AppComponent

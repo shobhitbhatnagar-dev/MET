@@ -8,7 +8,7 @@
         </div>
         <div class="card-body text-dark">
           <!--Card Body Starts-->
-          <form #newRequestForm="ngForm" (ngSubmit)="addProject()">
+          <form #newProjectForm="ngForm" (ngSubmit)="addProject()">
             <!--Project Row-->
             <div class="form-row">
               <div class="col-md-6 mb-2">
@@ -21,7 +21,7 @@
               />
               </div>
             </div>
-            <button class="btn btn-success mt-2" type="submit">Submit</button>
+            <button [disabled]="!newProjectForm.valid" class="btn btn-success mt-2" type="submit">Submit</button>
           </form>
           <!--Card Body Ends-->
         </div>

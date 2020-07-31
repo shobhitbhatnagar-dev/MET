@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MET.API.Migrations
 {
-    public partial class complete_database : Migration
+    public partial class completedatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,6 +16,10 @@ namespace MET.API.Migrations
                     FinalEfforts = table.Column<int>(nullable: false),
                     Approver = table.Column<string>(nullable: true),
                     ApproverId = table.Column<int>(nullable: false),
+                    ApprovalMail = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    PublicId = table.Column<string>(nullable: true),
+                    UAT = table.Column<bool>(nullable: false),
                     ApprovalDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -30,7 +34,8 @@ namespace MET.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true)
+                    Url = table.Column<string>(nullable: true),
+                    PublicId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,6 +50,8 @@ namespace MET.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Estimation = table.Column<int>(nullable: false),
                     WbsUrl = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    PublicId = table.Column<string>(nullable: true),
                     SubmittedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -74,6 +81,8 @@ namespace MET.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ReleaseDate = table.Column<DateTime>(nullable: false),
                     ReleaseNoteUrl = table.Column<string>(nullable: true),
+                    PublicId = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
                     UpdatedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -93,6 +102,21 @@ namespace MET.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Timelines", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UAT",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    SignOffDate = table.Column<DateTime>(nullable: false),
+                    UpdatedOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UAT", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,6 +193,7 @@ namespace MET.API.Migrations
                     ApprovalId = table.Column<int>(nullable: true),
                     ReleaseId = table.Column<int>(nullable: true),
                     TimelineId = table.Column<int>(nullable: true),
+                    UATId = table.Column<int>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false),
                     Status = table.Column<string>(nullable: true)
                 },
@@ -215,6 +240,12 @@ namespace MET.API.Migrations
                         name: "FK_Requests_Timelines_TimelineId",
                         column: x => x.TimelineId,
                         principalTable: "Timelines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Requests_UAT_UATId",
+                        column: x => x.UATId,
+                        principalTable: "UAT",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -266,6 +297,11 @@ namespace MET.API.Migrations
                 column: "TimelineId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Requests_UATId",
+                table: "Requests",
+                column: "UATId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Requests_UserId",
                 table: "Requests",
                 column: "UserId");
@@ -296,6 +332,9 @@ namespace MET.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Timelines");
+
+            migrationBuilder.DropTable(
+                name: "UAT");
 
             migrationBuilder.DropTable(
                 name: "Users");

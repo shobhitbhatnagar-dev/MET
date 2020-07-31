@@ -85,21 +85,21 @@ namespace MET.API.Controllers
                 Justification = request.Justification,
                 Status = "new"
             };
-            
-            if ( request.AttachmentTitle != null && request.AttachmentUrl != null && request.PublicId != null )
-            {
-            var attachmentToCreate = new Attachment
-            {
-                Url = request.AttachmentUrl,
-                Title = request.AttachmentTitle,
-                PublicId = request.PublicId,
-            };
 
-            var addedAttachment = await _repo.AddAttachment(attachmentToCreate);
+            if (request.AttachmentTitle != null && request.AttachmentUrl != null && request.PublicId != null)
+            {
+                var attachmentToCreate = new Attachment
+                {
+                    Url = request.AttachmentUrl,
+                    Title = request.AttachmentTitle,
+                    PublicId = request.PublicId,
+                };
 
-            newRequest.Attachment = addedAttachment;
+                var addedAttachment = await _repo.AddAttachment(attachmentToCreate);
+
+                newRequest.Attachment = addedAttachment;
             }
-            
+
             var createdRequest = await _repo.AddRequests(newRequest);
 
             return Ok(createdRequest.Id);
@@ -118,7 +118,9 @@ namespace MET.API.Controllers
             var effortToAdd = new Effort
             {
                 Estimation = EffortDto.Estimation,
-                WbsUrl = EffortDto.WbsUrl
+                WbsUrl = EffortDto.WbsUrl,
+                Title = EffortDto.Title,
+                PublicId = EffortDto.PublicId
             };
 
             var newEffort = await _repo.AddEfforts(effortToAdd);
@@ -150,7 +152,10 @@ namespace MET.API.Controllers
             {
                 FinalEfforts = AddApprovalDto.FinalEfforts,
                 Approver = AddApprovalDto.Approver,
-                ApproverId = AddApprovalDto.ApproverId
+                ApproverId = AddApprovalDto.ApproverId,
+                ApprovalMail = AddApprovalDto.ApprovalMail,
+                Title= AddApprovalDto.Title,
+                PublicId = AddApprovalDto.PublicId
             };
 
             var newApproval = await _repo.AddApproval(ApprovalToAdd);
@@ -161,7 +166,14 @@ namespace MET.API.Controllers
             }
 
             requestfromRepo.Approval = newApproval;
-            requestfromRepo.Status = "approval";
+            if (AddApprovalDto.UAT)
+            {
+                requestfromRepo.Status = "uat";
+            }
+            else
+            {
+                requestfromRepo.Status = "approval";
+            }
 
             if (await _repo.SaveAll())
                 return NoContent();
@@ -192,7 +204,38 @@ namespace MET.API.Controllers
             }
 
             requestfromRepo.Timeline = newTimeline;
-            requestfromRepo.Status = "timelines";
+            requestfromRepo.Status = "release";
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Updating Efforts for Request - {id} failed on Save");
+        }
+
+        [HttpPut("uat/{id}")]
+        public async Task<IActionResult> UpdateUAT(int id, AddUATDto AddUATDto)
+        {
+            var requestfromRepo = await _repo.GetRequest(id);
+            if (requestfromRepo == null)
+            {
+                throw new Exception($"Unable to find Request Id - {id}");
+            }
+
+            var UATToAdd = new UAT
+            {
+                StartDate = AddUATDto.StartDate,
+                SignOffDate = AddUATDto.SignOffDate
+            };
+
+            var newUAT = await _repo.AddUAT(UATToAdd);
+
+            if (newUAT == null)
+            {
+                throw new Exception($"Unable to update efforts for Request Id - {id}");
+            }
+
+            requestfromRepo.UAT = newUAT;
+            requestfromRepo.Status = "release";
 
             if (await _repo.SaveAll())
                 return NoContent();
@@ -212,8 +255,9 @@ namespace MET.API.Controllers
             var ReleaseToAdd = new Release
             {
                 ReleaseDate = AddReleaseDto.ReleaseDate,
-                ReleaseNoteUrl = AddReleaseDto.ReleaseNoteUrl
-
+                ReleaseNoteUrl = AddReleaseDto.ReleaseNoteUrl,
+                Title = AddReleaseDto.Title,
+                PublicId = AddReleaseDto.PublicId
             };
 
             var newRelease = await _repo.AddRelease(ReleaseToAdd);

@@ -53,7 +53,7 @@
         <div class="dropdown-divider"></div>
         <a
           class="dropdown-item"
-          [routerLink]="['/requests/status/timelines']"
+          [routerLink]="['/requests/status/release']"
           ><i class="fa fa-rocket mr-2"></i>Release Update</a
         >
         <div class="dropdown-divider"></div>
@@ -100,13 +100,21 @@
       </div>
     </li>
 
+    <!--UAT Panel-->
+    <li *ngIf="loggedIn()"  class="nav-item" routerLinkActive="router-link-active">
+      <a class="nav-link" *ngIf="checkRole('uat')" [routerLink]="['/requests/status/uat']"
+      routerLinkActive="active" routerLinkActive="active"
+        >|&nbsp;&nbsp;Your Requests</a>
+    </li> 
+
+    <!--Requester link-->
     <li *ngIf="loggedIn()"  class="nav-item" routerLinkActive="router-link-active">
       <a class="nav-link" *ngIf="checkRole('requester')"   (click)="requestbyUser()" routerLinkActive="active"
         >|&nbsp;&nbsp;Your Requests</a>
     </li>
 
     <li *ngIf="loggedIn()"  class="nav-item" routerLinkActive="router-link-active">
-     <a class="nav-link" [routerLink]="['/newrequest']"
+     <a class="nav-link" *ngIf="!checkRole('uat')"  [routerLink]="['/newrequest']"
       routerLinkActive="active"
         >|&nbsp;&nbsp;Add Request</a>
     </li>
@@ -123,7 +131,7 @@
     </a>
     <div class="dropdown-menu mt-3" *dropdownMenu>
       <a class="dropdown-item" href="#"
-        ><i class="fa fa-user"></i> Edit Profile</a
+        ><i class="fa fa-user"></i> Change Password</a
       >
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" (click)="loggedOut()"

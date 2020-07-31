@@ -1,3 +1,91 @@
-<p>
-  add-user works!
-</p>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          Add New User Form
+        </div>
+        <div class="card-body text-dark">
+          <!--Card Body Starts-->
+          <form #newUserForm="ngForm" (ngSubmit)="addUser()">
+            <div class="form-row">
+              <div class="col-md-6 mb-2">
+                <label for="userName">UserName</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="userName"
+                  [(ngModel)]="model.userName"
+                />
+              </div>
+              <div class="col-md-6 mb-2">
+                <label for="emailId">Email Id</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  name="emailId"
+                  [(ngModel)]="model.email"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-2">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  [(ngModel)]="model.password"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-2">
+                <label for="department">Department</label>
+                <select
+                  class="custom-select"
+                  name="department"
+                  [(ngModel)]="model.department"
+                  required
+                >
+                  <option selected disabled value=""
+                    >Select a Department</option
+                  >
+                  <option *ngFor="let d of dept" value="{{ d.name }}">{{
+                    d.name
+                  }}</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-2">
+                <label for="role">Role</label>
+                <select
+                  class="custom-select"
+                  name="role"
+                  [(ngModel)]="model.role"
+                  required
+                >
+                  <option selected disabled value=""
+                    >Select a Department</option
+                  >
+                  <option *ngFor="let r of role" value="{{ r.name }}">{{
+                    r.name
+                  }}</option>
+                </select>
+              </div>
+            </div>
+            <button
+              [disabled]="!newUserForm.valid"
+              class="btn btn-success mt-2"
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+          <!--Card Body Ends-->
+        </div>
+      </div>
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>

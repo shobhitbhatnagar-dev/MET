@@ -8,6 +8,8 @@ namespace MET.API.Dtos
         [Required]
         public DateTime ReleaseDate { get; set; }
         public string ReleaseNoteUrl { get; set; }
-        public DateTime UpdatedOn { get; set; }= DateTime.Now;
+        public string PublicId { get; set; }
+        public string Title { get; set; }
+        public DateTime UpdatedOn { get; set; } = DateTime.Now;
     }
 }

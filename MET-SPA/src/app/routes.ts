@@ -23,6 +23,7 @@ import { RequestByStatusResolver } from './_resolvers/request-by-status.resolver
 import { AddProjectComponent } from './admin/add-project/add-project.component';
 import { ListProjectComponent } from './admin/list-project/list-project.component';
 import { AddModuleComponent } from './admin/add-module/add-module.component';
+import { UserListResolver } from './_resolvers/user-list.resolver';
 
 
 export const appRoutes: Routes = [
@@ -46,7 +47,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard, AdminGuard],
         children: [
             {path: 'adduser', component: AddUserComponent},
-            {path: 'users', component: ListUserComponent},
+            {path: 'users', component: ListUserComponent, resolve: {users: UserListResolver}},
             {path: 'project', component: ListProjectComponent},
             {path: 'project/add', component: AddProjectComponent},
             {path: 'module/add', component: AddModuleComponent}

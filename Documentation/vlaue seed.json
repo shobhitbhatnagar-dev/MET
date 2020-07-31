@@ -1,0 +1,90 @@
+[
+ {
+   "name": "CSR Team",
+   "type": "dept"
+ },
+ {
+   "name": "Fee Based Team",
+   "type": "dept"
+ },
+ {
+   "name": "Finance Team",
+   "type": "dept"
+ },
+ {
+   "name": "IISC Team",
+   "type": "dept"
+ },
+ {
+   "name": "Legal Team",
+   "type": "dept"
+ },
+ {
+   "name": "LRT Team",
+   "type": "dept"
+ },
+ {
+   "name": "Marketing Team",
+   "type": "dept"
+ },
+ {
+   "name": "Non PMKVY Team",
+   "type": "dept"
+ },
+ {
+   "name": "Standards Team",
+   "type": "dept"
+ },
+ {
+   "name": "PMKVY STT Team",
+   "type": "dept"
+ },
+ {
+   "name": "PMKVY RPL Team",
+   "type": "dept"
+ },
+ {
+   "name": "PMKVY SP Team",
+   "type": "dept"
+ },
+ {
+   "name": "PMKVY Monitoring Team",
+   "type": "dept"
+ },
+ {
+   "name": "States Team",
+   "type": "dept"
+ },
+ {
+   "name": "TOT & TOA Team",
+   "type": "dept"
+ },
+ {
+   "name": "SSC Governance Team",
+   "type": "dept"
+ },
+ {
+   "name": "IT Team",
+   "type": "dept"
+ },
+ {
+   "name": "Technical Vendor",
+   "type": "dept"
+ },
+ {
+   "name": "admin",
+   "type": "role"
+ },
+ {
+   "name": "requester",
+   "type": "role"
+ },
+ {
+   "name": "dev",
+   "type": "role"
+ },
+ {
+   "name": "it",
+   "type": "role"
+ }
+]

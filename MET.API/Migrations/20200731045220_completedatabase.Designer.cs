@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MET.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200728192502_AddedPublicIdAttachment")]
-    partial class AddedPublicIdAttachment
+    [Migration("20200731045220_completedatabase")]
+    partial class completedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,11 +25,19 @@ namespace MET.API.Migrations
 
                     b.Property<DateTime>("ApprovalDate");
 
+                    b.Property<string>("ApprovalMail");
+
                     b.Property<string>("Approver");
 
                     b.Property<int>("ApproverId");
 
                     b.Property<int>("FinalEfforts");
+
+                    b.Property<string>("PublicId");
+
+                    b.Property<string>("Title");
+
+                    b.Property<bool>("UAT");
 
                     b.HasKey("Id");
 
@@ -59,7 +67,11 @@ namespace MET.API.Migrations
 
                     b.Property<int>("Estimation");
 
+                    b.Property<string>("PublicId");
+
                     b.Property<DateTime>("SubmittedDate");
+
+                    b.Property<string>("Title");
 
                     b.Property<string>("WbsUrl");
 
@@ -105,9 +117,13 @@ namespace MET.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("PublicId");
+
                     b.Property<DateTime>("ReleaseDate");
 
                     b.Property<string>("ReleaseNoteUrl");
+
+                    b.Property<string>("Title");
 
                     b.Property<DateTime>("UpdatedOn");
 
@@ -147,6 +163,8 @@ namespace MET.API.Migrations
 
                     b.Property<string>("Title");
 
+                    b.Property<int?>("UATId");
+
                     b.Property<int?>("UserId");
 
                     b.HasKey("Id");
@@ -165,6 +183,8 @@ namespace MET.API.Migrations
 
                     b.HasIndex("TimelineId");
 
+                    b.HasIndex("UATId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Requests");
@@ -182,6 +202,22 @@ namespace MET.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Timelines");
+                });
+
+            modelBuilder.Entity("MET.API.Models.UAT", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("SignOffDate");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<DateTime>("UpdatedOn");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UAT");
                 });
 
             modelBuilder.Entity("MET.API.Models.User", b =>
@@ -262,6 +298,10 @@ namespace MET.API.Migrations
                     b.HasOne("MET.API.Models.Timeline", "Timeline")
                         .WithMany()
                         .HasForeignKey("TimelineId");
+
+                    b.HasOne("MET.API.Models.UAT", "UAT")
+                        .WithMany()
+                        .HasForeignKey("UATId");
 
                     b.HasOne("MET.API.Models.User", "User")
                         .WithMany()
