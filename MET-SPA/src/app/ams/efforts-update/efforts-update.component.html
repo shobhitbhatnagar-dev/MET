@@ -82,7 +82,7 @@
               <h5 mb-3><strong>Update Efforts&nbsp;</strong></h5>
               <form #effortForm="ngForm" (ngSubmit)="updateEfforts()">
                 <div class="form-row">
-                  <div class="col">
+                  <div class="col-6 mb-3">
                     <label for="estimation">Total Effort Estimation</label>
                     <input
                       type="number"
@@ -96,21 +96,24 @@
                 </div>
 
                 <div class="form-row">
-                  <div class="col mt-3">
+                  <p>
+                    Please Upload the Work Break Down for this request with Total Estimated Efforts mentioned
+                  </p>
+                  <div class="col-6">
                     <label
                       class="custom-file-label"
-                      name="wbslabel"
-                      for="wbsUrl"
+                      name="attachment"
+                      for="attachment"
                     >
-                      <span *ngIf="!fileSelected">Upload Work Break Down</span>
-                      <span *ngIf="fileSelected">{{ fileSelected }}</span>
+                      <span *ngIf="!fileSelected">No Attachment</span>
+                      <span *ngIf="fileSelected">{{ fileSelected.name }}</span>
                     </label>
                     <input
                       type="file"
                       class="custom-file-input mt-3"
                       (change)="onChange($event)"
-                      id="wbsUrl"
-                      name="wbsUrl"
+                      id="attachment"
+                      name="attchment"
                     />
                   </div>
                 </div>
@@ -126,7 +129,7 @@
                     </button>
                     <div class="btn-group" role="group">
                       <button
-                        [disabled]="!effortForm.valid"
+                          [disabled]="!effortForm.valid || !fileSelected"
                         class="btn btn-success mt-3 ml-2"
                         type="submit"
                       >

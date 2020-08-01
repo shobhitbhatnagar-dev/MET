@@ -3,7 +3,6 @@ import { RequestService } from 'src/app/_services/request.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Request } from 'src/app/_model/request';
-import { AuthService } from 'src/app/_services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -14,7 +13,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class EffortsUpdateComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
-  toFile: any;
   fileSelected: any = null;
 
   constructor(
@@ -22,7 +20,6 @@ export class EffortsUpdateComponent implements OnInit {
     private alertify: AlertifyService,
     private activeRoute: ActivatedRoute,
     private route: Router,
-    private auth: AuthService,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -39,25 +36,49 @@ export class EffortsUpdateComponent implements OnInit {
   }
 
   updateEfforts() {
-    // if (this.toFile)
-    // {
-    //   this.model.wbsUrl = this.toFile;
-    //
-    // }
-    console.log(this.model );
-    this.requestService.UpdateEfforts(this.requestbyid.id, this.model).subscribe(next => {
-    this.alertify.success('Efforts has been updated sucessfully');
-    this.route.navigate(['requests/status/new']);
-   });
+    this.spinner.show();
+    this.requestService.ClearAttachment();
+    if ((this.fileSelected == null)) {
+    } else {
+      const formData: FormData = new FormData();
+      formData.append('fileRecived', this.fileSelected);
+      this.requestService.UploadAttachment(formData).subscribe(
+        () => {
+          console.log('attachment Upload sucessfull');
+        },
+        (error) => {
+          this.alertify.error(error);
+        },
+        () => {
+          this.model.title = localStorage.getItem('attachmentTitle');
+          this.model.wbsUrl = localStorage.getItem('attachmentUrl');
+          this.model.publicId = localStorage.getItem('publicId');
+          console.log(this.model);
+          this.requestService
+            .UpdateEfforts(this.requestbyid.id, this.model)
+            .subscribe((next) => {
+              this.alertify.success('Efforts updated sucessfully');
+              this.route.navigate(['requests/status/new']);
+            });
+        });
+    }
+    this.requestService.ClearAttachment();
+    setTimeout(() => {
+      /** spinner ends after 4 seconds */
+      this.spinner.hide();
+    }, 3000);
   }
 
   onChange(event) {
-    this.toFile = event.target.files[0];
-    console.log(this.toFile);
-    if (this.toFile)
-    {
-      this.fileSelected = this.toFile.name;
+    const toFile = event.target.files[0];
+    if (toFile) {
+      if (toFile.type === 'application/pdf') {
+        this.alertify.error('PDF format is not acceptable');
+        this.fileSelected = null;
+      } else {
+        this.fileSelected = toFile;
+        console.log(toFile);
+      }
     }
   }
-
 }

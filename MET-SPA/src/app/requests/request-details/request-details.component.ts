@@ -27,9 +27,9 @@ export class RequestDetailsComponent implements OnInit {
       this.requestbyid = data['request'];
     });
     setTimeout(() => {
-      /** spinner ends after 5 seconds */
+      /** spinner ends after 0.5 seconds */
       this.spinner.hide();
-    }, 1000);
+    }, 500);
   }
 
 }
