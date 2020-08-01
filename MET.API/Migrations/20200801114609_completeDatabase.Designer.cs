@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MET.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200731045220_completedatabase")]
-    partial class completedatabase
+    [Migration("20200801114609_completeDatabase")]
+    partial class completeDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -236,6 +236,8 @@ namespace MET.API.Migrations
                     b.Property<byte[]>("PasswordHash");
 
                     b.Property<byte[]>("PasswordSalt");
+
+                    b.Property<string>("Project");
 
                     b.Property<string>("Role");
 

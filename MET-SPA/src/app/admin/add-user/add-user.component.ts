@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { MasterService } from 'src/app/_services/master.service';
 import { Value } from 'src/app/_model/value';
 import { Router } from '@angular/router';
+import { Project } from 'src/app/_model/project';
 
 @Component({
   selector: 'app-add-user',
@@ -15,6 +16,7 @@ export class AddUserComponent implements OnInit {
   model: any = {};
   dept: Value[];
   role: Value[];
+  projects: Project[];
 
   constructor(
     private requestService: RequestService,
@@ -42,6 +44,12 @@ export class AddUserComponent implements OnInit {
         this.alertify.error(error);
       }
     );
+
+    this.master.getProjects().subscribe((projects: Project[]) => {
+      this.projects = projects;
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   addUser() {
@@ -54,7 +62,7 @@ export class AddUserComponent implements OnInit {
         this.alertify.error(error);
       },
       () => {
-        this.router.navigate(['/adduser']);
+        this.router.navigate(['/users']);
       }
     );
   }

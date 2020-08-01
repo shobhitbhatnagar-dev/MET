@@ -3,11 +3,19 @@
     <div class="col-1"></div>
     <div class="col-10">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header bg-dark text-white">
           New Request Form
         </div>
-        <div class="card-body">
+        <div class="card-body text-dark">
           <!--Card Body Starts-->
+          <ngx-spinner
+            bdColor="rgba(0, 0, 0, 0.8)"
+            size="medium"
+            color="#fff"
+            type="ball-newton-cradle"
+            [fullScreen]="true"
+          >
+          </ngx-spinner>
           <form #newRequestForm="ngForm" (ngSubmit)="addRequest()">
             <!--Project & Module Row-->
             <div class="form-row">
@@ -79,6 +87,7 @@
                 <label for="priority">Priority</label>
                 <select
                   class="custom-select"
+                  (change)="onChangePriority($event)"
                   name="priority"
                   required
                   [(ngModel)]="model.priority"
@@ -90,7 +99,7 @@
                 </select>
               </div>
 
-              <div class="col-md-6 mb-2">
+              <div [hidden]="!isJustification" class="col-md-6 mb-2">
                 <label for="justification">Justification</label>
                 <input
                   type="text"
@@ -101,13 +110,15 @@
               </div>
             </div>
 
-            <hr/>
+            <hr />
 
             <!--Attachment Row-->
             <div class="form-row">
               <p>
                 Please Upload the BRD of the Requierment in this word format
-                <a href="../IBM - CBR_Template.doc" target="_blank">(BRD Template)</a>
+                <a href="../IBM - CBR_Template.doc" target="_blank"
+                  >(BRD Template)</a
+                >
               </p>
               <div class="col-6">
                 <label
@@ -127,8 +138,13 @@
                 />
               </div>
             </div>
-
-            <button class="btn btn-success" type="submit">Submit</button>
+            <button
+              [disabled]="!newRequestForm.valid || requestInProgress"
+              class="btn btn-success"
+              type="submit"
+            >
+              Submit
+            </button>
           </form>
           <!--Card Body Ends-->
         </div>

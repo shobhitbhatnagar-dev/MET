@@ -10,60 +10,67 @@ import { Release } from '../_model/release';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RequestService {
-baseUrl = environment.apiUrl;
-constructor(private http: HttpClient) { }
+  baseUrl = environment.apiUrl;
+  constructor(private http: HttpClient) {}
 
-getRequests(): Observable<Request[]> {
-  return this.http.get<Request[]> (this.baseUrl + 'requests');
-}
+  getRequests(): Observable<Request[]> {
+    return this.http.get<Request[]>(this.baseUrl + 'requests');
+  }
 
-getRequestsbyUser(id): Observable<Request[]> {
-  return this.http.get<Request[]> (this.baseUrl + 'requests/byuser/' + id);
-}
+  getRequestsbyUser(id): Observable<Request[]> {
+    return this.http.get<Request[]>(this.baseUrl + 'requests/byuser/' + id);
+  }
 
-getRequestsbyStatus(status): Observable<Request[]> {
-  return this.http.get<Request[]> (this.baseUrl + 'requests/bystatus/' + status);
-}
+  getRequestsbyStatus(status): Observable<Request[]> {
+    return this.http.get<Request[]>(
+      this.baseUrl + 'requests/bystatus/' + status
+    );
+  }
 
-getRequest(id): Observable<Request> {
-  return this.http.get<Request> (this.baseUrl + 'requests/' + id);
-}
+  getRequest(id): Observable<Request> {
+    return this.http.get<Request>(this.baseUrl + 'requests/' + id);
+  }
 
-addRequest(model: any) {
-  return this.http.post(this.baseUrl + 'requests/add', model);
- }
+  addRequest(model: any) {
+    return this.http.post(this.baseUrl + 'requests/add', model);
+  }
 
-UpdateEfforts(id: number, model: any) {
-  return this.http.put(this.baseUrl + 'requests/effort/' + id, model);
- }
+  UpdateEfforts(id: number, model: any) {
+    return this.http.put(this.baseUrl + 'requests/effort/' + id, model);
+  }
 
- UpdateApproval(id: number, approval: Approval) {
-  console.log('Service' + this.baseUrl + 'requests/approval/' + id, approval);
-  return this.http.put(this.baseUrl + 'requests/approval/' + id, approval);
- }
+  UpdateApproval(id: number, approval: Approval) {
+    console.log('Service' + this.baseUrl + 'requests/approval/' + id, approval);
+    return this.http.put(this.baseUrl + 'requests/approval/' + id, approval);
+  }
 
- UpdateTimeline(id: number, timeline: Timeline) {
-  return this.http.put(this.baseUrl + 'requests/timeline/' + id, timeline);
- }
+  UpdateTimeline(id: number, timeline: Timeline) {
+    return this.http.put(this.baseUrl + 'requests/timeline/' + id, timeline);
+  }
 
- UpdateRelease(id: number, release: Release) {
-  return this.http.put(this.baseUrl + 'requests/release/' + id, release);
- }
+  UpdateRelease(id: number, release: Release) {
+    return this.http.put(this.baseUrl + 'requests/release/' + id, release);
+  }
 
- UploadAttachment(fileRecived: FormData) {
-  return this.http.post(this.baseUrl + 'attachments/', fileRecived).pipe(
-    map((response: any) => {
-    const attachment = response;
-    if (attachment)
-      {
-        localStorage.setItem('attachmentTitle', attachment.title);
-        localStorage.setItem('attachmentUrl', attachment.url);
-        localStorage.setItem('publicId', attachment.publicId);
-      }
-    })
-  );
- }
+  UploadAttachment(fileRecived: FormData) {
+    return this.http.post(this.baseUrl + 'attachments/', fileRecived).pipe(
+      map((response: any) => {
+        const attachment = response;
+        if (attachment) {
+          localStorage.setItem('attachmentTitle', attachment.title);
+          localStorage.setItem('attachmentUrl', attachment.url);
+          localStorage.setItem('publicId', attachment.publicId);
+        }
+      })
+    );
+  }
+
+  ClearAttachment() {
+    localStorage.removeItem('attachmentTitle');
+    localStorage.removeItem('attachmentUrl');
+    localStorage.removeItem('publicId');
+  }
 }

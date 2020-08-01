@@ -39,6 +39,21 @@
                   [(ngModel)]="model.password"
                 />
               </div>
+              <div class="col-md-6 mb-2">
+                <label for="project">Project</label>
+                <select
+                  class="custom-select"
+                  name="project"
+                  [(ngModel)]="model.project"
+                  required
+                >
+                  <option selected disabled value="">Select a Module</option>
+                  <option value="all">All Projects</option>
+                  <option *ngFor="let p of projects" value="{{ p.id }}">{{
+                    p.projectName
+                  }}</option>
+                </select>
+              </div>
             </div>
             <div class="form-row">
               <div class="col-md-6 mb-2">

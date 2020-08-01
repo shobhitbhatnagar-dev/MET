@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { Project } from 'src/app/_model/project';
 import { Module } from 'src/app/_model/module';
 import { MasterService } from 'src/app/_services/master.service';
-import { Attachment } from 'src/app/_model/attachment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-new-request',
@@ -14,27 +14,26 @@ import { Attachment } from 'src/app/_model/attachment';
   styleUrls: ['./new-request.component.css'],
 })
 export class NewRequestComponent implements OnInit {
-  model: any = {};
-  id: any;
-  projects: Project[];
-  modules: Module[];
-  moduleActive = false;
-  userId: any;
-  requestUrl: any;
-  toFile: any;
-  attachment: Attachment;
-  fileSelected: File = null;
+  model: any = {}; // To submit request
+  projects: Project[]; // To load Projects
+  modules: Module[]; // To load Modules
+  moduleActive = false; // To activate & deactivate module drop down
+  requestUrl: any; // For your Request redirect
+  fileSelected: File = null; // To Display and maintain file selected
+  requestInProgress: boolean; // To disable Submit button when request in progress
+  isJustification: boolean; // To make Justification visible and invisible
 
   constructor(
     private requestService: RequestService,
     private alertify: AlertifyService,
     private router: Router,
     private auth: AuthService,
-    private master: MasterService
+    private master: MasterService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
-    localStorage.removeItem('attachmentId');
+    this.spinner.show();
     this.master.getProjects().subscribe(
       (projects: Project[]) => {
         this.projects = projects;
@@ -43,12 +42,16 @@ export class NewRequestComponent implements OnInit {
         this.alertify.error(error);
       }
     );
+    setTimeout(() => {
+      /** spinner ends after 0.5 seconds */
+      this.spinner.hide();
+    }, 500);
   }
 
   addRequest() {
-    localStorage.removeItem('attachmentTitle');
-    localStorage.removeItem('attachmentUrl');
-    localStorage.removeItem('publicId');
+    this.spinner.show();
+    this.requestInProgress = false;
+    this.requestService.ClearAttachment();
     this.model.userId = this.auth.getUserId();
     this.model.status = 'new';
 
@@ -58,25 +61,24 @@ export class NewRequestComponent implements OnInit {
       formData.append('fileRecived', this.fileSelected);
       this.requestService.UploadAttachment(formData).subscribe(
         () => {
-          this.alertify.success('Attachment Uploaded');
+          console.log('attachment Upload sucessfull');
         },
         (error) => {
+          this.requestInProgress = true;
           this.alertify.error(error);
         },
         () => {
           // New Request Creation with Attachment
-          const AttachmentTitle = localStorage.getItem('attachmentTitle');
-          const AttachmentUrl = localStorage.getItem('attachmentUrl');
-          const PublicId = localStorage.getItem('publicId');
-          this.model.attachmentTitle = AttachmentTitle;
-          this.model.attachmentUrl = AttachmentUrl;
-          this.model.publicId = PublicId;
+          this.model.attachmentTitle = localStorage.getItem('attachmentTitle');
+          this.model.attachmentUrl = localStorage.getItem('attachmentUrl');
+          this.model.publicId = localStorage.getItem('publicId');
 
-          this.id = this.requestService.addRequest(this.model).subscribe(
+          this.requestService.addRequest(this.model).subscribe(
             () => {
               this.alertify.success('Request Added Sucessfully');
             },
             (error) => {
+              this.requestInProgress = true;
               this.alertify.error(error);
             },
             () => {
@@ -88,12 +90,14 @@ export class NewRequestComponent implements OnInit {
     } else {
       console.log(this.model);
       this.model.attachmentId = 0;
+
       // New Request Creation without Attachment
-      this.id = this.requestService.addRequest(this.model).subscribe(
+      this.requestService.addRequest(this.model).subscribe(
         () => {
           this.alertify.success('Request Added Sucessfully');
         },
         (error) => {
+          this.requestInProgress = true;
           this.alertify.error(error);
         },
         () => {
@@ -101,43 +105,64 @@ export class NewRequestComponent implements OnInit {
         }
       );
     }
-    localStorage.removeItem('attachmentTitle');
-    localStorage.removeItem('attachmentUrl');
-    localStorage.removeItem('publicId');
+    this.requestService.ClearAttachment();
+    this.requestInProgress = true;
+    setTimeout(() => {
+      /** spinner ends after 4 seconds */
+      this.spinner.hide();
+    }, 3000);
   }
 
   onChangeProject(event): void {
+    this.spinner.show();
     this.master.getModulesbyProject(event.target.value).subscribe(
       (modules: Module[]) => {
         this.modules = modules;
       },
       (error) => {
+        this.moduleActive = false;
         this.alertify.error(error);
       },
       () => {
         this.moduleActive = true;
       }
     );
+    this.spinner.hide();
   }
 
   onChange(event) {
-    this.toFile = event.target.files[0];
-    if (this.toFile) {
-      if (this.toFile.type === 'application/pdf')
+    const toFile = event.target.files[0];
+    if (toFile) {
+      if (toFile.type === 'application/pdf')
       {
         this.alertify.error('PDF format is not acceptable');
         this.fileSelected = null;
       } else
       {
-      this.fileSelected = this.toFile;
-      console.log(this.toFile);
+      this.fileSelected = toFile;
+      console.log(toFile);
       }
     }
   }
 
+  onChangePriority(event): void {
+    this.spinner.show();
+    const priotiy = event.target.value;
+    if ( priotiy === 'High')
+    {
+      this.isJustification = true;
+    }
+    else
+    {
+      this.isJustification = false;
+      this.model.justification = 'NA';
+    }
+    this.spinner.hide();
+  }
+
   requestbyUser() {
-    this.userId = this.auth.getUserId();
-    this.requestUrl = 'requests/user/' + this.userId;
+    const userId = this.auth.getUserId();
+    this.requestUrl = 'requests/user/' +  userId;
     this.router.navigate([this.requestUrl]);
   }
 }

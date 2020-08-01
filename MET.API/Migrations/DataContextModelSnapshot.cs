@@ -235,6 +235,8 @@ namespace MET.API.Migrations
 
                     b.Property<byte[]>("PasswordSalt");
 
+                    b.Property<string>("Project");
+
                     b.Property<string>("Role");
 
                     b.Property<int>("Status");

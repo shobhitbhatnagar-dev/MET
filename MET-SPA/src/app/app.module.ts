@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule} from '@angular/router';
 import { JwtModule } from '@auth0/angular-jwt';
 
@@ -76,6 +77,7 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       AccordionModule.forRoot(),
+      NgxSpinnerModule,
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {

@@ -1,7 +1,14 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col"></div>
-
+    <ngx-spinner
+      bdColor="rgba(0, 0, 0, 0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-newton-cradle"
+      [fullScreen]="true"
+    >
+    </ngx-spinner>
     <!-- Requests List-->
     <div class="col-12">
       <div class="col-1"></div>
@@ -48,7 +55,7 @@
             <div class="d-flex flex-row bd-highlight mb-3">
               <button
                 type="button"
-                [routerLink]="['/requests/', request.id]"  
+                [routerLink]="['/requests/', request.id]"
                 class="btn btn-info"
               >
                 Details

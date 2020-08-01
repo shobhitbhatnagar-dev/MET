@@ -13,6 +13,7 @@ namespace MET.API.Models
         public DateTime LastActive { get; set; } = DateTime.Now;
         public string Department { get; set; }
         public string Role { get; set; }
+        public string Project { get; set; }
         public int Status { get; set; }
     }
 }

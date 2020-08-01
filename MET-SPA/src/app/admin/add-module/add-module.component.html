@@ -3,11 +3,19 @@
     <div class="col-1"></div>
     <div class="col-10">
       <div class="card">
-        <div class="card-header">
-          New Request Form
+        <div class="card-header bg-dark text-white">
+          New Module Form
         </div>
-        <div class="card-body">
+        <div class="card-body text-dark">
           <!--Card Body Starts-->
+          <ngx-spinner
+          bdColor="rgba(0, 0, 0, 0.8)"
+          size="medium"
+          color="#fff"
+          type="ball-newton-cradle"
+          [fullScreen]="true"
+        >
+        </ngx-spinner>
           <form #newRequestForm="ngForm" (ngSubmit)="addModule()">
             <!--Project & Module Row-->
             <div class="form-row">
@@ -35,8 +43,16 @@
                 />
               </div>
             </div>
-
+            <div class="form-row mt-3">
+            <button
+              type="button"
+              [routerLink]="['/project']"
+              class="btn btn-warning mr-3"
+            >
+              Back
+            </button>
             <button class="btn btn-success" type="submit">Submit</button>
+          </div>
           </form>
           <!--Card Body Ends-->
         </div>

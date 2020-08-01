@@ -1,7 +1,14 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col"></div>
-
+    <ngx-spinner
+      bdColor="rgba(0, 0, 0, 0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-newton-cradle"
+      [fullScreen]="true"
+    >
+    </ngx-spinner>
     <!-- Requests List-->
     <div class="col-12">
       <div class="col-1"></div>
@@ -49,28 +56,36 @@
               </div>
             </div>
             <div class="d-flex flex-row bd-highlight mb-3">
-              <button *ngIf="request.status == 'new'"
+              <button
+                *ngIf="request.status == 'new'"
                 type="button"
-                [routerLink]="['/efforts/', request.id]"  
-                class="btn btn-info">
+                [routerLink]="['/efforts/', request.id]"
+                class="btn btn-info"
+              >
                 Add Efforts
               </button>
-              <button *ngIf="request.status == 'effort'"
+              <button
+                *ngIf="request.status == 'effort'"
                 type="button"
-                [routerLink]="['/approvals/', request.id]"  
-                class="btn btn-info">
+                [routerLink]="['/approvals/', request.id]"
+                class="btn btn-info"
+              >
                 Add Approvals
               </button>
-              <button *ngIf="request.status == 'approval'"
+              <button
+                *ngIf="request.status == 'approval'"
                 type="button"
-                [routerLink]="['/timelines/', request.id]"  
-                class="btn btn-info">
+                [routerLink]="['/timelines/', request.id]"
+                class="btn btn-info"
+              >
                 Add Timelines
               </button>
-              <button *ngIf="request.status == 'timelines'"
+              <button
+                *ngIf="request.status == 'timelines'"
                 type="button"
-                [routerLink]="['/release/', request.id]"  
-                class="btn btn-info">
+                [routerLink]="['/release/', request.id]"
+                class="btn btn-info"
+              >
                 Add Release Updates
               </button>
             </div>

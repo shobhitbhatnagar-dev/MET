@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MET.API.Migrations
 {
-    public partial class completedatabase : Migration
+    public partial class completeDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -133,6 +133,7 @@ namespace MET.API.Migrations
                     LastActive = table.Column<DateTime>(nullable: false),
                     Department = table.Column<string>(nullable: true),
                     Role = table.Column<string>(nullable: true),
+                    Project = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

@@ -4,6 +4,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Request } from 'src/app/_model/request';
 import { AuthService } from 'src/app/_services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-efforts-update',
@@ -21,14 +22,20 @@ export class EffortsUpdateComponent implements OnInit {
     private alertify: AlertifyService,
     private activeRoute: ActivatedRoute,
     private route: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
+    this.spinner.show();
     this.activeRoute.data.subscribe((data) => {
       // tslint:disable-next-line: no-string-literal
       this.requestbyid = data['request'];
     });
+    setTimeout(() => {
+      /** spinner ends after 0.5 seconds */
+      this.spinner.hide();
+    }, 500);
   }
 
   updateEfforts() {

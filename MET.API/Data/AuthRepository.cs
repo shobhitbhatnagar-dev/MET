@@ -79,5 +79,14 @@ namespace MET.API.Data
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == Id);
             return user;
         }
+
+        public async Task<bool> UpdateLastActive(int Id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == Id);
+            user.LastActive = DateTime.Now;
+            return true;
+            
+        }
+
     }
 }

@@ -4,6 +4,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { MasterService } from 'src/app/_services/master.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-project',
@@ -18,10 +19,18 @@ export class AddProjectComponent implements OnInit {
     private alertify: AlertifyService,
     private router: Router,
     private auth: AuthService,
-    private master: MasterService
+    private master: MasterService,
+    private spinner: NgxSpinnerService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.spinner.show();
+
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 500);
+  }
 
   addProject() {
 

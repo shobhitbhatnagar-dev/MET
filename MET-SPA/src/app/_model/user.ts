@@ -6,5 +6,6 @@ export interface User {
     lastActive: Date;
     department: string;
     role: number;
+    project: string;
     status: number;
 }

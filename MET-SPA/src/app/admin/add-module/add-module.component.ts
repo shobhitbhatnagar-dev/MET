@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { MasterService } from 'src/app/_services/master.service';
 import { Project } from 'src/app/_model/project';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-module',
@@ -20,19 +21,25 @@ export class AddModuleComponent implements OnInit {
     private alertify: AlertifyService,
     private router: Router,
     private auth: AuthService,
-    private master: MasterService
+    private master: MasterService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
+    this.spinner.show();
     this.master.getProjects().subscribe((projects: Project[]) => {
       this.projects = projects;
     }, error => {
       this.alertify.error(error);
     });
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 100);
   }
 
   addModule() {
-
+    this.spinner.show();
     console.log(this.model);
     this.id = this.master.addModule(this.model).subscribe(
       () => {
@@ -45,5 +52,9 @@ export class AddModuleComponent implements OnInit {
         this.router.navigate(['project']);
       }
     );
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 500);
   }
 }

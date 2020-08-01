@@ -7,6 +7,14 @@
           List of Projects
         </div>
         <div class="card-body text-dark">
+          <ngx-spinner
+          bdColor="rgba(0, 0, 0, 0.8)"
+          size="medium"
+          color="#fff"
+          type="ball-newton-cradle"
+          [fullScreen]="true"
+        >
+        </ngx-spinner>
           <ul *ngFor="let p of projectlist" class="list-group">
             <li class="list-group-item">
               <div class="row">
@@ -16,7 +24,7 @@
                   <button
                     type="button"
                     class="btn btn-info"
-                    (click)="onChangeProject(p.id, p.projectName)"
+                    (click)="GetModules(p.id, p.projectName)"
                   >
                     Get Modules
                   </button>
