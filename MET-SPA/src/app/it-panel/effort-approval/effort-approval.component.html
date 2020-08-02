@@ -1,6 +1,14 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col"></div>
+    <ngx-spinner
+      bdColor="rgba(0, 0, 0, 0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-newton-cradle"
+      [fullScreen]="true"
+    >
+    </ngx-spinner>
     <div class="col-12">
       <h2>Request ID :&nbsp;{{ requestbyid.id }}</h2>
       <div class="card">
@@ -86,7 +94,7 @@
               >{{ requestbyid.effort.submittedDate | date: "mediumDate" }}
             </div>
           </div>
-          <hr *ngIf="requestbyid.effort" />
+          <hr/>
 
           <!--Flex Row 5 - Approval Conditional-->
           <div class="d-flex flex-row bd-highlight">
@@ -105,6 +113,34 @@
                       required
                     />
                   </div>
+                  <div class="col mt-5">
+                  <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="uat" name="uat" [(ngModel)]="model.uat">
+                    <label class="form-check-label" for="uat">UAT is Required for this request</label>
+                  </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <p>
+                    Please Upload the Work Break Down for this request with Total Estimated Efforts mentioned
+                  </p>
+                  <div class="col-6">
+                    <label
+                      class="custom-file-label"
+                      name="attachment"
+                      for="attachment"
+                    >
+                      <span *ngIf="!fileSelected">No Attachment</span>
+                      <span *ngIf="fileSelected">{{ fileSelected.name }}</span>
+                    </label>
+                    <input
+                      type="file"
+                      class="custom-file-input mt-3"
+                      (change)="onChange($event)"
+                      id="attachment"
+                      name="attchment"
+                    />
+                  </div>
                 </div>
                 <div class="form-row">
                   <div class="col">
@@ -115,7 +151,7 @@
                       Back
                     </button>
                     <div class="btn-group" role="group">
-                      <button class="btn btn-success mt-3 ml-2" type="submit">
+                      <button class="btn btn-success mt-3 ml-2"  [disabled]="!effortForm.valid || !fileSelected" type="submit">
                         Update Approvals
                       </button>
                     </div>

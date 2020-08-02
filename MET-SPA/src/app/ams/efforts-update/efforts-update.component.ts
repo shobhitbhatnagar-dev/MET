@@ -30,15 +30,17 @@ export class EffortsUpdateComponent implements OnInit {
       this.requestbyid = data['request'];
     });
     setTimeout(() => {
-      /** spinner ends after 0.5 seconds */
+      /** spinner ends after 0.2 seconds */
       this.spinner.hide();
-    }, 500);
+    }, 200);
   }
 
   updateEfforts() {
     this.spinner.show();
     this.requestService.ClearAttachment();
     if ((this.fileSelected == null)) {
+      this.alertify.error('WBS is required to submit efforts');
+      this.spinner.hide();
     } else {
       const formData: FormData = new FormData();
       formData.append('fileRecived', this.fileSelected);
