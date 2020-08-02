@@ -112,7 +112,7 @@
     <li *ngIf="loggedIn()"  class="nav-item" routerLinkActive="router-link-active">
       <a class="nav-link" *ngIf="checkRole('uat')" [routerLink]="['/requests/status/uat']"
       routerLinkActive="active" routerLinkActive="active"
-        >|&nbsp;&nbsp;Your Requests</a>
+        >|&nbsp;&nbsp;UAT Requests</a>
     </li> 
 
     <!--Requester link-->
@@ -135,7 +135,7 @@
 
   <div *ngIf="loggedIn()" class="dropdown" dropdown>
     <a class="dropdown-toggle text-light" dropdownToggle>
-      Welcome {{ authservices.decodedToken?.unique_name | titlecase }} | ({{authservices.decodedToken?.role | titlecase }})
+      Welcome {{ authservices.decodedToken?.unique_name | titlecase }} | ({{authservices.decodedToken?.role | uppercase }})
     </a>
     <div class="dropdown-menu mt-3" *dropdownMenu>
       <a class="dropdown-item" href="#"

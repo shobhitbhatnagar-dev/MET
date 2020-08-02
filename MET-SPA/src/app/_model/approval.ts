@@ -4,4 +4,5 @@ export interface Approval {
     approver: string;
     approverId: number;
     approvalDate: Date;
+    uat: boolean;
 }

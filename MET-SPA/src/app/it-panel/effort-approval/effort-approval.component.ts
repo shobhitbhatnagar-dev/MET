@@ -15,6 +15,7 @@ export class EffortApprovalComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
   fileSelected: any = null;
+  requestInProgress: boolean;
 
   constructor(
     private requestService: RequestService,
@@ -39,10 +40,12 @@ export class EffortApprovalComponent implements OnInit {
 
   updateApproval() {
     this.spinner.show();
+    this.requestInProgress = false;
     this.requestService.ClearAttachment();
     if (this.fileSelected == null) {
       this.alertify.error('Approval is required to submit efforts');
       this.spinner.hide();
+      this.requestInProgress = true;
     } else {
       const formData: FormData = new FormData();
       formData.append('fileRecived', this.fileSelected);
@@ -52,6 +55,7 @@ export class EffortApprovalComponent implements OnInit {
         },
         (error) => {
           this.alertify.error(error);
+          this.requestInProgress = true;
         },
         () => {
           this.model.approverId = this.auth.getUserId();
@@ -69,6 +73,7 @@ export class EffortApprovalComponent implements OnInit {
         });
     }
     this.requestService.ClearAttachment();
+    this.requestInProgress = true;
     setTimeout(() => {
       /** spinner ends after 4 seconds */
       this.spinner.hide();

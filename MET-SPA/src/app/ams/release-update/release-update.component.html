@@ -1,6 +1,14 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col"></div>
+    <ngx-spinner
+      bdColor="rgba(0, 0, 0, 0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-newton-cradle"
+      [fullScreen]="true"
+    >
+    </ngx-spinner>
     <div class="col-12">
       <h2>Request ID :&nbsp;{{ requestbyid.id }}</h2>
       <div class="card">
@@ -102,6 +110,11 @@
               >{{ requestbyid.approval.approver }}
             </div>
             <div class="p-2 bd-highlight">
+              <strong>UAT Required:&nbsp;</strong
+              ><span *ngIf="requestbyid.approval.uat">Yes</span>
+              <span *ngIf="!requestbyid.approval.uat">No</span>
+            </div>
+            <div class="p-2 bd-highlight">
               <strong>Approved On:&nbsp;</strong
               >{{ requestbyid.approval.approvalDate | date: "mediumDate" }}
             </div>
@@ -122,41 +135,54 @@
               >{{ requestbyid.timeline.updatedOn | date: "mediumDate" }}
             </div>
           </div>
-          <hr *ngIf="requestbyid.timeline" />
+          <hr />
 
           <!--Flex Row 7 - Release Conditional-->
           <div class="d-flex flex-row bd-highlight">
             <div class="p-2 bd-highlight">
-              <h5><strong>Update Efforts&nbsp;</strong></h5>
+              <h5>
+                <strong>Release/ Production Movement Update&nbsp;</strong>
+              </h5>
               <form #effortForm="ngForm" (ngSubmit)="updateRelease()">
-                <div class="form-row">
-                  <div class="col">
-                    <label for="releaseNoteUrl">Release Note </label>
+                <div class="form-row mt-3">
+                  <div class="form-group">
                     <input
-                      type="url"
-                      name="releaseNoteUrl"
                       class="form-control"
-                      placeholder="Release Note"
-                      [(ngModel)]="model.releaseNoteUrl"
+                      placeholder="Select Release Date"
+                      #datepickerMDY="bsDatepicker"
+                      name="plannedDate"
+                      bsDatepicker
+                      [minDate]="minDate"
+                      [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
+                      [(ngModel)]="model.releaseDate"
                       required
                     />
                   </div>
+                </div>
+                <div class="form-row">
+                  <p>
+                    Please Upload the Work Break Down for this request with
+                    Total Estimated Efforts mentioned
+                  </p>
+                  <div class="col-6">
+                    <label
+                      class="custom-file-label"
+                      name="attachment"
+                      for="attachment"
+                    >
+                      <span *ngIf="!fileSelected">No Attachment</span>
+                      <span *ngIf="fileSelected">{{ fileSelected.name }}</span>
+                    </label>
+                    <input
+                      type="file"
+                      class="custom-file-input mt-3"
+                      (change)="onChange($event)"
+                      id="attachment"
+                      name="attchment"
+                    />
                   </div>
-                  <div class="form-row mt-3">
-                    <div class=" form-group">
-                      <input
-                        class="form-control"
-                        placeholder="Select Release Date"
-                        #datepickerMDY="bsDatepicker"
-                        name="plannedDate"
-                        bsDatepicker
-                        [minDate]="minDate"
-                        [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
-                        [(ngModel)]="model.releaseDate"
-                        required
-                      />
-                    </div>
-                  </div>
+                </div>
+
                 <div class="form-row">
                   <div class="col">
                     <button
@@ -168,7 +194,11 @@
                     </button>
                     <div class="btn-group" role="group">
                       <button
-                        [disabled]="!effortForm.valid"
+                        [disabled]="
+                          !effortForm.valid ||
+                          !fileSelected ||
+                          requestInProgress
+                        "
                         class="btn btn-success mt-3 ml-2"
                         type="submit"
                       >

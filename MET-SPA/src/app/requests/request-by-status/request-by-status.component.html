@@ -27,7 +27,7 @@
                 <strong>Title:</strong>&nbsp;{{ request.title }}
               </div>
               <div class="p-2 bd-highlight">
-                <strong>Status:</strong>&nbsp;{{ request.status | titlecase }}
+                <strong>Status:</strong>&nbsp;{{ request.status | uppercase }}
               </div>
               <div class="p-2 bd-highlight">
                 <strong>Priority:</strong>&nbsp;{{
@@ -81,12 +81,20 @@
                 Add Timelines
               </button>
               <button
-                *ngIf="request.status == 'timelines'"
+                *ngIf="request.status == 'release'"
                 type="button"
                 [routerLink]="['/release/', request.id]"
                 class="btn btn-info"
               >
                 Add Release Updates
+              </button>
+              <button
+                *ngIf="request.status == 'uat'"
+                type="button"
+                [routerLink]="['/UAT/', request.id]"
+                class="btn btn-info"
+              >
+                Add UAT Updates
               </button>
             </div>
           </div>

@@ -94,7 +94,7 @@
               >{{ requestbyid.effort.submittedDate | date: "mediumDate" }}
             </div>
           </div>
-          <hr/>
+          <hr />
 
           <!--Flex Row 5 - Approval Conditional-->
           <div class="d-flex flex-row bd-highlight">
@@ -114,15 +114,24 @@
                     />
                   </div>
                   <div class="col mt-5">
-                  <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="uat" name="uat" [(ngModel)]="model.uat">
-                    <label class="form-check-label" for="uat">UAT is Required for this request</label>
-                  </div>
+                    <div class="form-group form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="uat"
+                        name="uat"
+                        [(ngModel)]="model.uat"
+                      />
+                      <label class="form-check-label" for="uat"
+                        >UAT is Required for this request</label
+                      >
+                    </div>
                   </div>
                 </div>
                 <div class="form-row">
                   <p>
-                    Please Upload the Work Break Down for this request with Total Estimated Efforts mentioned
+                    Please Upload the Work Break Down for this request with
+                    Total Estimated Efforts mentioned
                   </p>
                   <div class="col-6">
                     <label
@@ -147,11 +156,20 @@
                     <button
                       type="button"
                       [routerLink]="['/requests/status/effort']"
-                      class="btn btn-warning mt-3">
+                      class="btn btn-warning mt-3"
+                    >
                       Back
                     </button>
                     <div class="btn-group" role="group">
-                      <button class="btn btn-success mt-3 ml-2"  [disabled]="!effortForm.valid || !fileSelected" type="submit">
+                      <button
+                        class="btn btn-success mt-3 ml-2"
+                        [disabled]="
+                          !effortForm.valid ||
+                          !fileSelected ||
+                          requestInProgress
+                        "
+                        type="submit"
+                      >
                         Update Approvals
                       </button>
                     </div>

@@ -14,6 +14,7 @@ export class EffortsUpdateComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
   fileSelected: any = null;
+  requestInProgress: boolean;
 
   constructor(
     private requestService: RequestService,
@@ -37,10 +38,12 @@ export class EffortsUpdateComponent implements OnInit {
 
   updateEfforts() {
     this.spinner.show();
+    this.requestInProgress = false;
     this.requestService.ClearAttachment();
     if ((this.fileSelected == null)) {
       this.alertify.error('WBS is required to submit efforts');
       this.spinner.hide();
+      this.requestInProgress = true;
     } else {
       const formData: FormData = new FormData();
       formData.append('fileRecived', this.fileSelected);
@@ -49,6 +52,7 @@ export class EffortsUpdateComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
+          this.requestInProgress = true;
           this.alertify.error(error);
         },
         () => {
@@ -61,10 +65,14 @@ export class EffortsUpdateComponent implements OnInit {
             .subscribe((next) => {
               this.alertify.success('Efforts updated sucessfully');
               this.route.navigate(['requests/status/new']);
+            }, (error) => {
+              this.requestInProgress = true;
+              this.alertify.error(error);
             });
         });
     }
     this.requestService.ClearAttachment();
+    this.requestInProgress = true;
     setTimeout(() => {
       /** spinner ends after 4 seconds */
       this.spinner.hide();

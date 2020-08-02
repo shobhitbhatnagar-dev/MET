@@ -102,6 +102,11 @@
               >{{ requestbyid.approval.approver }}
             </div>
             <div class="p-2 bd-highlight">
+              <strong>UAT Required:&nbsp;</strong
+              ><span *ngIf="requestbyid.approval.uat">Yes</span>
+              <span *ngIf="!requestbyid.approval.uat">No</span>
+            </div>
+            <div class="p-2 bd-highlight">
               <strong>Approved On:&nbsp;</strong
               >{{ requestbyid.approval.approvalDate | date: "mediumDate" }}
             </div>
@@ -112,9 +117,9 @@
           <div class="d-flex flex-row bd-highlight">
             <div class="p-2 bd-highlight">
               <h5 mb-3><strong>Update Timelines&nbsp;</strong></h5>
-              <form #effortForm="ngForm" (ngSubmit)="updateTimelines()">
+              <form #timelineForm="ngForm" (ngSubmit)="updateTimelines()">
                 <div class="form-row">
-                  <div class=" form-group">
+                  <div class="form-group">
                     <input
                       class="form-control"
                       placeholder="Select Delivery Date"
@@ -137,8 +142,8 @@
                     >
                       Back
                     </button>
-                    <div class="btn-group" role="group">
-                      <button class="btn btn-success mt-3 ml-2" type="submit">
+                    <div class="btn-group" role="group"  >
+                      <button class="btn btn-success mt-3 ml-2" [disabled]="!timelineForm.valid || requestInProgress" type="submit">
                         Update Timeline
                       </button>
                     </div>

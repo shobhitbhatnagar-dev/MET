@@ -109,7 +109,7 @@ namespace MET.API.Controllers
         [HttpPut("effort/{id}")]
         public async Task<IActionResult> UpdateEffort(int id, AddEffortDto EffortDto)
         {
-            
+
             var requestfromRepo = await _repo.GetRequest(id);
             if (requestfromRepo == null)
             {
@@ -155,8 +155,9 @@ namespace MET.API.Controllers
                 Approver = AddApprovalDto.Approver,
                 ApproverId = AddApprovalDto.ApproverId,
                 ApprovalMail = AddApprovalDto.ApprovalMail,
-                Title= AddApprovalDto.Title,
-                PublicId = AddApprovalDto.PublicId
+                Title = AddApprovalDto.Title,
+                PublicId = AddApprovalDto.PublicId,
+                UAT = AddApprovalDto.UAT
             };
 
             var newApproval = await _repo.AddApproval(ApprovalToAdd);
@@ -167,14 +168,7 @@ namespace MET.API.Controllers
             }
 
             requestfromRepo.Approval = newApproval;
-            if (AddApprovalDto.UAT)
-            {
-                requestfromRepo.Status = "uat";
-            }
-            else
-            {
-                requestfromRepo.Status = "approval";
-            }
+            requestfromRepo.Status = "approval";
 
             if (await _repo.SaveAll())
                 return NoContent();
@@ -205,7 +199,15 @@ namespace MET.API.Controllers
             }
 
             requestfromRepo.Timeline = newTimeline;
-            requestfromRepo.Status = "release";
+            if(requestfromRepo.Approval.UAT)
+            {
+                requestfromRepo.Status = "uat";
+            }
+            else
+            {
+                requestfromRepo.Status = "release";
+            }
+            
 
             if (await _repo.SaveAll())
                 return NoContent();
