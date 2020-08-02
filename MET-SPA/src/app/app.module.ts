@@ -40,6 +40,11 @@ import { ListProjectComponent } from './admin/list-project/list-project.componen
 import { AddProjectComponent } from './admin/add-project/add-project.component';
 import { AddModuleComponent } from './admin/add-module/add-module.component';
 import { UserListResolver } from './_resolvers/user-list.resolver';
+import { UatUpdateComponent } from './uat-update/uat-update.component';
+import { AdminGuard } from './_guards/admin.guard';
+import { DevGuard } from './_guards/dev.guard';
+import { UatGuard } from './_guards/uat.guard';
+import { ItGuard } from './_guards/it.guard';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -66,7 +71,8 @@ export function tokenGetter() {
       RequestByStatusComponent,
       ListProjectComponent,
       AddProjectComponent,
-      AddModuleComponent
+      AddModuleComponent,
+      UatUpdateComponent,
    ],
 
    imports: [
@@ -83,7 +89,7 @@ export function tokenGetter() {
          config: {
             // tslint:disable-next-line: object-literal-shorthand
             tokenGetter: tokenGetter,
-            whitelistedDomains:['localhost:5000'],
+            whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
       })
@@ -93,6 +99,10 @@ export function tokenGetter() {
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
+      AdminGuard,
+      DevGuard,
+      ItGuard,
+      UatGuard,
       RequestService,
       RequestDetailsResolver,
       RequestListResolver,

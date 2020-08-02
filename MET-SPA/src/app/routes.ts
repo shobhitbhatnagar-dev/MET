@@ -24,6 +24,8 @@ import { AddProjectComponent } from './admin/add-project/add-project.component';
 import { ListProjectComponent } from './admin/list-project/list-project.component';
 import { AddModuleComponent } from './admin/add-module/add-module.component';
 import { UserListResolver } from './_resolvers/user-list.resolver';
+import { UatGuard } from './_guards/uat.guard';
+import { UatUpdateComponent } from './uat-update/uat-update.component';
 
 
 export const appRoutes: Routes = [
@@ -68,8 +70,16 @@ export const appRoutes: Routes = [
         runGuardsAndResolvers: 'always',
         canActivate: [AuthGuard, ItGuard],
         children: [
-            {path: 'approvals/:id', component: EffortApprovalComponent,resolve: {request: RequestDetailsResolver}},
+            {path: 'approvals/:id', component: EffortApprovalComponent, resolve: {request: RequestDetailsResolver}},
             {path: 'itdashboard', component: ItDashboarddComponent},
+        ]
+    },
+    {
+        path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [AuthGuard, UatGuard],
+        children: [
+            {path: 'uat/:id', component: UatUpdateComponent, resolve: {request: RequestDetailsResolver}},
         ]
     },
     {path: '**', redirectTo: '', pathMatch: 'full'}
