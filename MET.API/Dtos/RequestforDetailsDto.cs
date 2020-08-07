@@ -19,6 +19,7 @@ namespace MET.API.Dtos
         public Approval Approval { get; set; }
         public Release Release { get; set; }
         public Timeline Timeline { get; set; }
+        public UAT UAT { get; set; }
         public DateTime CreationDate { get; set; }
         public string Status { get; set; }
     }

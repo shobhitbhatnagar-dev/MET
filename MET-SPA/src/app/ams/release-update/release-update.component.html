@@ -137,7 +137,31 @@
           </div>
           <hr />
 
-          <!--Flex Row 7 - Release Conditional-->
+          <!--Flex Row 7 - UAT Conditional-->
+          <div
+            *ngIf="requestbyid.uat"
+            class="d-flex flex-row bd-highlight mb-3"
+          >
+            <div class="p-2 bd-highlight">
+              <strong>UAT Start Date:&nbsp;</strong
+              >{{ requestbyid.uat.startDate | date: "mediumDate" }}
+            </div>
+            <div class="p-2 bd-highlight">
+              <strong>UAT Sign off Date:&nbsp;</strong
+              >{{ requestbyid.uat.signOffDate | date: "mediumDate" }}
+            </div>
+            <div class="p-2 bd-highlight">
+              <strong>UAT Signoff:&nbsp;</strong
+              ><a href="{{ requestbyid.uat.uatApproval }}" target="_blank">{{requestbyid.uat.title}}</a>
+            </div>
+            <div class="p-2 bd-highlight">
+              <strong>Updated On:&nbsp;</strong
+              >{{ requestbyid.uat.updatedOn | date: "mediumDate" }}
+            </div>
+          </div>
+          <hr />
+
+          <!--Flex Row 8 - Release Conditional-->
           <div class="d-flex flex-row bd-highlight">
             <div class="p-2 bd-highlight">
               <h5>

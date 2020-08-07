@@ -144,7 +144,8 @@
                 <strong>UAT Updates&nbsp;</strong>
               </h5>
               <form #effortForm="ngForm" (ngSubmit)="updateUAT()">
-                <div class="form-row mt-3">
+                <div class="form-row mt-2">
+                  <div class="col">
                   <div class="form-group">
                     <label for="startDate"><strong>Start Date</strong></label>
                     <input
@@ -153,14 +154,14 @@
                       #datepickerMDY="bsDatepicker"
                       name="startDate"
                       bsDatepicker
-                      [minDate]="minDate"
+                      [minDate]="minstartDate"
                       [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
                       [(ngModel)]="model.startDate"
                       required
                     />
                   </div>
                 </div>
-                <div class="form-row mt-3">
+                <div class="col ml-3">
                   <div class="form-group">
                     <label for="endDate"><strong>End Date</strong></label>
                     <input
@@ -171,37 +172,35 @@
                       bsDatepicker
                       [minDate]="minDate"
                       [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
-                      [(ngModel)]="model.endDate"
+                      [(ngModel)]="model.signOffDate"
                       required
                     />
                   </div>
                 </div>
-                <!--Attachment Row-->
-            <div class="form-row">
-              <p>
-                Please Upload the UAT Sign offs of the Requierment
-                <a href="../IBM - CBR_Template.doc" target="_blank"
-                  >(BRD Template)</a
-                >
-              </p>
-              <div class="col-6">
-                <label
-                  class="custom-file-label"
-                  name="attachment"
-                  for="attachment"
-                >
-                  <span *ngIf="!fileSelected">No Attachment</span>
-                  <span *ngIf="fileSelected">{{ fileSelected.name }}</span>
-                </label>
-                <input
-                  type="file"
-                  class="custom-file-input mt-3"
-                  (change)="onChange($event)"
-                  id="attachment"
-                  name="attchment"
-                />
               </div>
-            </div>
+                <!--Attachment Row-->
+                <div class="form-row">
+                  <p>
+                    Please Upload the UAT Sign offs of the Requierment
+                  </p>
+                  <div class="col-6">
+                    <label
+                      class="custom-file-label"
+                      name="attachment"
+                      for="attachment"
+                    >
+                      <span *ngIf="!fileSelected">No Attachment</span>
+                      <span *ngIf="fileSelected">{{ fileSelected.name }}</span>
+                    </label>
+                    <input
+                      type="file"
+                      class="custom-file-input mt-3"
+                      (change)="onChange($event)"
+                      id="attachment"
+                      name="attchment"
+                    />
+                  </div>
+                </div>
 
                 <div class="form-row">
                   <div class="col">

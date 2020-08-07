@@ -54,8 +54,8 @@ export class EffortApprovalComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
-          this.alertify.error(error);
           this.requestInProgress = true;
+          this.alertify.error(error);
         },
         () => {
           this.model.approverId = this.auth.getUserId();
@@ -66,11 +66,18 @@ export class EffortApprovalComponent implements OnInit {
           console.log(this.model);
           this.requestService
             .UpdateApproval(this.requestbyid.id, this.model)
-            .subscribe((next) => {
-              this.alertify.success('Approval has been updated sucessfully');
-              this.route.navigate(['requests/status/effort']);
-            });
-        });
+            .subscribe(
+              (next) => {
+                this.alertify.success('Approval has been updated sucessfully');
+                this.route.navigate(['requests/status/effort']);
+              },
+              (error) => {
+                this.requestInProgress = true;
+                this.alertify.error(error);
+              }
+            );
+        }
+      );
     }
     this.requestService.ClearAttachment();
     this.requestInProgress = true;
@@ -83,13 +90,7 @@ export class EffortApprovalComponent implements OnInit {
   onChange(event) {
     const toFile = event.target.files[0];
     if (toFile) {
-      if (toFile.type === 'application/pdf') {
-        this.alertify.error('PDF format is not acceptable');
-        this.fileSelected = null;
-      } else {
-        this.fileSelected = toFile;
-        console.log(toFile);
-      }
+      this.fileSelected = toFile;
     }
   }
 }

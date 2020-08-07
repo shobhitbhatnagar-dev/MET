@@ -120,9 +120,9 @@
       <a class="nav-link" *ngIf="checkRole('requester')"   (click)="requestbyUser()" routerLinkActive="active"
         >|&nbsp;&nbsp;Your Requests</a>
     </li>
-
+    <!--Requester link-->
     <li *ngIf="loggedIn()"  class="nav-item" routerLinkActive="router-link-active">
-     <a class="nav-link" *ngIf="!checkRole('uat')"  [routerLink]="['/newrequest']"
+     <a class="nav-link" *ngIf="checkRole('requester')"  [routerLink]="['/newrequest']"
       routerLinkActive="active"
         >|&nbsp;&nbsp;Add Request</a>
     </li>

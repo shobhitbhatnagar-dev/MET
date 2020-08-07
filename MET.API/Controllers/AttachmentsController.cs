@@ -68,7 +68,7 @@ namespace MET.API.Controllers
                 //Creating randomfilename
                 var guid = Guid.NewGuid().ToString();
                 var extention = Path.GetExtension(file.FileName);
-                var fileName = guid + extention;
+                var fileName = guid + "_" + file.FileName + extention;
                 var OrginalfileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
                 //Final Path and URl to store in db

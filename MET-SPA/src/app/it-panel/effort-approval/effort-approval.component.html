@@ -113,19 +113,20 @@
                       required
                     />
                   </div>
-                  <div class="col mt-5">
-                    <div class="form-group form-check">
-                      <input
-                        type="checkbox"
-                        class="form-check-input"
-                        id="uat"
-                        name="uat"
-                        [(ngModel)]="model.uat"
-                      />
-                      <label class="form-check-label" for="uat"
-                        >UAT is Required for this request</label
+                  <div class="col-md-6 mb-2">
+                    <label for="uat">Is UAT required for this Request</label>
+                    <select
+                      class="custom-select"
+                      name="project"
+                      [(ngModel)]="model.uat"
+                      required
+                    >
+                      <option selected disabled value=""
+                        >Select a Module</option
                       >
-                    </div>
+                      <option value=true>Yes</option>
+                      <option value=false>No</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-row">

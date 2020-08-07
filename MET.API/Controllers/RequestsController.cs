@@ -227,7 +227,10 @@ namespace MET.API.Controllers
             var UATToAdd = new UAT
             {
                 StartDate = AddUATDto.StartDate,
-                SignOffDate = AddUATDto.SignOffDate
+                SignOffDate = AddUATDto.SignOffDate,
+                PublicId = AddUATDto.PublicId,
+                UATApproval = AddUATDto.UATApproval,
+                Title = AddUATDto.Title
             };
 
             var newUAT = await _repo.AddUAT(UATToAdd);
@@ -271,7 +274,7 @@ namespace MET.API.Controllers
             }
 
             requestfromRepo.Release = newRelease;
-            requestfromRepo.Status = "Complete";
+            requestfromRepo.Status = "complete";
 
             if (await _repo.SaveAll())
                 return NoContent();

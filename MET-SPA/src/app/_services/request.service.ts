@@ -8,6 +8,7 @@ import { Approval } from '../_model/approval';
 import { Timeline } from '../_model/timeline';
 import { Release } from '../_model/release';
 import { map } from 'rxjs/operators';
+import { Uat } from '../_model/uat';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +54,10 @@ export class RequestService {
 
   UpdateRelease(id: number, release: Release) {
     return this.http.put(this.baseUrl + 'requests/release/' + id, release);
+  }
+
+  UpdateUat(id: number, uat: Uat) {
+    return this.http.put(this.baseUrl + 'requests/uat/' + id, uat);
   }
 
   UploadAttachment(fileRecived: FormData) {

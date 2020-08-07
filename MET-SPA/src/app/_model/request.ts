@@ -5,6 +5,7 @@ import { Effort } from './effort';
 import { Approval } from './approval';
 import { Release } from './release';
 import { Timeline } from './timeline';
+import { Uat } from './uat';
 
 export interface Request {
     id: number;
@@ -21,6 +22,7 @@ export interface Request {
     status: string;
     effort?: Effort;
     approval?: Approval;
+    uat?: Uat;
     release?: Release;
     timeline?: Timeline;
 }
