@@ -16,7 +16,7 @@
           <h5 class="card-title">
             {{ requestbyid.title }} |&nbsp;&nbsp; Status:&nbsp;
             <span class="badge badge-primary">
-              {{ requestbyid.status | titlecase }}
+              {{ requestbyid.status | uppercase }}
             </span>
             <span class="card-subtitle ml-2">
               |&nbsp;&nbsp;Requested On:{{
@@ -141,24 +141,67 @@
           <div class="d-flex flex-row bd-highlight">
             <div class="p-2 bd-highlight">
               <h5>
-                <strong>Release/ Production Movement Update&nbsp;</strong>
+                <strong>UAT Updates&nbsp;</strong>
               </h5>
               <form #effortForm="ngForm" (ngSubmit)="updateUAT()">
                 <div class="form-row mt-3">
                   <div class="form-group">
+                    <label for="startDate"><strong>Start Date</strong></label>
                     <input
                       class="form-control"
-                      placeholder="Select Release Date"
+                      placeholder="Select UAT Start Date"
                       #datepickerMDY="bsDatepicker"
-                      name="plannedDate"
+                      name="startDate"
                       bsDatepicker
                       [minDate]="minDate"
                       [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
-                      [(ngModel)]="model.releaseDate"
+                      [(ngModel)]="model.startDate"
                       required
                     />
                   </div>
                 </div>
+                <div class="form-row mt-3">
+                  <div class="form-group">
+                    <label for="endDate"><strong>End Date</strong></label>
+                    <input
+                      class="form-control"
+                      placeholder="Select UAT End Date"
+                      #datepickerMDY="bsDatepicker"
+                      name="endDate"
+                      bsDatepicker
+                      [minDate]="minDate"
+                      [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
+                      [(ngModel)]="model.endDate"
+                      required
+                    />
+                  </div>
+                </div>
+                <!--Attachment Row-->
+            <div class="form-row">
+              <p>
+                Please Upload the UAT Sign offs of the Requierment
+                <a href="../IBM - CBR_Template.doc" target="_blank"
+                  >(BRD Template)</a
+                >
+              </p>
+              <div class="col-6">
+                <label
+                  class="custom-file-label"
+                  name="attachment"
+                  for="attachment"
+                >
+                  <span *ngIf="!fileSelected">No Attachment</span>
+                  <span *ngIf="fileSelected">{{ fileSelected.name }}</span>
+                </label>
+                <input
+                  type="file"
+                  class="custom-file-input mt-3"
+                  (change)="onChange($event)"
+                  id="attachment"
+                  name="attchment"
+                />
+              </div>
+            </div>
 
                 <div class="form-row">
                   <div class="col">

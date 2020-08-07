@@ -1,0 +1,8 @@
+http://dotnetblogpost.com/2019/05/27/net-core-code-sample-for-aws-s3-service/
+
+https://docs.aws.amazon.com/AmazonS3/latest/dev/UploadObjSingleOpNET.html
+
+https://stackoverflow.com/questions/25814972/how-to-upload-a-file-to-amazon-s3-super-easy-using-c-sharp/25814973#25814973
+
+https://github.com/dotnetblogpost/.NetCoreAmazonS3ServiceHelper/tree/master/CSharpAwsS3ServiceManager
+

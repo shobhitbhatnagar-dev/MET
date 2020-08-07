@@ -4,13 +4,14 @@ using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using MET.API.Data;
-using MET.API.Dtos;
 using MET.API.Helpers;
 using MET.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace MET.API.Controllers
 {
@@ -48,52 +49,61 @@ namespace MET.API.Controllers
             return Ok(attachmentFromRepo);
         }
 
-
-        [HttpPost]
-        public IActionResult AddAttachment([FromForm] IFormFile fileRecived)
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<IActionResult> AddAttachment([FromForm] IFormFile fileRecived)
         {
-            var files = Request.Form.Files;
+            var file = Request.Form.Files[0];
 
-            foreach (var file in files)
+            // var uploadResult = new RawUploadResult();
+            try
             {
-                var uploadResult = new RawUploadResult();
-
                 if (file == null)
                 {
-                    return BadRequest("No File Provided");
+                    return BadRequest();
                 }
+                // Setting up File Directory
+                var folderName = Path.Combine("Resources", "Files");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                //Creating randomfilename
+                var guid = Guid.NewGuid().ToString();
+                var extention = Path.GetExtension(file.FileName);
+                var fileName = guid + extention;
+                var OrginalfileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+
+                //Final Path and URl to store in db
+                var fullPath = Path.Combine(pathToSave, fileName);
+                var dbPath = Path.Combine(folderName, fileName);
 
                 if (file.Length > 0)
                 {
-                    using (var stream = file.OpenReadStream())
+                    //Checking if this Directory Exsists
+                    if (!Directory.Exists(pathToSave))
                     {
-                        var uploadParams = new RawUploadParams()
-                        {
-                            File = new FileDescription(file.FileName, stream)
-                        };
-
-                        uploadResult = _cloudinary.Upload(uploadParams);
+                        Directory.CreateDirectory(pathToSave);
                     }
+
+                    //Creating File on Server and coping content
+                    using (FileStream filestream = System.IO.File.Create(fullPath))
+                    {
+                        await file.CopyToAsync(filestream);
+                        filestream.Flush();
+                    }
+
+                    //Prepring response
+                    var attachmentToCreate = new Attachment
+                    {
+                        Url = "http://localhost:5000/" + dbPath,
+                        PublicId = guid,
+                        Title = OrginalfileName
+                    };
+                    return Ok(attachmentToCreate);
                 }
-
-                var attachmentToCreate = new Attachment
-                {
-                    Url = uploadResult.Url.ToString(),
-                    PublicId = uploadResult.PublicId,
-                    Title = uploadResult.OriginalFilename,
-                };
-
-                //var addedAttachment = await _repo.AddAttachment(attachmentToCreate);
-
-                if (attachmentToCreate == null)
-                {
-                    return BadRequest("Could not upload the attachment");
-                }
-
-                // return CreatedAtRoute("GetAttachment", new {id = addedAttachment.Id}, addedAttachment);
-                return Ok(attachmentToCreate);
             }
-
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
             return BadRequest("Some Issue has occured");
         }
     }

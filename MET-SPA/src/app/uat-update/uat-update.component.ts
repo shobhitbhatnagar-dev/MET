@@ -38,4 +38,19 @@ export class UatUpdateComponent implements OnInit {
   updateUAT() {
     console.log(this.model);
   }
+
+  onChange(event) {
+    const toFile = event.target.files[0];
+    if (toFile) {
+      if (toFile.type === 'application/pdf')
+      {
+        this.alertify.error('PDF format is not acceptable');
+        this.fileSelected = null;
+      } else
+      {
+      this.fileSelected = toFile;
+      console.log(toFile);
+      }
+    }
+  }
 }
