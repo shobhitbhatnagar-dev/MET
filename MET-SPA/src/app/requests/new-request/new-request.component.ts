@@ -142,6 +142,7 @@ export class NewRequestComponent implements OnInit {
     const priotiy = event.target.value;
     if ( priotiy === 'High')
     {
+      this.model.justification = null;
       this.isJustification = true;
     }
     else

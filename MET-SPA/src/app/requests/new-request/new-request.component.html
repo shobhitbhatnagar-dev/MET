@@ -16,16 +16,18 @@
             [fullScreen]="true"
           >
           </ngx-spinner>
-          <form #newRequestForm="ngForm" (ngSubmit)="addRequest()">
+          <form #newRequestForm="ngForm" (ngSubmit)="newRequestForm.form.valid && addRequest()">
             <!--Project & Module Row-->
             <div class="form-row">
               <div class="col-md-6 mb-2">
-                <label for="project">Project</label>
+                <label for="projectId">Project</label>
                 <select
                   class="custom-select"
-                  name="project"
+                  name="projectId"
+                  #projectId="ngModel"
                   (change)="onChangeProject($event)"
                   [(ngModel)]="model.projectId"
+                  [ngClass]="{ 'is-invalid': newRequestForm.submitted && projectId.invalid }"
                   required
                 >
                   <option selected disabled value="">Select a Module</option>
@@ -33,21 +35,28 @@
                     p.projectName
                   }}</option>
                 </select>
+                <div *ngIf="newRequestForm.submitted && projectId.invalid" class="invalid-feedback">
+                  <div *ngIf="projectId.errors.required">Project is required</div>
+              </div>
               </div>
               <div class="col-md-6 mb-2">
-                <label for="module">Module</label>
+                <label for="moduleId">Module</label>
                 <select
                   class="custom-select"
-                  name="module"
-                  required
+                  name="moduleId"
+                  #moduleId="ngModel"
+                  [ngClass]="{ 'is-invalid': newRequestForm.submitted && moduleId.invalid }"
                   [(ngModel)]="model.moduleId"
-                  [disabled]="!moduleActive"
+                  required
                 >
                   <option selected disabled value="">Select a Module</option>
                   <option *ngFor="let m of modules" value="{{ m.id }}">{{
                     m.moduleName
                   }}</option>
                 </select>
+                <div *ngIf="newRequestForm.submitted && moduleId.invalid" class="invalid-feedback">
+                  <div *ngIf="moduleId.errors.required">Module is required</div>
+              </div>
               </div>
             </div>
 
@@ -59,25 +68,37 @@
                   name="title"
                   type="text"
                   class="form-control"
-                  required
+                  #title="ngModel"
+                  [ngClass]="{ 'is-invalid': newRequestForm.submitted && title.invalid }"
                   [(ngModel)]="model.title"
                   placeholder="Enter Request Title"
                   required
+                  minlength="10"
+                  maxlength="70"
                 />
+                <div *ngIf="newRequestForm.submitted && title.invalid" class="invalid-feedback">
+                  <div *ngIf="title.errors.required">Title is required</div>
+                  <div *ngIf="title.errors.minlength">Title should be alteast 10 characters</div>
+              </div>
               </div>
             </div>
 
             <!--Requiement Text Area Row-->
             <div class="form-row">
               <div class="col-md-12 mb-2">
-                <label for="requierment">Detailed Requeiments</label>
+                <label for="requierment">Detailed Requirements</label>
                 <textarea
                   class="form-control"
                   name="requierment"
                   rows="3"
-                  required
+                  #requierment="ngModel"
+                  [ngClass]="{ 'is-invalid': newRequestForm.submitted && requierment.invalid }"
                   [(ngModel)]="model.requierment"
+                  required
                 ></textarea>
+                <div *ngIf="newRequestForm.submitted && title.invalid" class="invalid-feedback">
+                  <div>Requirements is required</div>
+              </div>
               </div>
             </div>
 
@@ -89,14 +110,19 @@
                   class="custom-select"
                   (change)="onChangePriority($event)"
                   name="priority"
-                  required
+                  #priority="ngModel"
+                  [ngClass]="{ 'is-invalid': newRequestForm.submitted && priority.invalid }"
                   [(ngModel)]="model.priority"
+                  required
                 >
                   <option selected disabled value="">Select Priority</option>
                   <option value="High">High</option>
                   <option value="Medium">Medium</option>
                   <option value="Low">Low</option>
                 </select>
+                <div *ngIf="newRequestForm.submitted && title.invalid" class="invalid-feedback">
+                  <div>Select the Priority for this request</div>
+              </div>
               </div>
 
               <div [hidden]="!isJustification" class="col-md-6 mb-2">
@@ -105,8 +131,13 @@
                   type="text"
                   class="form-control"
                   name="justification"
+                  #justification="ngModel"
+                  [ngClass]="{ 'is-invalid': newRequestForm.submitted && justification.value== null && justification }"
                   [(ngModel)]="model.justification"
                 />
+                <div *ngIf="newRequestForm.submitted && justification.value== null && justification" class="invalid-feedback">
+                  <div>The Justification for this request</div>
+              </div>
               </div>
             </div>
 
@@ -139,7 +170,7 @@
               </div>
             </div>
             <button
-              [disabled]="!newRequestForm.valid || requestInProgress"
+              [disabled]="requestInProgress"
               class="btn btn-success"
               type="submit"
             >
@@ -153,3 +184,5 @@
     <div class="col-1"></div>
   </div>
 </div>
+
+<!--Refrence for Template Validation https://jasonwatmore.com/post/2019/06/15/angular-8-template-driven-forms-validation-example-->
