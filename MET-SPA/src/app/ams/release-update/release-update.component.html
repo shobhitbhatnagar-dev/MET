@@ -167,7 +167,7 @@
               <h5>
                 <strong>Release/ Production Movement Update&nbsp;</strong>
               </h5>
-              <form #effortForm="ngForm" (ngSubmit)="updateRelease()">
+              <form #releaseForm="ngForm" (ngSubmit)="releaseForm.form.valid && updateRelease()">
                 <div class="form-row mt-3">
                   <div class="form-group">
                     <input
@@ -179,8 +179,13 @@
                       [minDate]="minDate"
                       [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
                       [(ngModel)]="model.releaseDate"
+                      #plannedDate="ngModel"
+                      [ngClass]="{ 'is-invalid': releaseForm.submitted && plannedDate.invalid }"
                       required
                     />
+                    <div *ngIf="releaseForm.submitted && plannedDate.invalid" class="invalid-feedback">
+                      <div>Planned Release date is required</div>
+                  </div>
                   </div>
                 </div>
                 <div class="form-row">
@@ -218,11 +223,6 @@
                     </button>
                     <div class="btn-group" role="group">
                       <button
-                        [disabled]="
-                          !effortForm.valid ||
-                          !fileSelected ||
-                          requestInProgress
-                        "
                         class="btn btn-success mt-3 ml-2"
                         type="submit"
                       >

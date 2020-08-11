@@ -40,12 +40,10 @@ export class EffortApprovalComponent implements OnInit {
 
   updateApproval() {
     this.spinner.show();
-    this.requestInProgress = false;
     this.requestService.ClearAttachment();
     if (this.fileSelected == null) {
-      this.alertify.error('Approval is required to submit efforts');
+      this.alertify.error('Approval mail is required to approve efforts');
       this.spinner.hide();
-      this.requestInProgress = true;
     } else {
       const formData: FormData = new FormData();
       formData.append('fileRecived', this.fileSelected);
@@ -54,7 +52,6 @@ export class EffortApprovalComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
-          this.requestInProgress = true;
           this.alertify.error(error);
         },
         () => {
@@ -72,7 +69,6 @@ export class EffortApprovalComponent implements OnInit {
                 this.route.navigate(['requests/status/effort']);
               },
               (error) => {
-                this.requestInProgress = true;
                 this.alertify.error(error);
               }
             );
@@ -80,7 +76,6 @@ export class EffortApprovalComponent implements OnInit {
       );
     }
     this.requestService.ClearAttachment();
-    this.requestInProgress = true;
     setTimeout(() => {
       /** spinner ends after 4 seconds */
       this.spinner.hide();

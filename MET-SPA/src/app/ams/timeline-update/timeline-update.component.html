@@ -129,8 +129,13 @@
                       [minDate]="minDate"
                       [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
                       [(ngModel)]="model.plannedDate"
+                      #plannedDate="ngModel"
+                      [ngClass]="{ 'is-invalid': timelineForm.submitted && plannedDate.invalid }"
                       required
                     />
+                    <div *ngIf="timelineForm.submitted && plannedDate.invalid" class="invalid-feedback">
+                      <div *ngIf="plannedDate.errors.required">Planned Date is required</div>
+                  </div>
                   </div>
                 </div>
                 <div class="form-row">
@@ -143,7 +148,7 @@
                       Back
                     </button>
                     <div class="btn-group" role="group"  >
-                      <button class="btn btn-success mt-3 ml-2" [disabled]="!timelineForm.valid || requestInProgress" type="submit">
+                      <button class="btn btn-success mt-3 ml-2" [disabled]="requestInProgress" type="submit">
                         Update Timeline
                       </button>
                     </div>

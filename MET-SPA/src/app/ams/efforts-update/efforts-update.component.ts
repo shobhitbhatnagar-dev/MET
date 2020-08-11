@@ -38,12 +38,10 @@ export class EffortsUpdateComponent implements OnInit {
 
   updateEfforts() {
     this.spinner.show();
-    this.requestInProgress = false;
     this.requestService.ClearAttachment();
     if ((this.fileSelected == null)) {
-      this.alertify.error('WBS is required to submit efforts');
+      this.alertify.error('WBS file is mandatory to submit efforts');
       this.spinner.hide();
-      this.requestInProgress = true;
     } else {
       const formData: FormData = new FormData();
       formData.append('fileRecived', this.fileSelected);
@@ -52,7 +50,6 @@ export class EffortsUpdateComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
-          this.requestInProgress = true;
           this.alertify.error(error);
         },
         () => {
@@ -66,13 +63,11 @@ export class EffortsUpdateComponent implements OnInit {
               this.alertify.success('Efforts updated sucessfully');
               this.route.navigate(['requests/status/new']);
             }, (error) => {
-              this.requestInProgress = true;
               this.alertify.error(error);
             });
         });
     }
     this.requestService.ClearAttachment();
-    this.requestInProgress = true;
     setTimeout(() => {
       /** spinner ends after 4 seconds */
       this.spinner.hide();
@@ -82,13 +77,8 @@ export class EffortsUpdateComponent implements OnInit {
   onChange(event) {
     const toFile = event.target.files[0];
     if (toFile) {
-      if (toFile.type === 'application/pdf') {
-        this.alertify.error('PDF format is not acceptable');
-        this.fileSelected = null;
-      } else {
         this.fileSelected = toFile;
         console.log(toFile);
-      }
     }
   }
 }

@@ -14,7 +14,7 @@ export class UatUpdateComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
   fileSelected: any = null;
-  requestInProgress: boolean;
+
   minDate: Date;
   minstartDate: Date;
 
@@ -25,7 +25,7 @@ export class UatUpdateComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private route: Router
-  ) 
+  )
   {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -43,12 +43,10 @@ export class UatUpdateComponent implements OnInit {
   updateUAT() {
     console.log(this.model);
     this.spinner.show();
-    this.requestInProgress = false;
     this.requestService.ClearAttachment();
     if (this.fileSelected == null) {
-      this.alertify.error('WBS is required to submit efforts');
+      this.alertify.error('UAT Sign off Mails are required');
       this.spinner.hide();
-      this.requestInProgress = true;
     } else {
       const formData: FormData = new FormData();
       formData.append('fileRecived', this.fileSelected);
@@ -57,7 +55,6 @@ export class UatUpdateComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
-          this.requestInProgress = true;
           this.alertify.error(error);
         },
         () => {
@@ -73,7 +70,6 @@ export class UatUpdateComponent implements OnInit {
                 this.route.navigate(['requests/status/uat']);
               },
               (error) => {
-                this.requestInProgress = true;
                 this.alertify.error(error);
               }
             );
@@ -81,7 +77,6 @@ export class UatUpdateComponent implements OnInit {
       );
     }
     this.requestService.ClearAttachment();
-    this.requestInProgress = true;
     setTimeout(() => {
       /** spinner ends after 4 seconds */
       this.spinner.hide();

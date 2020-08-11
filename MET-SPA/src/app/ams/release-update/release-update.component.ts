@@ -37,12 +37,10 @@ export class ReleaseUpdateComponent implements OnInit {
 
   updateRelease() {
     this.spinner.show();
-    this.requestInProgress = false;
     this.requestService.ClearAttachment();
     if (this.fileSelected == null) {
-      this.alertify.error('WBS is required to submit efforts');
+      this.alertify.error('Release Note is required');
       this.spinner.hide();
-      this.requestInProgress = true;
     } else {
       const formData: FormData = new FormData();
       formData.append('fileRecived', this.fileSelected);
@@ -51,7 +49,6 @@ export class ReleaseUpdateComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
-          this.requestInProgress = true;
           this.alertify.error(error);
         },
         () => {

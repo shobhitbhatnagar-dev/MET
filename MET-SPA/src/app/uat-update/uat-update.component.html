@@ -143,7 +143,7 @@
               <h5>
                 <strong>UAT Updates&nbsp;</strong>
               </h5>
-              <form #effortForm="ngForm" (ngSubmit)="updateUAT()">
+              <form #uatForm="ngForm" (ngSubmit)="uatForm.form.valid && updateUAT()">
                 <div class="form-row mt-2">
                   <div class="col">
                   <div class="form-group">
@@ -157,8 +157,13 @@
                       [minDate]="minstartDate"
                       [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
                       [(ngModel)]="model.startDate"
+                      #startDate="ngModel"
+                      [ngClass]="{ 'is-invalid': uatForm.submitted && startDate.invalid }"
                       required
                     />
+                    <div *ngIf="uatForm.submitted && startDate.invalid" class="invalid-feedback">
+                      <div>Start date is required</div>
+                  </div>
                   </div>
                 </div>
                 <div class="col ml-3">
@@ -166,18 +171,23 @@
                     <label for="endDate"><strong>End Date</strong></label>
                     <input
                       class="form-control"
-                      placeholder="Select UAT End Date"
+                      placeholder="Select UAT Sign Off Date"
                       #datepickerMDY="bsDatepicker"
-                      name="endDate"
+                      name="signOffDate"
                       bsDatepicker
                       [minDate]="minDate"
                       [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
                       [(ngModel)]="model.signOffDate"
+                      #signOffDate="ngModel"
+                      [ngClass]="{ 'is-invalid': uatForm.submitted && signOffDate.invalid }"
                       required
                     />
+                    <div *ngIf="uatForm.submitted && signOffDate.invalid" class="invalid-feedback">
+                      <div>End date is required</div>
+                  </div>
+                  </div>
                   </div>
                 </div>
-              </div>
                 <!--Attachment Row-->
                 <div class="form-row">
                   <p>
@@ -213,11 +223,6 @@
                     </button>
                     <div class="btn-group" role="group">
                       <button
-                        [disabled]="
-                          !effortForm.valid ||
-                          !fileSelected ||
-                          requestInProgress
-                        "
                         class="btn btn-success mt-3 ml-2"
                         type="submit"
                       >

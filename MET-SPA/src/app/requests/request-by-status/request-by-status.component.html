@@ -96,6 +96,14 @@
               >
                 Add UAT Updates
               </button>
+              <button
+                *ngIf="request.status == 'complete'"
+                type="button"
+                [routerLink]="['/requests/', request.id]"
+                class="btn btn-info"
+              >
+                View Details
+              </button>
             </div>
           </div>
         </div>

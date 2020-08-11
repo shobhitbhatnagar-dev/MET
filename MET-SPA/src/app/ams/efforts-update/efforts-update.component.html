@@ -80,7 +80,7 @@
           <div class="d-flex flex-row bd-highlight">
             <div class="p-2 bd-highlight">
               <h5 mb-3><strong>Update Efforts&nbsp;</strong></h5>
-              <form #effortForm="ngForm" (ngSubmit)="updateEfforts()">
+              <form #effortForm="ngForm" (ngSubmit)="effortForm.form.valid && updateEfforts()">
                 <div class="form-row">
                   <div class="col-6 mb-3">
                     <label for="estimation">Total Effort Estimation</label>
@@ -90,8 +90,13 @@
                       class="form-control"
                       placeholder="Enter Total Efforts"
                       [(ngModel)]="model.estimation"
+                      #estimation="ngModel"
+                      [ngClass]="{ 'is-invalid': effortForm.submitted && estimation.invalid }"
                       required
                     />
+                    <div *ngIf="effortForm.submitted && estimation.invalid" class="invalid-feedback">
+                      <div *ngIf="estimation.errors.required">Total Estimation is required</div>
+                  </div>
                   </div>
                 </div>
 
@@ -117,7 +122,6 @@
                     />
                   </div>
                 </div>
-
                 <div class="form-row">
                   <div class="col">
                     <button
@@ -129,7 +133,6 @@
                     </button>
                     <div class="btn-group" role="group">
                       <button
-                          [disabled]="!effortForm.valid || !fileSelected || requestInProgress"
                         class="btn btn-success mt-3 ml-2"
                         type="submit"
                       >

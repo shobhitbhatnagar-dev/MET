@@ -100,7 +100,7 @@
           <div class="d-flex flex-row bd-highlight">
             <div class="p-2 bd-highlight">
               <h5 mb-3><strong>Update Approvals&nbsp;</strong></h5>
-              <form #effortForm="ngForm" (ngSubmit)="updateApproval()">
+              <form #approvalForm="ngForm" (ngSubmit)="approvalForm.form.valid && updateApproval()">
                 <div class="form-row">
                   <div class="col">
                     <label for="finalEfforts">Final Approved Estimation</label>
@@ -110,8 +110,13 @@
                       class="form-control"
                       placeholder="Enter Final Approved Efforts"
                       [(ngModel)]="model.finalEfforts"
+                      #finalEfforts="ngModel"
+                      [ngClass]="{ 'is-invalid': approvalForm.submitted && finalEfforts.invalid }"
                       required
                     />
+                    <div *ngIf="approvalForm.submitted && finalEfforts.invalid" class="invalid-feedback">
+                      <div *ngIf="finalEfforts.errors.required">Final Efforts are required</div>
+                  </div>
                   </div>
                   <div class="col-md-6 mb-2">
                     <label for="uat">Is UAT required for this Request</label>
@@ -119,20 +124,24 @@
                       class="custom-select"
                       name="project"
                       [(ngModel)]="model.uat"
+                      #uat="ngModel"
+                      [ngClass]="{ 'is-invalid': approvalForm.submitted && uat.invalid }"
                       required
                     >
                       <option selected disabled value=""
-                        >Select a Module</option
+                        >Select an Option</option
                       >
                       <option value=true>Yes</option>
                       <option value=false>No</option>
                     </select>
+                    <div *ngIf="approvalForm.submitted && uat.invalid" class="invalid-feedback">
+                      <div>Please confirm if UAT is required for this request</div>
+                  </div>
                   </div>
                 </div>
                 <div class="form-row">
                   <p>
-                    Please Upload the Work Break Down for this request with
-                    Total Estimated Efforts mentioned
+                    Please Upload the approval mails for this request
                   </p>
                   <div class="col-6">
                     <label
@@ -165,8 +174,6 @@
                       <button
                         class="btn btn-success mt-3 ml-2"
                         [disabled]="
-                          !effortForm.valid ||
-                          !fileSelected ||
                           requestInProgress
                         "
                         type="submit"
