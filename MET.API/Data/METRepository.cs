@@ -4,6 +4,7 @@ using MET.API.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MET.API.Dtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MET.API.Data
 {
@@ -142,6 +143,22 @@ namespace MET.API.Data
             .ToListAsync();
 
             return requests;
+        }
+
+        public async Task<int> GetRequestsCountbyStatus(string status)
+        {
+            if (status == "all")
+            {
+                var allrequests = await _context.Requests.ToListAsync();
+                int allrequestCount = allrequests.Count();
+                return allrequestCount;
+            }
+            else
+            {
+                var requests = await _context.Requests.Where(r => r.Status == status).ToListAsync();
+                int requestCount = requests.Count();
+                return requestCount;
+            }
         }
 
         public async Task<IEnumerable<Request>> GetRequestsbyUser(int id)

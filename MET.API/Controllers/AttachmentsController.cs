@@ -108,3 +108,5 @@ namespace MET.API.Controllers
         }
     }
 }
+
+// Refence for File Upload to server process : https://code-maze.com/upload-files-dot-net-core-angular/

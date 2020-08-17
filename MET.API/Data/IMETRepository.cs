@@ -18,6 +18,7 @@ namespace MET.API.Data
         Task<Module> GetModule(int id);
         Task<IEnumerable<Module>> GetModulesByProject(int projectId);
         Task<Request> GetRequest(int requestId);
+         Task<int> GetRequestsCountbyStatus(string status);
         Task<IEnumerable<Request>> GetRequests();
         Task<IEnumerable<Request>> GetRequestsbyUser(int id);
         Task<IEnumerable<Request>> GetRequestsbyStatus(string status);
