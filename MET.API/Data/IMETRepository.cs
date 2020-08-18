@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MET.API.Dtos;
+using MET.API.Helpers;
 using MET.API.Models;
 
 namespace MET.API.Data
@@ -19,9 +20,9 @@ namespace MET.API.Data
         Task<IEnumerable<Module>> GetModulesByProject(int projectId);
         Task<Request> GetRequest(int requestId);
          Task<int> GetRequestsCountbyStatus(string status);
-        Task<IEnumerable<Request>> GetRequests();
-        Task<IEnumerable<Request>> GetRequestsbyUser(int id);
-        Task<IEnumerable<Request>> GetRequestsbyStatus(string status);
+        Task<PagedList<Request>> GetRequests(RequestPrams requestPrams );
+        Task<PagedList<Request>> GetRequestsbyUser(int id, RequestPrams requestPrams);
+        Task<PagedList<Request>> GetRequestsbyStatus(string status, RequestPrams requestPrams);
         Task<Request> AddRequests(Request request);
         Task<Attachment> AddAttachment(Attachment attachment);
         Task<Effort> AddEfforts(Effort Effort);

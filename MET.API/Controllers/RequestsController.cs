@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MET.API.Data;
 using MET.API.Dtos;
+using MET.API.Helpers;
 using MET.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,31 +27,34 @@ namespace MET.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRequests()
+        public async Task<IActionResult> GetRequests([FromQuery]RequestPrams requestPram)
         {
-            var requests = await _repo.GetRequests();
+            var requests = await _repo.GetRequests(requestPram);
 
             var requestToReturn = _mapper.Map<IEnumerable<RequestforlistDto>>(requests);
-
+            Response.AddPagination(requests.CurrentPage, requests.PageSize, requests.TotalCount, requests.TotalPages);
+            
             return Ok(requestToReturn);
         }
 
         [HttpGet("bystatus/{status}")]
-        public async Task<IActionResult> GetRequestsbyStatus(string status)
+        public async Task<IActionResult> GetRequestsbyStatus(string status,[FromQuery] RequestPrams requestPrams)
         {
-            var requests = await _repo.GetRequestsbyStatus(status);
+            var requests = await _repo.GetRequestsbyStatus(status, requestPrams);
 
             var requestToReturn = _mapper.Map<IEnumerable<RequestforlistDto>>(requests);
+            Response.AddPagination(requests.CurrentPage, requests.PageSize, requests.TotalCount, requests.TotalPages);
 
             return Ok(requestToReturn);
         }
 
         [HttpGet("byuser/{id}")]
-        public async Task<IActionResult> GetRequestsbyUser(int id)
+        public async Task<IActionResult> GetRequestsbyUser(int id,[FromQuery] RequestPrams requestPrams)
         {
-            var requests = await _repo.GetRequestsbyUser(id);
+            var requests = await _repo.GetRequestsbyUser(id, requestPrams);
 
             var requestToReturn = _mapper.Map<IEnumerable<RequestforlistDto>>(requests);
+            Response.AddPagination(requests.CurrentPage, requests.PageSize, requests.TotalCount, requests.TotalPages);
 
             return Ok(requestToReturn);
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MET.API.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using MET.API.Helpers;
 
 namespace MET.API.Data
 {
@@ -59,9 +60,9 @@ namespace MET.API.Data
             return projects;
         }
 
-        public async Task<IEnumerable<Request>> GetRequests()
+        public async Task<PagedList<Request>> GetRequests(RequestPrams requestPrams)
         {
-            var requests = await _context.Requests
+            var requests = _context.Requests
             .Include(p => p.Project)
             .Include(m => m.Module)
             .Include(e => e.Effort)
@@ -70,10 +71,9 @@ namespace MET.API.Data
             .Include(ua => ua.UAT)
             .Include(r => r.Release)
             .Include(u => u.User)
-            .Include(a => a.Attachment)
-            .ToListAsync();
+            .Include(a => a.Attachment);
 
-            return requests;
+            return await PagedList<Request>.CreateAsync(requests, requestPrams.PageNumber, requestPrams.PageSize);
         }
 
         public async Task<Request> GetRequest(int requestId)
@@ -127,9 +127,9 @@ namespace MET.API.Data
             return attachment;
         }
 
-        public async Task<IEnumerable<Request>> GetRequestsbyStatus(string status)
+        public async Task<PagedList<Request>> GetRequestsbyStatus(string status, RequestPrams requestPrams)
         {
-            var requests = await _context.Requests
+            var requests = _context.Requests
             .Include(p => p.Project)
             .Include(m => m.Module)
             .Include(e => e.Effort)
@@ -139,10 +139,9 @@ namespace MET.API.Data
             .Include(ua => ua.UAT)
             .Include(u => u.User)
             .Include(a => a.Attachment)
-            .Where(r => r.Status == status)
-            .ToListAsync();
+            .Where(r => r.Status == status);
 
-            return requests;
+            return await PagedList<Request>.CreateAsync(requests, requestPrams.PageNumber, requestPrams.PageSize);
         }
 
         public async Task<int> GetRequestsCountbyStatus(string status)
@@ -161,9 +160,9 @@ namespace MET.API.Data
             }
         }
 
-        public async Task<IEnumerable<Request>> GetRequestsbyUser(int id)
+        public async Task<PagedList<Request>> GetRequestsbyUser(int id, RequestPrams requestPrams)
         {
-            var requests = await _context.Requests
+            var requests = _context.Requests
             .Include(p => p.Project)
             .Include(m => m.Module)
             .Include(e => e.Effort)
@@ -173,10 +172,9 @@ namespace MET.API.Data
             .Include(r => r.Release)
             .Include(u => u.User)
             .Include(a => a.Attachment)
-            .Where(u => u.User.Id == id)
-            .ToListAsync();
+            .Where(u => u.User.Id == id);
 
-            return requests;
+            return await PagedList<Request>.CreateAsync(requests, requestPrams.PageNumber, requestPrams.PageSize);
         }
 
         public async Task<Effort> AddEfforts(Effort Effort)
