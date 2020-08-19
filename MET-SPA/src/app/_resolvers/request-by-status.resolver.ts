@@ -10,11 +10,12 @@ import { catchError } from 'rxjs/operators';
 
 export class RequestByStatusResolver implements Resolve<Request[]> {
 constructor( private requestService: RequestService, private router: Router, private alertify: AlertifyService) {}
-
+pageNumber = 1;
+pageSize = 5;
 
  resolve(route: ActivatedRouteSnapshot): Observable<Request[]> {
      // tslint:disable-next-line: no-string-literal
-     return this.requestService.getRequestsbyStatus(route.params['status']).pipe(
+     return this.requestService.getRequestsbyStatus(route.params['status'], this.pageNumber, this.pageSize).pipe(
          catchError(error => {
              this.alertify.error('Problem retriving data');
              this.router.navigate(['/home']);

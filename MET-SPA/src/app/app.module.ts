@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -83,6 +84,7 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       BsDatepickerModule.forRoot(),
       AccordionModule.forRoot(),
+      PaginationModule.forRoot(),
       NgxSpinnerModule,
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({

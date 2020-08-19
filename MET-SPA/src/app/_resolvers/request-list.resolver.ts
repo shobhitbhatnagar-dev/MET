@@ -10,16 +10,17 @@ import { catchError } from 'rxjs/operators';
 
 export class RequestListResolver implements Resolve<Request[]> {
 constructor( private requestService: RequestService, private router: Router, private alertify: AlertifyService) {}
-
+pageNumber = 1;
+pageSize = 7;
 
  resolve(route: ActivatedRouteSnapshot): Observable<Request[]> {
      // tslint:disable-next-line: no-string-literal
-     return this.requestService.getRequests().pipe(
+     return this.requestService.getRequests(this.pageNumber, this.pageSize).pipe(
          catchError(error => {
              this.alertify.error('Problem retriving data');
              this.router.navigate(['/home']);
              return of(null);
          })
-     )
+     );
  }
 }

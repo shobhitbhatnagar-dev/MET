@@ -26,7 +26,7 @@ export class ListRequestComponent implements OnInit {
     this.spinner.show();
     this.route.data.subscribe((data) => {
       // tslint:disable-next-line: no-string-literal
-      this.requests = data['requests'];
+      this.requests = data['requests'].result;
     });
     setTimeout(() => {
       /** spinner ends after 0.5 seconds */

@@ -10,13 +10,15 @@
     >
     </ngx-spinner>
     <!-- Requests List-->
-    <div class="col-12">
-      <div class="col-1"></div>
-      <div *ngIf="!requests" class="col-12">
-        <h5>No Requests</h5>
+    <div class="col-12" >
+      <div class="col"></div>
+      <div class="col">
+        <div class="card-header bg-dark text-white">
+          List of Requests with Status: {{status | titlecase}}
+        </div>
+        <h3 *ngIf="requests.length == 0" class="mt-3" style="text-align: center;">No Requests available with Status - {{status|titlecase}}</h3>
       </div>
-      <div *ngIf="requests" class="col-12">
-        <h2>List of Requests</h2>
+      <div *ngIf="requests.length != 0" class="col">
         <div *ngFor="let request of requests" class="card mb-2">
           <div class="card-body">
             <div class="d-flex flex-row bd-highlight mb-3">
@@ -111,4 +113,20 @@
     </div>
     <div class="col"></div>
   </div>
+  <!--Pagination-->
+<div *ngIf="requests.length != 0" class="d-flex justify-content-center">
+  <pagination
+    [boundaryLinks]="true"
+    [totalItems]="pagination.totalItems"
+    [itemsPerPage]="pagination.itemsPerPage"
+    [(ngModel)]="pagination.currentPage"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
 </div>
+</div>
+

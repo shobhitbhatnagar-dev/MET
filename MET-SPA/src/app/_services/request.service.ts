@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Request } from '../_model/request';
 import { Effort } from '../_model/effort';
@@ -9,6 +9,7 @@ import { Timeline } from '../_model/timeline';
 import { Release } from '../_model/release';
 import { map } from 'rxjs/operators';
 import { Uat } from '../_model/uat';
+import { PaginatedResult } from '../_model/pagination';
 
 @Injectable({
   providedIn: 'root',
@@ -17,17 +18,52 @@ export class RequestService {
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
-  getRequests(): Observable<Request[]> {
-    return this.http.get<Request[]>(this.baseUrl + 'requests');
+  getRequests(page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
+
+    const paginatedResult: PaginatedResult<Request[]> = new PaginatedResult<Request[]>();
+
+    let params = new HttpParams();
+    if (page != null && itemsPerPage != null){
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http.get<Request[]>(this.baseUrl + 'requests', {observe: 'response', params})
+      .pipe(
+        map(response => {
+          paginatedResult.result = response.body;
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+          return paginatedResult;
+        })
+      );
   }
 
   getRequestsbyUser(id): Observable<Request[]> {
     return this.http.get<Request[]>(this.baseUrl + 'requests/byuser/' + id);
   }
 
-  getRequestsbyStatus(status): Observable<Request[]> {
+  getRequestsbyStatus(status, page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
+    const paginatedResult: PaginatedResult<Request[]> = new PaginatedResult<Request[]>();
+
+    let params = new HttpParams();
+    if (page != null && itemsPerPage != null){
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
     return this.http.get<Request[]>(
-      this.baseUrl + 'requests/bystatus/' + status
+      this.baseUrl + 'requests/bystatus/' + status, {observe: 'response', params})
+      .pipe(
+       map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') != null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'))
+        }
+        console.log(paginatedResult);
+        return paginatedResult;
+      })
     );
   }
 
