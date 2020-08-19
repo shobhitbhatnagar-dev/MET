@@ -46,6 +46,7 @@ import { AdminGuard } from './_guards/admin.guard';
 import { DevGuard } from './_guards/dev.guard';
 import { UatGuard } from './_guards/uat.guard';
 import { ItGuard } from './_guards/it.guard';
+import { ListRequestByuserComponent } from './requests/list-request-byuser/list-request-byuser.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -70,6 +71,7 @@ export function tokenGetter() {
       NewRequestComponent,
       AboutComponent,
       RequestByStatusComponent,
+      ListRequestByuserComponent,
       ListProjectComponent,
       AddProjectComponent,
       AddModuleComponent,

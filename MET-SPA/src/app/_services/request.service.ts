@@ -3,7 +3,6 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Request } from '../_model/request';
-import { Effort } from '../_model/effort';
 import { Approval } from '../_model/approval';
 import { Timeline } from '../_model/timeline';
 import { Release } from '../_model/release';
@@ -40,8 +39,24 @@ export class RequestService {
       );
   }
 
-  getRequestsbyUser(id): Observable<Request[]> {
-    return this.http.get<Request[]>(this.baseUrl + 'requests/byuser/' + id);
+  getRequestsbyUser(id, page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
+    const paginatedResult: PaginatedResult<Request[]> = new PaginatedResult<Request[]>();
+
+    let params = new HttpParams();
+    if (page != null && itemsPerPage != null){
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+    return this.http.get<Request[]>(this.baseUrl + 'requests/byuser/' + id, {observe: 'response', params})
+    .pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') != null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
   }
 
   getRequestsbyStatus(status, page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
@@ -59,7 +74,7 @@ export class RequestService {
        map(response => {
         paginatedResult.result = response.body;
         if (response.headers.get('Pagination') != null) {
-          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'))
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
         }
         console.log(paginatedResult);
         return paginatedResult;

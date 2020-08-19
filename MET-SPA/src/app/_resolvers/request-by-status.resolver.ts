@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 export class RequestByStatusResolver implements Resolve<Request[]> {
 constructor( private requestService: RequestService, private router: Router, private alertify: AlertifyService) {}
 pageNumber = 1;
-pageSize = 5;
+pageSize = 10;
 
  resolve(route: ActivatedRouteSnapshot): Observable<Request[]> {
      // tslint:disable-next-line: no-string-literal

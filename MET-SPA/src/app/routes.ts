@@ -26,6 +26,7 @@ import { AddModuleComponent } from './admin/add-module/add-module.component';
 import { UserListResolver } from './_resolvers/user-list.resolver';
 import { UatGuard } from './_guards/uat.guard';
 import { UatUpdateComponent } from './uat-update/uat-update.component';
+import { ListRequestByuserComponent } from './requests/list-request-byuser/list-request-byuser.component';
 
 
 export const appRoutes: Routes = [
@@ -40,7 +41,7 @@ export const appRoutes: Routes = [
             {path: 'requests/:id', component: RequestDetailsComponent, resolve: {request: RequestDetailsResolver}},
             {path: 'requests', component: ListRequestComponent , resolve: {requests: RequestListResolver}},
             {path: 'requests/status/:status', component: RequestByStatusComponent, resolve: {requests: RequestByStatusResolver}},
-            {path: 'requests/user/:id', component: ListRequestComponent, resolve: {requests: RequestByUserResolver}},
+            {path: 'requests/user/:id', component: ListRequestByuserComponent, resolve: {requests: RequestByUserResolver}},
         ]
     },
     {
