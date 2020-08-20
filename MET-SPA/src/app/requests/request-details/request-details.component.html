@@ -9,7 +9,10 @@
       [fullScreen]="true"
     >
     </ngx-spinner>
-    <div class="col-12">
+    <div class="col-12" *ngIf="!requestbyid">
+      <h2 *ngIf="!requestbyid">No Request Details Available</h2>
+    </div>
+    <div class="col-12" *ngIf="requestbyid">
       <h2>Request ID :&nbsp;{{ requestbyid.id }}</h2>
       <div class="card">
         <div class="card-body">

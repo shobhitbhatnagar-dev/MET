@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using MET.API.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using MET.API.Dtos;
-using Microsoft.AspNetCore.Mvc;
 using MET.API.Helpers;
 
 namespace MET.API.Data
@@ -71,7 +69,13 @@ namespace MET.API.Data
             .Include(ua => ua.UAT)
             .Include(r => r.Release)
             .Include(u => u.User)
-            .Include(a => a.Attachment);
+            .Include(a => a.Attachment).AsQueryable();
+
+            if(requestPrams.ProjectId != 0)
+            { 
+                requests = requests.Where(r => r.Project.Id == requestPrams.ProjectId);
+            }
+            
 
             return await PagedList<Request>.CreateAsync(requests, requestPrams.PageNumber, requestPrams.PageSize);
         }
@@ -138,8 +142,14 @@ namespace MET.API.Data
             .Include(r => r.Release)
             .Include(ua => ua.UAT)
             .Include(u => u.User)
-            .Include(a => a.Attachment)
-            .Where(r => r.Status == status);
+            .Include(a => a.Attachment).AsQueryable();
+
+            requests = requests.Where(r => r.Status == status);
+
+            if(requestPrams.ProjectId != 0)
+            { 
+                requests = requests.Where(r => r.Project.Id == requestPrams.ProjectId) ;
+            }
 
             return await PagedList<Request>.CreateAsync(requests, requestPrams.PageNumber, requestPrams.PageSize);
         }
@@ -171,8 +181,14 @@ namespace MET.API.Data
             .Include(ua => ua.UAT)
             .Include(r => r.Release)
             .Include(u => u.User)
-            .Include(a => a.Attachment)
-            .Where(u => u.User.Id == id);
+            .Include(a => a.Attachment).AsQueryable();
+            
+            requests = requests.Where(u => u.User.Id == id);
+
+            if(requestPrams.ProjectId != 0)
+            { 
+                requests = requests.Where(r => r.Project.Id == requestPrams.ProjectId) ;
+            }
 
             return await PagedList<Request>.CreateAsync(requests, requestPrams.PageNumber, requestPrams.PageSize);
         }

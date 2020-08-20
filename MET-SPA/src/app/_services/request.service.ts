@@ -17,12 +17,13 @@ export class RequestService {
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
-  getRequests(page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
+  getRequests(projectId, page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
 
     const paginatedResult: PaginatedResult<Request[]> = new PaginatedResult<Request[]>();
 
     let params = new HttpParams();
     if (page != null && itemsPerPage != null){
+      params = params.append('projectId', projectId);
       params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
     }
@@ -39,11 +40,12 @@ export class RequestService {
       );
   }
 
-  getRequestsbyUser(id, page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
+  getRequestsbyUser(id, projectId, page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
     const paginatedResult: PaginatedResult<Request[]> = new PaginatedResult<Request[]>();
 
     let params = new HttpParams();
     if (page != null && itemsPerPage != null){
+      params = params.append('projectId', projectId);
       params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
     }
@@ -59,11 +61,12 @@ export class RequestService {
     );
   }
 
-  getRequestsbyStatus(status, page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
+  getRequestsbyStatus(status, projectId, page?, itemsPerPage?): Observable<PaginatedResult<Request[]>> {
     const paginatedResult: PaginatedResult<Request[]> = new PaginatedResult<Request[]>();
 
     let params = new HttpParams();
     if (page != null && itemsPerPage != null){
+      params = params.append('projectId', projectId);
       params = params.append('pageNumber', page);
       params = params.append('pageSize', itemsPerPage);
     }
@@ -76,7 +79,6 @@ export class RequestService {
         if (response.headers.get('Pagination') != null) {
           paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
         }
-        console.log(paginatedResult);
         return paginatedResult;
       })
     );
@@ -95,7 +97,6 @@ export class RequestService {
   }
 
   UpdateApproval(id: number, approval: Approval) {
-    console.log('Service' + this.baseUrl + 'requests/approval/' + id, approval);
     return this.http.put(this.baseUrl + 'requests/approval/' + id, approval);
   }
 

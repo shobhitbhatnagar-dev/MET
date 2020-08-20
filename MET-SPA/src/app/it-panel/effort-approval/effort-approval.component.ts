@@ -16,6 +16,8 @@ export class EffortApprovalComponent implements OnInit {
   model: any = {};
   fileSelected: any = null;
   requestInProgress: boolean;
+  projectId: any;
+  requestProjectId: any = 0;
 
   constructor(
     private requestService: RequestService,
@@ -32,10 +34,33 @@ export class EffortApprovalComponent implements OnInit {
       // tslint:disable-next-line: no-string-literal
       this.requestbyid = data['request'];
     });
+
+    if (this.requestbyid == null) {
+      this.alertify.error('Request Does Not Exsist');
+      this.route.navigate(['/requests/status/effort']);
+    } else {
+      this.requestProjectId = +this.requestbyid.project.id;
+      this.projectId = +this.auth.getProjectAccess();
+      console.log(this.projectId + '=' + this.requestProjectId);
+      if (this.projectId !== this.requestProjectId && this.projectId !== 0) {
+        this.alertify.error(
+          'You do not have access to requests of this project'
+        );
+        this.route.navigate(['/requests/status/effort']);
+      } else {
+        if (this.requestbyid.status !== 'effort') {
+          this.alertify.error(
+            'The selected request is not in Effort Approval phase'
+          );
+          this.route.navigate(['/requests/status/effort']);
+        }
+      }
+    }
+
     setTimeout(() => {
-      /** spinner ends after 0.2 seconds */
+      /** spinner ends after 0.5 seconds */
       this.spinner.hide();
-    }, 200);
+    }, 500);
   }
 
   updateApproval() {

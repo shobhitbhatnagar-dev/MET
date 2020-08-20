@@ -14,6 +14,8 @@ export class AuthService {
  userRole: string;
  userId: any;
  userName: any;
+ projectAccess: any;
+ projectId: any = 0;
 
 constructor(private http: HttpClient) { }
 
@@ -54,6 +56,19 @@ getUserId() {
 getUsername() {
   this.userName = this.decodedToken.unique_name;
   return this.userName;
+ }
+
+getProjectAccess() {
+  this.projectAccess = this.decodedToken.groupsid;
+  if (this.projectAccess === 'all')
+  {
+    this.projectId = 0;
+  }
+  else
+  {
+    this.projectId = this.projectAccess;
+  }
+  return this.projectId;
  }
 
 }

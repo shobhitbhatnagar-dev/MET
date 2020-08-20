@@ -14,9 +14,9 @@
       <div class="col"></div>
       <div class="col">
         <div class="card-header bg-dark text-white">
-          List of Requests with Status: {{status | titlecase}}
+          List of Requests
         </div>
-        <h3 *ngIf="requests.length == 0" class="mt-3" style="text-align: center;">No Requests available with Status - {{status|titlecase}}</h3>
+        <h3 *ngIf="requests.length == 0" class="mt-3" style="text-align: center;">No Requests available with selected Status</h3>
       </div>
       <div *ngIf="requests.length != 0" class="col">
         <div *ngFor="let request of requests" class="card mb-2">

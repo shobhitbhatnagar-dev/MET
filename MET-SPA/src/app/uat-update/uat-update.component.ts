@@ -4,6 +4,7 @@ import { RequestService } from '../_services/request.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-uat-update',
@@ -14,7 +15,8 @@ export class UatUpdateComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
   fileSelected: any = null;
-
+  projectId: any;
+  requestProjectId: any = 0;
   minDate: Date;
   minstartDate: Date;
 
@@ -24,7 +26,8 @@ export class UatUpdateComponent implements OnInit {
     private Activeroute: ActivatedRoute,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private route: Router
+    private route: Router,
+    private auth: AuthService
   )
   {
     this.minDate = new Date();
@@ -34,10 +37,39 @@ export class UatUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
+
     this.Activeroute.data.subscribe((data) => {
       // tslint:disable-next-line: no-string-literal
       this.requestbyid = data['request'];
     });
+
+    if (this.requestbyid == null) {
+      this.alertify.error('Request Does Not Exsist');
+      this.route.navigate(['/requests/status/uat']);
+    } else {
+      this.requestProjectId = +this.requestbyid.project.id;
+      this.projectId = +this.auth.getProjectAccess();
+      console.log(this.projectId + '=' + this.requestProjectId);
+      if (this.projectId !== this.requestProjectId && this.projectId !== 0) {
+        this.alertify.error(
+          'You do not have access to requests of this project'
+        );
+        this.route.navigate(['/requests/status/uat']);
+      } else {
+        if (this.requestbyid.status !== 'uat') {
+          this.alertify.error(
+            'The selected request is not in UAT phase'
+          );
+          this.route.navigate(['/requests/status/uat']);
+        }
+      }
+    }
+
+    setTimeout(() => {
+      /** spinner ends after 0.5 seconds */
+      this.spinner.hide();
+    }, 500);
   }
 
   updateUAT() {
@@ -66,7 +98,7 @@ export class UatUpdateComponent implements OnInit {
             .UpdateUat(this.requestbyid.id, this.model)
             .subscribe(
               (next) => {
-                this.alertify.success('Efforts updated sucessfully');
+                this.alertify.success('UAT Details updated sucessfully');
                 this.route.navigate(['requests/status/uat']);
               },
               (error) => {
