@@ -27,6 +27,7 @@ import { UserListResolver } from './_resolvers/user-list.resolver';
 import { UatGuard } from './_guards/uat.guard';
 import { UatUpdateComponent } from './uat-update/uat-update.component';
 import { ListRequestByuserComponent } from './requests/list-request-byuser/list-request-byuser.component';
+import { MonthlyDashboardComponent } from './it-panel/monthly-dashboard/monthly-dashboard.component';
 
 
 export const appRoutes: Routes = [
@@ -73,6 +74,7 @@ export const appRoutes: Routes = [
         children: [
             {path: 'approvals/:id', component: EffortApprovalComponent, resolve: {request: RequestDetailsResolver}},
             {path: 'itdashboard', component: ItDashboarddComponent},
+            {path: 'monthlydashboard', component: MonthlyDashboardComponent},
         ]
     },
     {

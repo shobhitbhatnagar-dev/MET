@@ -283,34 +283,5 @@ namespace MET.API.Controllers
 
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
-
-        [HttpGet("analytics")]
-        public async Task<IActionResult> ITDashboard()
-        {
-            var allrequestsCount = await _repo.GetRequestsCountbyStatus("all");
-
-            var pendingEffortCount = await _repo.GetRequestsCountbyStatus("new");
-
-            var pendingApprovalCount = await _repo.GetRequestsCountbyStatus("effort");
-
-            var pendingTimelinesCount = await _repo.GetRequestsCountbyStatus("approval");
-
-            var pendingUATCount = await _repo.GetRequestsCountbyStatus("uat");
-
-            var pendingReleaseCount = await _repo.GetRequestsCountbyStatus("release");
-
-            var completedCount = await _repo.GetRequestsCountbyStatus("complete");
-
-            var itdashboard = new ITDashboadDto{
-                RequestsCount = allrequestsCount,
-                PendingEffortCount = pendingEffortCount,
-                PendingApprovalCount = pendingApprovalCount,
-                PendingTimelinesCount = pendingTimelinesCount,
-                PendingReleaseCount = pendingReleaseCount,
-                CompletedCount = completedCount
-            };
-
-            return Ok(itdashboard);
-        }
     }
 }

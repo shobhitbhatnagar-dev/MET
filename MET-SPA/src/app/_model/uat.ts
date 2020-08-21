@@ -1,4 +1,4 @@
-export class Uat {
+export interface Uat {
  id: number;
  startDate: Date;
  signOffDate: Date;

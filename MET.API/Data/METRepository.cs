@@ -154,22 +154,6 @@ namespace MET.API.Data
             return await PagedList<Request>.CreateAsync(requests, requestPrams.PageNumber, requestPrams.PageSize);
         }
 
-        public async Task<int> GetRequestsCountbyStatus(string status)
-        {
-            if (status == "all")
-            {
-                var allrequests = await _context.Requests.ToListAsync();
-                int allrequestCount = allrequests.Count();
-                return allrequestCount;
-            }
-            else
-            {
-                var requests = await _context.Requests.Where(r => r.Status == status).ToListAsync();
-                int requestCount = requests.Count();
-                return requestCount;
-            }
-        }
-
         public async Task<PagedList<Request>> GetRequestsbyUser(int id, RequestPrams requestPrams)
         {
             var requests = _context.Requests

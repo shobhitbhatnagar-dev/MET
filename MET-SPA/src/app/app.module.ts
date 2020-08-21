@@ -47,6 +47,8 @@ import { DevGuard } from './_guards/dev.guard';
 import { UatGuard } from './_guards/uat.guard';
 import { ItGuard } from './_guards/it.guard';
 import { ListRequestByuserComponent } from './requests/list-request-byuser/list-request-byuser.component';
+import { AnalyticsService } from './_services/analytics.service';
+import { MonthlyDashboardComponent } from './it-panel/monthly-dashboard/monthly-dashboard.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -76,6 +78,7 @@ export function tokenGetter() {
       AddProjectComponent,
       AddModuleComponent,
       UatUpdateComponent,
+      MonthlyDashboardComponent
    ],
 
    imports: [
@@ -113,7 +116,8 @@ export function tokenGetter() {
       RequestService,
       RequestByUserResolver,
       RequestByStatusResolver,
-      UserListResolver
+      UserListResolver,
+      AnalyticsService
    ],
    bootstrap: [
       AppComponent

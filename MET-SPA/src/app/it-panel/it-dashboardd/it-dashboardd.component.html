@@ -1,3 +1,179 @@
-<p>
-  it-dashboardd works!
-</p>
+<div class="container mt-3">
+  <ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-newton-cradle"
+    [fullScreen]="true"
+  >
+  </ngx-spinner>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          IT Dashboard Overall Requests
+        </div>
+        <div class="card-body text-dark">
+          <!--Card Body Starts-->
+          <div class="row">
+            <div class="col">
+              <!--Status Wise Request Count-->
+              <div class="card">
+                <div class="card-header bg-dark text-white">
+                  Status Wise Request Count
+                </div>
+                <div class="card-body text-dark">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Status</th>
+                        <th scope="col">Request Count</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr>
+                          <td>Total Requests:</td>
+                          <td>{{ requestCount?.requestsCount }}</td>
+                        </tr>
+                        <tr>
+                          <td>Requests Pending for Efforts:</td>
+                          <td>{{ requestCount?.pendingEffortCount }}</td>
+                        </tr>
+                        <tr>
+                          <td>Requests Pending for Approval:</td>
+                          <td>{{ requestCount?.pendingApprovalCount }}</td>
+                        </tr>
+                        <tr>
+                          <td>Requests Pending for Timelines:</td>
+                          <td>{{ requestCount?.pendingTimelinesCount }}</td>
+                        </tr>
+                        <tr>
+                          <td>Requests Pending for UAT:</td>
+                          <td>{{ requestCount?.pendingUATCount }}</td>
+                        </tr>
+                        <tr>
+                          <td>Requests Pending for Release Updates:</td>
+                          <td>{{ requestCount?.pendingReleaseCount }}</td>
+                        </tr>
+                        <tr>
+                          <td>Requests Completed:</td>
+                          <td>{{ requestCount?.completedCount }}</td>
+                        </tr>
+                        </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <!--Project Wise Request Count-->
+              <div class="card">
+                <div class="card-header bg-dark text-white">
+                  Project Wise Request Count
+                </div>
+                <div class="card-body text-dark">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Project Name</th>
+                        <th scope="col">Request Count</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let p of projectWiseRequestCount">
+                          <td>{{p.projectName}}</td>
+                          <td>{{p.requestCount}}</td>
+                        </tr>
+                        </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col">
+              <!--Module Wise Request Count-->
+              <div class="card">
+                <div class="card-header bg-dark text-white">
+                  Module Wise Request Count
+                </div>
+                <div class="card-body text-dark">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Module Name</th>
+                        <th scope="col">Request Count</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let m of moduleWiseRequestCount">
+                          <td>{{m.moduleName}}</td>
+                          <td>{{m.requestCount}}</td>
+                        </tr>
+                        </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!--Department Wise Request Count-->
+            <div class="col">
+              <div class="card">
+                <div class="card-header bg-dark text-white">
+                  Department Wise Request Count
+                </div>
+                <div class="card-body text-dark">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Department</th>
+                        <th scope="col">Request Count</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let d of departmentWiseRequestCount">
+                          <td>{{d.department}}</td>
+                          <td>{{d.requestCount}}</td>
+                        </tr>
+                        </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col">
+              <!--User Wise Request Count-->
+              <div class="card">
+                <div class="card-header bg-dark text-white">
+                  User Wise Request Count
+                </div>
+                <div class="card-body text-dark">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Request Count</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let u of userWiseRequestCount">
+                          <td>{{u.userName}}</td>
+                          <td>{{u.requestCount}}</td>
+                        </tr>
+                        </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!--Blank Col adjacent to User wise request count-->
+            <div class="col"></div>
+          </div>
+        </div>
+      </div>
+      <!--Card Body Ends-->
+    </div>
+  </div>
+</div>
+
+<!--Refrence for Template Validation https://jasonwatmore.com/post/2019/06/15/angular-8-template-driven-forms-validation-example-->
