@@ -54,6 +54,28 @@ namespace MET.API.Data
             return user;
         }
 
+         public async Task<User> ChangePassword(int UserId, string password)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+
+            if(user != null)
+            {
+                byte[] passwordHash, passwordSalt;
+                CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+
+                await _context.SaveChangesAsync();
+
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using(var hmac = new System.Security.Cryptography.HMACSHA512())

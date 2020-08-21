@@ -10,5 +10,6 @@ namespace MET.API.Data
          Task<bool> UserExists(string username, string email);
          Task<User> GetUser(int Id);
          Task<bool> UpdateLastActive(int Id);
+         Task<User> ChangePassword(int UserId, string password);
     }
 }

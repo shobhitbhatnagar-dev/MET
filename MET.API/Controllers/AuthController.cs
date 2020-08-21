@@ -55,6 +55,23 @@ namespace MET.API.Controllers
 
         }
 
+        [HttpPut("changepass/{id}")]
+
+        public async Task<ActionResult> ChanagePassword(int id, ChangePasswordDto changePasswordDto)
+        {
+            //  validate request
+
+            var changedUser = await _repo.ChangePassword(id, changePasswordDto.Password);
+
+             if ( changedUser == null)  
+            {
+                return BadRequest("User not Found");
+            }
+
+            return StatusCode(201);
+
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
@@ -63,8 +80,14 @@ namespace MET.API.Controllers
             if (userForRepo == null)
             {
                 //Shobhit's Easter Egg for first Time login to blank DB.
-                if (userForLoginDto.Username.ToLower() == "shobhit" && userForLoginDto.Password == "Showkey")
+                if (userForLoginDto.Username.ToLower() == "shobhit")
                 {
+                    if(await _repo.UserExists("shobhit", "er.shobhitbhatnagar@gmail.com"))
+                    {
+                        return Unauthorized();
+                    }
+                    else
+                    {
                     var userToCreate = new User
                     {
                         Username = "shobhit",
@@ -74,9 +97,9 @@ namespace MET.API.Controllers
                         Project = "all",
                         Status = 1
                     };
-
                     var createdUser = await _repo.Register(userToCreate, "Showkey" );
                     return StatusCode(201);
+                    }
                 }
                 else
                 {
