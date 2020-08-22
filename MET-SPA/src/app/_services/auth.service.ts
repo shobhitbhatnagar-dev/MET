@@ -36,6 +36,10 @@ register(model: any) {
  return this.http.post(this.baseUrl + 'register', model);
 }
 
+changePass(id: number, model: any) {
+  return this.http.put(this.baseUrl + 'changepass/' + id , model);
+ }
+
 loggedIn() {
   const token  = localStorage.getItem('token');
   return !this.jwtHelper.isTokenExpired(token);

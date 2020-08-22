@@ -28,6 +28,7 @@ import { UatGuard } from './_guards/uat.guard';
 import { UatUpdateComponent } from './uat-update/uat-update.component';
 import { ListRequestByuserComponent } from './requests/list-request-byuser/list-request-byuser.component';
 import { MonthlyDashboardComponent } from './it-panel/monthly-dashboard/monthly-dashboard.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 
 export const appRoutes: Routes = [
@@ -39,6 +40,7 @@ export const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             {path: 'newrequest', component: NewRequestComponent},
+            {path: 'changepass', component: ChangepasswordComponent},
             {path: 'requests/:id', component: RequestDetailsComponent, resolve: {request: RequestDetailsResolver}},
             {path: 'requests', component: ListRequestComponent , resolve: {requests: RequestListResolver}},
             {path: 'requests/status/:status', component: RequestByStatusComponent, resolve: {requests: RequestByStatusResolver}},

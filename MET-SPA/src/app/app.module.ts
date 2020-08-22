@@ -49,13 +49,14 @@ import { ItGuard } from './_guards/it.guard';
 import { ListRequestByuserComponent } from './requests/list-request-byuser/list-request-byuser.component';
 import { AnalyticsService } from './_services/analytics.service';
 import { MonthlyDashboardComponent } from './it-panel/monthly-dashboard/monthly-dashboard.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
 }
 
 @NgModule({
-   declarations: [
+   declarations: [	
       AppComponent,
       NavComponent,
       HomeComponent,
@@ -78,7 +79,8 @@ export function tokenGetter() {
       AddProjectComponent,
       AddModuleComponent,
       UatUpdateComponent,
-      MonthlyDashboardComponent
+      MonthlyDashboardComponent,
+      ChangepasswordComponent
    ],
 
    imports: [

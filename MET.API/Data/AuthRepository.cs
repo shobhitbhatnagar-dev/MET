@@ -53,7 +53,7 @@ namespace MET.API.Data
 
             return user;
         }
-
+        
          public async Task<User> ChangePassword(int UserId, string password)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
@@ -107,7 +107,6 @@ namespace MET.API.Data
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == Id);
             user.LastActive = DateTime.Now;
             return true;
-            
         }
 
     }

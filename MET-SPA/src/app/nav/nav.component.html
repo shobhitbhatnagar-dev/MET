@@ -138,7 +138,7 @@
       Welcome {{ authservices.decodedToken?.unique_name | titlecase }} | ({{authservices.decodedToken?.role | uppercase }})
     </a>
     <div class="dropdown-menu mt-3" *dropdownMenu>
-      <a class="dropdown-item" href="#"
+      <a class="dropdown-item" [routerLink]="['/changepass']" routerLinkActive="router-link-active" 
         ><i class="fa fa-user"></i> Change Password</a
       >
       <div class="dropdown-divider"></div>
