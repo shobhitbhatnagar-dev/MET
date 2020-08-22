@@ -5,6 +5,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Pagination, PaginatedResult } from 'src/app/_model/pagination';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-list-request',
@@ -21,7 +22,8 @@ export class ListRequestComponent implements OnInit {
     private requestService: RequestService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,8 @@ export class ListRequestComponent implements OnInit {
 
   loadRequests() {
     // tslint:disable-next-line: no-string-literal
-    this.requestService.getRequests(this.pagination.currentPage, this.pagination.itemsPerPage)
+    const projectId = this.auth.getProjectAccess();
+    this.requestService.getRequests(projectId, this.pagination.currentPage, this.pagination.itemsPerPage)
       .subscribe((res: PaginatedResult<Request[]>) => {
         this.requests = res.result;
         this.pagination = res.pagination;

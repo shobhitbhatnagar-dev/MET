@@ -48,8 +48,9 @@ export class ListRequestByuserComponent implements OnInit {
 
   loadRequests() {
     this.userId = this.auth.getUserId();
+    const projectId = this.auth.getProjectAccess();
     // tslint:disable-next-line: no-string-literal
-    this.requestService.getRequestsbyUser(this.userId, this.pagination.currentPage, this.pagination.itemsPerPage)
+    this.requestService.getRequestsbyUser(this.userId, projectId , this.pagination.currentPage, this.pagination.itemsPerPage)
       .subscribe((res: PaginatedResult<Request[]>) => {
         this.requests = res.result;
         this.pagination = res.pagination;

@@ -51,6 +51,7 @@ import { AnalyticsService } from './_services/analytics.service';
 import { MonthlyDashboardComponent } from './it-panel/monthly-dashboard/monthly-dashboard.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { ResetpasswordComponent } from './admin/resetpassword/resetpassword.component';
+import { SearchRequestComponent } from './it-panel/search-request/search-request.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -82,7 +83,8 @@ export function tokenGetter() {
       UatUpdateComponent,
       MonthlyDashboardComponent,
       ChangepasswordComponent,
-      ResetpasswordComponent
+      ResetpasswordComponent,
+      SearchRequestComponent
    ],
 
    imports: [

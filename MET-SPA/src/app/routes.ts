@@ -31,6 +31,7 @@ import { MonthlyDashboardComponent } from './it-panel/monthly-dashboard/monthly-
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { ResetpasswordComponent } from './admin/resetpassword/resetpassword.component';
 import { UserDetailsResolver } from './_resolvers/user-details.resolver';
+import { SearchRequestComponent } from './it-panel/search-request/search-request.component';
 
 
 export const appRoutes: Routes = [
@@ -80,6 +81,7 @@ export const appRoutes: Routes = [
             {path: 'approvals/:id', component: EffortApprovalComponent, resolve: {request: RequestDetailsResolver}},
             {path: 'itdashboard', component: ItDashboarddComponent},
             {path: 'monthlydashboard', component: MonthlyDashboardComponent},
+            {path: 'searchrequest', component: SearchRequestComponent},
         ]
     },
     {

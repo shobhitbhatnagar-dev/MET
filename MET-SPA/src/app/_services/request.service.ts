@@ -84,6 +84,10 @@ export class RequestService {
     );
   }
 
+  searchRequestsByStatus(status): Observable<Request[]> {
+    return this.http.get<Request[]>(this.baseUrl + 'requests/bystatus/' + status);
+  }
+
   getRequest(id): Observable<Request> {
     return this.http.get<Request>(this.baseUrl + 'requests/' + id);
   }

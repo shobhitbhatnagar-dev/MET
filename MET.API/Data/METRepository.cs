@@ -69,7 +69,7 @@ namespace MET.API.Data
             .Include(ua => ua.UAT)
             .Include(r => r.Release)
             .Include(u => u.User)
-            .Include(a => a.Attachment).AsQueryable();
+            .Include(a => a.Attachment).OrderByDescending(CreationDate => CreationDate).AsQueryable();
 
             if(requestPrams.ProjectId != 0)
             { 
@@ -142,7 +142,7 @@ namespace MET.API.Data
             .Include(r => r.Release)
             .Include(ua => ua.UAT)
             .Include(u => u.User)
-            .Include(a => a.Attachment).AsQueryable();
+            .Include(a => a.Attachment).OrderByDescending(CreationDate => CreationDate).AsQueryable();
 
             requests = requests.Where(r => r.Status == status);
 
@@ -165,7 +165,7 @@ namespace MET.API.Data
             .Include(ua => ua.UAT)
             .Include(r => r.Release)
             .Include(u => u.User)
-            .Include(a => a.Attachment).AsQueryable();
+            .Include(a => a.Attachment).OrderByDescending(CreationDate => CreationDate).AsQueryable();
             
             requests = requests.Where(u => u.User.Id == id);
 

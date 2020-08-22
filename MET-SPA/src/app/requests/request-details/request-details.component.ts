@@ -37,7 +37,6 @@ export class RequestDetailsComponent implements OnInit {
     } else {
       this.requestProjectId = + this.requestbyid.project.id;
       this.projectId = + this.auth.getProjectAccess();
-      console.log(this.projectId + '=' + this.requestProjectId);
       if (this.projectId !== this.requestProjectId && this.projectId !== 0 ) {
         this.alertify.error('You do not have access to request of this project');
         this.router.navigate(['/requests']);

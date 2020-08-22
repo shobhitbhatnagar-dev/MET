@@ -16,7 +16,7 @@ export class RequestByUserResolver implements Resolve<Request[]> {
     private auth: AuthService
   ) {}
   pageNumber = 1;
-  pageSize = 2;
+  pageSize = 10;
 
   resolve(route: ActivatedRouteSnapshot): Observable<Request[]> {
     const projectId = this.auth.getProjectAccess();

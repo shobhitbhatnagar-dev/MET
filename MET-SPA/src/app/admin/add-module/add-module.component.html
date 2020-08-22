@@ -27,7 +27,7 @@
                   [(ngModel)]="model.projectId"
                   required
                 >
-                  <option selected disabled value="">Select a Module</option>
+                  <option selected disabled value="">Select a Project</option>
                   <option *ngFor="let p of projects" value="{{ p.id }}">{{
                     p.projectName
                   }}</option>

@@ -118,6 +118,7 @@ export class NewRequestComponent implements OnInit {
     this.master.getModulesbyProject(event.target.value).subscribe(
       (modules: Module[]) => {
         this.modules = modules;
+        this.model.moduleId = this.modules[0].id;
       },
       (error) => {
         this.moduleActive = false;
