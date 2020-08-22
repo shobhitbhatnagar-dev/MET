@@ -47,7 +47,7 @@
                   [(ngModel)]="model.project"
                   required
                 >
-                  <option selected disabled value="">Select a Module</option>
+                  <option selected disabled value="">Select a Project</option>
                   <option value="all">All Projects</option>
                   <option *ngFor="let p of projects" value="{{ p.id }}">{{
                     p.projectName
@@ -81,10 +81,10 @@
                   required
                 >
                   <option selected disabled value=""
-                    >Select a Department</option
+                    >Select a Role</option
                   >
                   <option *ngFor="let r of role" value="{{ r.name }}">{{
-                    r.name
+                    r.name | uppercase
                   }}</option>
                 </select>
               </div>

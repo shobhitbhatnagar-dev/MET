@@ -29,6 +29,8 @@ import { UatUpdateComponent } from './uat-update/uat-update.component';
 import { ListRequestByuserComponent } from './requests/list-request-byuser/list-request-byuser.component';
 import { MonthlyDashboardComponent } from './it-panel/monthly-dashboard/monthly-dashboard.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { ResetpasswordComponent } from './admin/resetpassword/resetpassword.component';
+import { UserDetailsResolver } from './_resolvers/user-details.resolver';
 
 
 export const appRoutes: Routes = [
@@ -56,7 +58,8 @@ export const appRoutes: Routes = [
             {path: 'users', component: ListUserComponent, resolve: {users: UserListResolver}},
             {path: 'project', component: ListProjectComponent},
             {path: 'project/add', component: AddProjectComponent},
-            {path: 'module/add', component: AddModuleComponent}
+            {path: 'module/add', component: AddModuleComponent},
+            {path: 'resetpass/:id', component: ResetpasswordComponent},
         ]
     },
     {

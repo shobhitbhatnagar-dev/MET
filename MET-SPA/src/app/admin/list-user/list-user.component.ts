@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/_services/request.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/_model/user';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -17,6 +17,7 @@ export class ListUserComponent implements OnInit {
     private requestService: RequestService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
+    private router: Router,
     private spinner: NgxSpinnerService
   ) {}
 
@@ -30,5 +31,9 @@ export class ListUserComponent implements OnInit {
       /** spinner ends after 0.5 seconds */
       this.spinner.hide();
     }, 500);
+  }
+
+  resetPass(id: number) {
+    this.router.navigate(['resetpass/' + id]);
   }
 }
