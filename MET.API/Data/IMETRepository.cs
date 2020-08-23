@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MET.API.Dtos;
@@ -32,5 +33,7 @@ namespace MET.API.Data
         Task<Project> AddProject(Project Project);
         Task<Module> AddModule(Module Module);
         Task<Attachment> GetAttachment(int id);
+        Task<IEnumerable<Request>> GetRequestbyApprovalDate(DateTime StartDate, DateTime EndDate);
+        Task<IEnumerable<Request>> GetRequestbyCreatedDate(DateTime StartDate, DateTime EndDate);
     }
 }

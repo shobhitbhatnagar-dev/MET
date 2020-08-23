@@ -4,6 +4,7 @@ using MET.API.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MET.API.Helpers;
+using System;
 
 namespace MET.API.Data
 {
@@ -238,6 +239,28 @@ namespace MET.API.Data
             var attachment = await _context.Attachments.FirstOrDefaultAsync(a => a.Id == id);
 
             return attachment;
+        }
+
+         public async Task<IEnumerable<Request>> GetRequestbyApprovalDate(DateTime StartDate, DateTime EndDate)
+        {
+             var requests = _context.Requests.Include(u => u.User).Include(p => p.Project).Include(m => m.Module).Include(a => a.Approval).AsQueryable();
+
+            requests =  requests.Where(r => r.Approval.ApprovalDate > StartDate && r.Approval.ApprovalDate < EndDate);
+
+            var result = await requests.ToListAsync();
+
+            return result;
+        }
+
+        public async Task<IEnumerable<Request>> GetRequestbyCreatedDate(DateTime StartDate, DateTime EndDate)
+        {
+             var requests = _context.Requests.Include(u => u.User).Include(p => p.Project).Include(m => m.Module).AsQueryable();
+
+            requests =  requests.Where(r => r.CreationDate > StartDate && r.CreationDate < EndDate);
+
+            var result = await requests.ToListAsync();
+
+            return result;
         }
     }
 }

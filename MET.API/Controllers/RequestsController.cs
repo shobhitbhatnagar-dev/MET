@@ -283,5 +283,21 @@ namespace MET.API.Controllers
 
             throw new Exception($"Updating Efforts for Request - {id} failed on Save");
         }
+
+        [HttpGet("byapprovaldate")]
+        public async Task<IActionResult> GetRequestsbyApprovalDates([FromQuery]AnalyticsPramDto analyticsPramDto)
+        {
+           var requests = await _repo.GetRequestbyApprovalDate(analyticsPramDto.StartDate, analyticsPramDto.EndDate);
+
+           return Ok(requests);
+        }
+
+        [HttpGet("bycreateddate")]
+        public async Task<IActionResult> GetRequestsbyCreatedDates([FromQuery]AnalyticsPramDto analyticsPramDto)
+        {
+           var requests = await _repo.GetRequestbyCreatedDate(analyticsPramDto.StartDate, analyticsPramDto.EndDate);
+
+           return Ok(requests);
+        }
     }
 }

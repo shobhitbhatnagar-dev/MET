@@ -86,6 +86,4 @@ export class AnalyticsService {
       this.baseUrl + 'analytics/bydepartmentbydate', {params: params}
     );
   }
-
-  
 }

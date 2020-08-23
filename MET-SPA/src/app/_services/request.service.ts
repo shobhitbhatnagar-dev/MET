@@ -116,6 +116,34 @@ export class RequestService {
     return this.http.put(this.baseUrl + 'requests/uat/' + id, uat);
   }
 
+  getRequestByApprovalDate(startDate?, endDate?): Observable<Request[]> {
+
+    let params = new HttpParams();
+    if (startDate != null && endDate != null){
+      params = params.append('startDate', startDate);
+      params = params.append('endDate', endDate);
+    }
+
+    return this.http.get<Request[]>(
+      // tslint:disable-next-line: object-literal-shorthand
+      this.baseUrl + 'requests/byapprovaldate', {params: params}
+    );
+  }
+
+  getRequestByCreatedDate(startDate?, endDate?): Observable<Request[]> {
+
+    let params = new HttpParams();
+    if (startDate != null && endDate != null){
+      params = params.append('startDate', startDate);
+      params = params.append('endDate', endDate);
+    }
+
+    return this.http.get<Request[]>(
+      // tslint:disable-next-line: object-literal-shorthand
+      this.baseUrl + 'requests/bycreateddate', {params: params}
+    );
+  }
+
   UploadAttachment(fileRecived: FormData) {
     return this.http.post(this.baseUrl + 'attachments/', fileRecived).pipe(
       map((response: any) => {

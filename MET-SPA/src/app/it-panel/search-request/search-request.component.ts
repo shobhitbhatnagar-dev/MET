@@ -18,6 +18,8 @@ export class SearchRequestComponent implements OnInit {
   searchType: any;
   maxDate: Date;
   minstartDate: Date;
+  aStart: Date;
+  aEnd: Date;
   startDate: any;
   endDate: any;
   requests: Request[];
@@ -39,21 +41,27 @@ export class SearchRequestComponent implements OnInit {
     this.maxDate.setDate(this.maxDate.getDate());
     this.minstartDate = new Date();
     this.minstartDate.setDate(this.maxDate.getDate() - 30);
+    this.aEnd = new Date();
+    this.aEnd.setDate(this.maxDate.getDate());
+    this.aStart = new Date();
+    this.aStart.setDate(this.maxDate.getDate() - 30);
     this.projectId = this.auth.getProjectAccess();
   }
 
-  datefilter() {
+  createdDateFilter() {
     this.startDate = this.minstartDate.toISOString().slice(0, 16);
     this.endDate = this.maxDate.toISOString().slice(0, 16);
 
-    this.analytics
-      .getRequestCountsByDate(this.startDate, this.endDate)
+    this.requestService
+      .getRequestByCreatedDate(this.startDate, this.endDate)
       .subscribe(
-        (res: Requestcount) => {
-          // this.requestCount = res;
+        (res: Request[]) => {
+          this.requests = res;
+          this.showRequests = true;
         },
         (error) => {
           this.alertify.error(error);
+          this.showRequest = false;
         }
       );
   }
@@ -68,7 +76,7 @@ export class SearchRequestComponent implements OnInit {
     });
   }
 
-  statusfilter() {;
+  statusfilter() {
     this.requestService.searchRequestsByStatus(this.status).subscribe((requests: Request[]) => {
       this.requests = requests;
       this.showRequests = true;
@@ -76,6 +84,24 @@ export class SearchRequestComponent implements OnInit {
       this.showRequests = false;
       this.alertify.error(error);
     });
+  }
+
+  approvalDateFilter() {
+    this.startDate = this.aStart.toISOString().slice(0, 16);
+    this.endDate = this.aEnd.toISOString().slice(0, 16);
+
+    this.requestService
+      .getRequestByApprovalDate(this.startDate, this.endDate)
+      .subscribe(
+        (res: Request[]) => {
+          this.requests = res;
+          this.showRequests = true;
+        },
+        (error) => {
+          this.alertify.error(error);
+          this.showRequest = false;
+        }
+      );
   }
 
   onChangestatus(event): void {
