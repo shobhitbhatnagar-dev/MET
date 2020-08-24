@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MET.API.Migrations
@@ -12,6 +13,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     FinalEfforts = table.Column<int>(nullable: false),
                     Approver = table.Column<string>(nullable: true),
@@ -32,6 +39,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
@@ -47,6 +60,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     Estimation = table.Column<int>(nullable: false),
                     WbsUrl = table.Column<string>(nullable: true),
@@ -64,6 +83,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProjectName = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false)
@@ -78,6 +103,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     ReleaseDate = table.Column<DateTime>(nullable: false),
                     ReleaseNoteUrl = table.Column<string>(nullable: true),
@@ -95,6 +126,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     PlannedDate = table.Column<DateTime>(nullable: false),
                     UpdatedOn = table.Column<DateTime>(nullable: false)
@@ -109,6 +146,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     SignOffDate = table.Column<DateTime>(nullable: false),
@@ -124,6 +167,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     Username = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
@@ -146,6 +195,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true)
@@ -160,6 +215,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     ModuleName = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
@@ -181,6 +242,12 @@ namespace MET.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy",
+                        SqlServerValueGenerationStrategy
+                        .IdentityColumn)
+                        .Annotation("MySql:ValueGenerationStrategy",
+                        MySqlValueGenerationStrategy
+                        .IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(nullable: true),
                     ProjectId = table.Column<int>(nullable: true),

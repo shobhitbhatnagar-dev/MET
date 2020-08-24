@@ -1,0 +1,15 @@
+"ConnectionStrings": {
+    "DefaultConnection": "DataSource=MET.db"
+  },
+
+MY SQL- locl host
+"DefaultConnection": "Server=met.cuva1ywdysfc.ap-south-1.rds.amazonaws.com; Database=met Uid=appuser; Pwd=Shobhit26##"
+
+MY SQL- Aws
+"DefaultConnection": "Server=localhost; Database=met Uid=root; Pwd=Shobhit26@@"
+
+
+MS SQL - Aws
+
+"DefaultConnection": "Server=met1.cuva1ywdysfc.ap-south-1.rds.amazonaws.com; Database=met1; User ID=appuser; Password=Shobhit26##"
+

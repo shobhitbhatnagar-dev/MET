@@ -15,7 +15,9 @@ namespace MET.API.Dtos
         [EmailAddress]
         public string Email { get; set; }
         public string Department { get; set; }
+        [Required]
         public string Role { get; set; }
+        [Required]
         public string Project { get; set; }
 
     }

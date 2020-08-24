@@ -33,8 +33,6 @@ export class AddProjectComponent implements OnInit {
   }
 
   addProject() {
-
-    console.log(this.model);
     this.master.addProject(this.model).subscribe(
       () => {
         this.alertify.success('Project Added Sucessfully');

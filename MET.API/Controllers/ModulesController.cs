@@ -45,6 +45,14 @@ namespace MET.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddModuleDto module)
         {
+          if(await _repo.CheckModule(module.ModuleName))
+          {
+               return BadRequest("Module Name already exists");
+          }
+          if(!await _repo.CheckProjectId(module.projectId))
+          {
+               return BadRequest("Project Name is Mandatory");
+          }
           var projectofMoule = await _repo.GetProject(module.projectId);
           var moduleToCreate = new Module {
               Project = projectofMoule,

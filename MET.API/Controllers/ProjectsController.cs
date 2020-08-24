@@ -36,6 +36,12 @@ namespace MET.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddProjectDto project)
         {
+         
+         if(await _repo.CheckProject(project.ProjectName))
+         {
+             return BadRequest("Project Name already exists");
+         }
+
           var projectToCreate = new Project {
               ProjectName = project.ProjectName
           };

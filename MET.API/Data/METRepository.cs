@@ -52,6 +52,36 @@ namespace MET.API.Data
             return projects;
         }
 
+        public async Task<bool> CheckProject(string projectName)
+        {
+            if( await _context.Projects.AnyAsync(p => p.ProjectName == projectName))
+            {
+              return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> CheckProjectId(int projectId)
+        {
+            if( await _context.Projects.AnyAsync(p => p.Id == projectId))
+            {
+              return true;
+            }
+
+            return false;
+        }
+
+         public async Task<bool> CheckModule(string moduleName)
+        {
+            if( await _context.Modules.AnyAsync(m => m.ModuleName == moduleName))
+            {
+              return true;
+            }
+
+            return false;
+        }
+
         public async Task<IEnumerable<Project>> GetProjects()
         {
             var projects = await _context.Projects.ToListAsync();

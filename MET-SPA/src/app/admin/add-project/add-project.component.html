@@ -26,10 +26,12 @@
                 class="form-control"
                 name="projectName"
                 [(ngModel)]="model.projectName"
+                #projectId="ngModel"
+                required
               />
               </div>
             </div>
-            <button [disabled]="!newProjectForm.valid" class="btn btn-success mt-2" type="submit">Submit</button>
+            <button [disabled]="!projectId.valid" class="btn btn-success mt-2" type="submit">Submit</button>
           </form>
           <!--Card Body Ends-->
         </div>

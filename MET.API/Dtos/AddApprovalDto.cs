@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MET.API.Dtos
 {
     public class AddApprovalDto
     {
+        [Required]
         public int FinalEfforts { get; set; }
         public string Approver { get; set; }
         public int ApproverId { get; set; }

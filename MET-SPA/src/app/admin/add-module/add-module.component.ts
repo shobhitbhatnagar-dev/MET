@@ -40,7 +40,6 @@ export class AddModuleComponent implements OnInit {
 
   addModule() {
     this.spinner.show();
-    console.log(this.model);
     this.id = this.master.addModule(this.model).subscribe(
       () => {
         this.alertify.success('Module Added Sucessfully');

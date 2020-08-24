@@ -15,9 +15,12 @@ namespace MET.API.Data
         Task<IEnumerable<User>> GetUsers();
         Task<User> GetUser(int id);
         Task<IEnumerable<Project>> GetProjects();
+        Task<bool> CheckProject(string projectName);
+        Task<bool> CheckProjectId(int projectId);
         Task<Project> GetProject(int id);
         Task<IEnumerable<Module>> GetModules();
         Task<Module> GetModule(int id);
+        Task<bool> CheckModule(string moduleName);
         Task<IEnumerable<Module>> GetModulesByProject(int projectId);
         Task<Request> GetRequest(int requestId);
         Task<PagedList<Request>> GetRequests(RequestPrams requestPrams );
