@@ -16,7 +16,7 @@
           >
           </ngx-spinner>
           <!--Card Body Starts-->
-          <form #newProjectForm="ngForm" (ngSubmit)="addProject()">
+          <form #newProjectForm="ngForm" (ngSubmit)="newProjectForm.valid && addProject()">
             <!--Project Row-->
             <div class="form-row">
               <div class="col-md-6 mb-2">
@@ -27,11 +27,20 @@
                 name="projectName"
                 [(ngModel)]="model.projectName"
                 #projectId="ngModel"
+                [ngClass]="{ 'is-invalid': newProjectForm.submitted && projectId.invalid }"
                 required
               />
+              <div
+                  *ngIf="newProjectForm.submitted && projectId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="newProjectForm.submitted && projectId.invalid">
+                    Project is required
+                  </div>
+                </div>
               </div>
             </div>
-            <button [disabled]="!projectId.valid" class="btn btn-success mt-2" type="submit">Submit</button>
+            <button class="btn btn-success mt-2" type="submit">Submit</button>
           </form>
           <!--Card Body Ends-->
         </div>

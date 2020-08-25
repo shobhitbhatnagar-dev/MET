@@ -16,7 +16,7 @@
           [fullScreen]="true"
         >
         </ngx-spinner>
-          <form #newRequestForm="ngForm" (ngSubmit)="addModule()">
+          <form #newModuleForm="ngForm" (ngSubmit)="newModuleForm.valid && addModule()">
             <!--Project & Module Row-->
             <div class="form-row">
               <div class="col-md-6 mb-2">
@@ -25,6 +25,8 @@
                   class="custom-select"
                   name="project"
                   [(ngModel)]="model.projectId"
+                  #projectId="ngModel"
+                  [ngClass]="{ 'is-invalid': newModuleForm.submitted && projectId.invalid }"
                   required
                 >
                   <option selected disabled value="">Select a Project</option>
@@ -32,15 +34,35 @@
                     p.projectName
                   }}</option>
                 </select>
+                <div
+                  *ngIf="newModuleForm.submitted && projectId.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="newModuleForm.submitted && projectId.invalid">
+                    Project is required
+                  </div>
+                </div>
               </div>
+              
               <div class="col-md-6 mb-2">
                 <label for="module">Module</label>
                 <input
                   type="text"
                   class="form-control"
                   name="moduleName"
+                  #module="ngModel"
                   [(ngModel)]="model.moduleName"
+                  [ngClass]="{ 'is-invalid': newModuleForm.submitted && module.invalid }"
+                  required
                 />
+                <div
+                  *ngIf="newModuleForm.submitted && module.invalid"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="newModuleForm.submitted && module.invalid">
+                    Module Name is required
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-row mt-3">

@@ -8,7 +8,7 @@
         </div>
         <div class="card-body text-dark">
           <!--Card Body Starts-->
-          <form #newUserForm="ngForm" (ngSubmit)="addUser()">
+          <form #newUserForm="ngForm" (ngSubmit)="newUserForm.valid && addUser()">
             <div class="form-row">
               <div class="col-md-6 mb-2">
                 <label for="userName">UserName</label>
@@ -16,8 +16,19 @@
                   type="text"
                   class="form-control"
                   name="userName"
+                  #userName="ngModel"
                   [(ngModel)]="model.userName"
+                  [ngClass]="{ 'is-invalid': newUserForm.submitted && userName.invalid }"
+                  required
                 />
+                <div
+                *ngIf="newUserForm.submitted && userName.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="newUserForm.submitted && userName.invalid">
+                  User Name is required
+                </div>
+              </div>
               </div>
               <div class="col-md-6 mb-2">
                 <label for="emailId">Email Id</label>
@@ -25,8 +36,19 @@
                   type="email"
                   class="form-control"
                   name="emailId"
+                  #emailId="ngModel"
                   [(ngModel)]="model.email"
+                  [ngClass]="{ 'is-invalid': newUserForm.submitted && emailId.invalid }"
+                  required
                 />
+                <div
+                *ngIf="newUserForm.submitted && emailId.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="newUserForm.submitted && emailId.invalid">
+                  Email Id is required
+                </div>
+              </div>
               </div>
             </div>
             <div class="form-row">
@@ -36,15 +58,28 @@
                   type="password"
                   class="form-control"
                   name="password"
+                  #password="ngModel"
                   [(ngModel)]="model.password"
+                  [ngClass]="{ 'is-invalid': newUserForm.submitted && password.invalid }"
+                  required
                 />
+                <div
+                *ngIf="newUserForm.submitted && password.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="newUserForm.submitted && password.invalid">
+                  Password is required
+                </div>
+              </div>
               </div>
               <div class="col-md-6 mb-2">
                 <label for="project">Project</label>
                 <select
                   class="custom-select"
                   name="project"
+                  #project="ngModel"
                   [(ngModel)]="model.project"
+                  [ngClass]="{ 'is-invalid': newUserForm.submitted && project.invalid }"
                   required
                 >
                   <option selected disabled value="">Select a Project</option>
@@ -53,6 +88,14 @@
                     p.projectName
                   }}</option>
                 </select>
+                <div
+                *ngIf="newUserForm.submitted && project.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="newUserForm.submitted && project.invalid">
+                  Please select an option for Project
+                </div>
+              </div>
               </div>
             </div>
             <div class="form-row">
@@ -61,7 +104,9 @@
                 <select
                   class="custom-select"
                   name="department"
+                  #department="ngModel"
                   [(ngModel)]="model.department"
+                  [ngClass]="{ 'is-invalid': newUserForm.submitted && department.invalid }"
                   required
                 >
                   <option selected disabled value=""
@@ -71,13 +116,23 @@
                     d.name
                   }}</option>
                 </select>
+                <div
+                *ngIf="newUserForm.submitted && department.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="newUserForm.submitted && department.invalid">
+                  Please select a Department
+                </div>
+              </div>
               </div>
               <div class="col-md-6 mb-2">
                 <label for="role">Role</label>
                 <select
                   class="custom-select"
                   name="role"
+                  #roleId="ngModel"
                   [(ngModel)]="model.role"
+                  [ngClass]="{ 'is-invalid': newUserForm.submitted && roleId.invalid }"
                   required
                 >
                   <option selected disabled value=""
@@ -87,10 +142,17 @@
                     r.name | uppercase
                   }}</option>
                 </select>
+                <div
+                *ngIf="newUserForm.submitted && roleId.invalid"
+                class="invalid-feedback"
+              >
+                <div *ngIf="newUserForm.submitted && roleId.invalid">
+                  Please select a Role
+                </div>
+              </div>
               </div>
             </div>
             <button
-              [disabled]="!newUserForm.valid"
               class="btn btn-success mt-2"
               type="submit"
             >
