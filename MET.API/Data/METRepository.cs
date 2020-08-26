@@ -42,7 +42,7 @@ namespace MET.API.Data
 
         public async Task<IEnumerable<Module>> GetModulesByProject(int projectId)
         {
-            var modules = await _context.Modules.Include(p => p.Project).Where(m => m.Project.Id == projectId).ToListAsync();
+            var modules = await _context.Modules.Where(m => m.Project.Id == projectId).ToListAsync();
             return modules;
         }
 
@@ -91,16 +91,7 @@ namespace MET.API.Data
 
         public async Task<PagedList<Request>> GetRequests(RequestPrams requestPrams)
         {
-            var requests = _context.Requests
-            .Include(p => p.Project)
-            .Include(m => m.Module)
-            .Include(e => e.Effort)
-            .Include(a => a.Approval)
-            .Include(t => t.Timeline)
-            .Include(ua => ua.UAT)
-            .Include(r => r.Release)
-            .Include(u => u.User)
-            .Include(a => a.Attachment).OrderByDescending(CreationDate => CreationDate).AsQueryable();
+            var requests = _context.Requests.OrderByDescending(CreationDate => CreationDate).AsQueryable();
 
             if(requestPrams.ProjectId != 0)
             { 
@@ -113,17 +104,7 @@ namespace MET.API.Data
 
         public async Task<Request> GetRequest(int requestId)
         {
-            var request = await _context.Requests
-            .Include(p => p.Project)
-            .Include(m => m.Module)
-            .Include(e => e.Effort)
-            .Include(a => a.Approval)
-            .Include(t => t.Timeline)
-            .Include(ua => ua.UAT)
-            .Include(r => r.Release)
-            .Include(u => u.User)
-            .Include(a => a.Attachment)
-            .FirstOrDefaultAsync(r => r.Id == requestId);
+            var request = await _context.Requests.FirstOrDefaultAsync(r => r.Id == requestId);
 
             return request;
         }
@@ -164,16 +145,7 @@ namespace MET.API.Data
 
         public async Task<PagedList<Request>> GetRequestsbyStatus(string status, RequestPrams requestPrams)
         {
-            var requests = _context.Requests
-            .Include(p => p.Project)
-            .Include(m => m.Module)
-            .Include(e => e.Effort)
-            .Include(a => a.Approval)
-            .Include(t => t.Timeline)
-            .Include(r => r.Release)
-            .Include(ua => ua.UAT)
-            .Include(u => u.User)
-            .Include(a => a.Attachment).OrderByDescending(CreationDate => CreationDate).AsQueryable();
+            var requests = _context.Requests.OrderByDescending(CreationDate => CreationDate).AsQueryable();
 
             requests = requests.Where(r => r.Status == status);
 
@@ -187,16 +159,7 @@ namespace MET.API.Data
 
         public async Task<PagedList<Request>> GetRequestsbyUser(int id, RequestPrams requestPrams)
         {
-            var requests = _context.Requests
-            .Include(p => p.Project)
-            .Include(m => m.Module)
-            .Include(e => e.Effort)
-            .Include(a => a.Approval)
-            .Include(t => t.Timeline)
-            .Include(ua => ua.UAT)
-            .Include(r => r.Release)
-            .Include(u => u.User)
-            .Include(a => a.Attachment).OrderByDescending(CreationDate => CreationDate).AsQueryable();
+            var requests = _context.Requests.OrderByDescending(CreationDate => CreationDate).AsQueryable();
             
             requests = requests.Where(u => u.User.Id == id);
 
@@ -273,7 +236,7 @@ namespace MET.API.Data
 
          public async Task<IEnumerable<Request>> GetRequestbyApprovalDate(DateTime StartDate, DateTime EndDate)
         {
-             var requests = _context.Requests.Include(u => u.User).Include(p => p.Project).Include(m => m.Module).Include(a => a.Approval).AsQueryable();
+             var requests = _context.Requests.AsQueryable();
 
             requests =  requests.Where(r => r.Approval.ApprovalDate > StartDate && r.Approval.ApprovalDate < EndDate);
 
@@ -284,7 +247,7 @@ namespace MET.API.Data
 
         public async Task<IEnumerable<Request>> GetRequestbyCreatedDate(DateTime StartDate, DateTime EndDate)
         {
-             var requests = _context.Requests.Include(u => u.User).Include(p => p.Project).Include(m => m.Module).AsQueryable();
+             var requests = _context.Requests.AsQueryable();
 
             requests =  requests.Where(r => r.CreationDate > StartDate && r.CreationDate < EndDate);
 

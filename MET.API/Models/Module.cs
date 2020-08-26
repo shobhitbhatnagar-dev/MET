@@ -7,6 +7,6 @@ namespace MET.API.Models
         public int Id { get; set; }
         public string ModuleName { get; set; }
         public DateTime CreatedOn { get; set; }= DateTime.Now;
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
     }
 }
