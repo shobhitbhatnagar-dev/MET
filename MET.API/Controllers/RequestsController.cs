@@ -72,6 +72,11 @@ namespace MET.API.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> Add(AddRequestDto request)
         {
+            if(!await _repo.CheckModulevsProject(request.ModuleId, request.ProjectId))
+            {
+                return BadRequest("The Selected Module does not belong to selected Project");
+            };
+
             var user = await _auth.GetUser(request.UserId);
             var project = await _repo.GetProject(request.ProjectId);
             var module = await _repo.GetModule(request.ModuleId);

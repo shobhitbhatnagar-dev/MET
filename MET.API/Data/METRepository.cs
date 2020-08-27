@@ -255,5 +255,19 @@ namespace MET.API.Data
 
             return result;
         }
+
+        public async Task<bool> CheckModulevsProject(int ModuleId, int ProjectId)
+        {
+            var module = await _context.Modules.FirstOrDefaultAsync(m => m.Id == ModuleId);
+
+            if(module.Project.Id == ProjectId)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

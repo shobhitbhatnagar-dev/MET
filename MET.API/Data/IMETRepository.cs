@@ -21,6 +21,7 @@ namespace MET.API.Data
         Task<IEnumerable<Module>> GetModules();
         Task<Module> GetModule(int id);
         Task<bool> CheckModule(string moduleName);
+        Task<bool> CheckModulevsProject(int ModuleId, int ProjectId);
         Task<IEnumerable<Module>> GetModulesByProject(int projectId);
         Task<Request> GetRequest(int requestId);
         Task<PagedList<Request>> GetRequests(RequestPrams requestPrams );
