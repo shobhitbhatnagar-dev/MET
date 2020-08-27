@@ -1,0 +1,122 @@
+[
+    {
+        "id": 1,
+        "name": "CSR Team",
+        "type": "dept"
+    },
+    {
+        "id": 2,
+        "name": "Fee Based Team",
+        "type": "dept"
+    },
+    {
+        "id": 3,
+        "name": "Finance Team",
+        "type": "dept"
+    },
+    {
+        "id": 4,
+        "name": "IISC Team",
+        "type": "dept"
+    },
+    {
+        "id": 5,
+        "name": "Legal Team",
+        "type": "dept"
+    },
+    {
+        "id": 6,
+        "name": "LRT Team",
+        "type": "dept"
+    },
+    {
+        "id": 7,
+        "name": "Marketing Team",
+        "type": "dept"
+    },
+    {
+        "id": 8,
+        "name": "Non PMKVY Team",
+        "type": "dept"
+    },
+    {
+        "id": 9,
+        "name": "Standards Team",
+        "type": "dept"
+    },
+    {
+        "id": 10,
+        "name": "PMKVY STT Team",
+        "type": "dept"
+    },
+    {
+        "id": 11,
+        "name": "PMKVY RPL Team",
+        "type": "dept"
+    },
+    {
+        "id": 12,
+        "name": "PMKVY SP Team",
+        "type": "dept"
+    },
+    {
+        "id": 13,
+        "name": "PMKVY Monitoring Team",
+        "type": "dept"
+    },
+    {
+        "id": 14,
+        "name": "States Team",
+        "type": "dept"
+    },
+    {
+        "id": 15,
+        "name": "TOT & TOA Team",
+        "type": "dept"
+    },
+    {
+        "id": 16,
+        "name": "SSC Governance Team",
+        "type": "dept"
+    },
+    {
+        "id": 17,
+        "name": "IT Team",
+        "type": "dept"
+    },
+    {
+        "id": 18,
+        "name": "Technical Vendor",
+        "type": "dept"
+    },
+    {
+        "id": 19,
+        "name": "admin",
+        "type": "role"
+    },
+    {
+        "id": 20,
+        "name": "requester",
+        "type": "role"
+    },
+    {
+        "id": 21,
+        "name": "dev",
+        "type": "role"
+    },
+    {
+        "id": 22,
+        "name": "it",
+        "type": "role"
+    },
+    {
+        "id": 23,
+        "name": "uat",
+        "type": "role"
+    },
+    {
+        "id": 24,
+        "name": "it",
+        "type": "role"
+    }
+]
