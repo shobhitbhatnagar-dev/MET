@@ -15,6 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AddModuleComponent implements OnInit {
   projects: Project[];
   model: any = {};
+  buttonDisable = false;
   id: any;
 
   constructor(
@@ -40,12 +41,14 @@ export class AddModuleComponent implements OnInit {
 
   addModule() {
     this.spinner.show();
+    this.buttonDisable = true;
     this.id = this.master.addModule(this.model).subscribe(
       () => {
         this.alertify.success('Module Added Sucessfully');
       },
       (error) => {
         this.alertify.error(error);
+        this.buttonDisable = false;
       },
       () => {
         this.router.navigate(['project']);

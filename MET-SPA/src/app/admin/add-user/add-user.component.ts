@@ -17,6 +17,7 @@ export class AddUserComponent implements OnInit {
   dept: Value[];
   role: Value[];
   projects: Project[];
+  buttonDisable = false;
 
   constructor(
     private requestService: RequestService,
@@ -27,6 +28,7 @@ export class AddUserComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.buttonDisable = false;
     this.master.getValueByType('dept').subscribe(
       (dept: Value[]) => {
         this.dept = dept;
@@ -53,6 +55,7 @@ export class AddUserComponent implements OnInit {
   }
 
   addUser() {
+    this.buttonDisable = true;
     console.log(this.model);
     this.auth.register(this.model).subscribe(
       () => {
@@ -60,6 +63,7 @@ export class AddUserComponent implements OnInit {
       },
       (error) => {
         this.alertify.error(error);
+        this.buttonDisable = false;
       },
       () => {
         this.router.navigate(['/users']);

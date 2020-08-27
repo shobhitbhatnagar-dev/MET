@@ -13,6 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class AddProjectComponent implements OnInit {
   model: any = {};
+  buttonDisable = false;
 
   constructor(
     private requestService: RequestService,
@@ -25,7 +26,7 @@ export class AddProjectComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-
+    this.buttonDisable = false;
     setTimeout(() => {
       /** spinner ends after 5 seconds */
       this.spinner.hide();
@@ -33,12 +34,14 @@ export class AddProjectComponent implements OnInit {
   }
 
   addProject() {
+    this.buttonDisable = true;
     this.master.addProject(this.model).subscribe(
       () => {
         this.alertify.success('Project Added Sucessfully');
       },
       (error) => {
         this.alertify.error(error);
+        this.buttonDisable = false;
       },
       () => {
         this.router.navigate(['project']);

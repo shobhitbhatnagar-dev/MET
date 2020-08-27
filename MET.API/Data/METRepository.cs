@@ -72,11 +72,15 @@ namespace MET.API.Data
             return false;
         }
 
-         public async Task<bool> CheckModule(string moduleName)
+         public async Task<bool> CheckModule(string moduleName, int projectId)
         {
             if( await _context.Modules.AnyAsync(m => m.ModuleName == moduleName))
             {
-              return true;
+                var module = await _context.Modules.FirstOrDefaultAsync(m => m.ModuleName == moduleName);
+                if( module.Project.Id == projectId)
+                {
+                    return true;
+                }
             }
 
             return false;
