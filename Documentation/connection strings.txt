@@ -13,3 +13,10 @@ MS SQL - Aws
 
 "DefaultConnection": "Server=met1.cuva1ywdysfc.ap-south-1.rds.amazonaws.com; Database=met1; User ID=appuser; Password=Shobhit26##"
 
+
+MS SQL - Azure (working)
+
+"ConnectionStrings": {
+    "DefaultConnection": "Data Source=met1.database.windows.net; Initial Catalog=met; User ID=shobhit;Password=Showkey26#;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+  },
+

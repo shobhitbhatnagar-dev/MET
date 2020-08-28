@@ -97,7 +97,7 @@ namespace MET.API.Controllers
                     //Prepring response
                     var attachmentToCreate = new Attachment
                     {
-                        Url = "http://localhost/" + dbPath,
+                        Url = "https://nsdcit.azurewebsites.net/" + dbPath,
                         PublicId = guid,
                         Title = OrginalfileName
                     };
