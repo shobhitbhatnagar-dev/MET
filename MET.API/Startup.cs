@@ -21,8 +21,10 @@ namespace MET.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _eve;
+        public Startup(IConfiguration configuration, IHostingEnvironment eve)
         {
+            _eve = eve;
             Configuration = configuration;
         }
 
@@ -108,8 +110,8 @@ namespace MET.API
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions{
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-                RequestPath = new PathString("/Resources")
+              FileProvider = new PhysicalFileProvider(Path.Combine(_eve.ContentRootPath, @"Files")),
+              RequestPath = new PathString("/Files")
             });
             app.UseAuthentication();
             app.UseMvc(routes => 

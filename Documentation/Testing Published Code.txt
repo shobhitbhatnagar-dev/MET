@@ -1,0 +1,1 @@
+https://odetocode.com/blogs/scott/archive/2018/07/16/7-tips-for-troubleshooting-asp-net-core-startup-errors.aspx

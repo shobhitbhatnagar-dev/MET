@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MET.API.Controllers
 {
@@ -24,9 +25,11 @@ namespace MET.API.Controllers
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _CloudinaryConfig;
         private Cloudinary _cloudinary;
+        private readonly IHostingEnvironment _eve;
 
-        public AttachmentsController(IMETRepository repo, IMapper mapper, IOptions<CloudinarySettings> CloudinaryConfig)
+        public AttachmentsController(IMETRepository repo, IMapper mapper, IHostingEnvironment eve, IOptions<CloudinarySettings> CloudinaryConfig)
         {
+            _eve = eve;
             _CloudinaryConfig = CloudinaryConfig;
             _mapper = mapper;
             _repo = repo;
@@ -61,14 +64,15 @@ namespace MET.API.Controllers
                 {
                     return BadRequest();
                 }
-                // Setting up File Directory
-                var folderName = Path.Combine("Resources", "Files");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                // Setting up File Directory\
+                var dir = _eve.ContentRootPath; 
+                var folderName = Path.Combine("Files");
+                var pathToSave = Path.Combine(dir, folderName);
 
                 //Creating randomfilename
                 var guid = Guid.NewGuid().ToString();
                 var extention = Path.GetExtension(file.FileName);
-                var fileName = guid + "_" + file.FileName + extention;
+                var fileName = guid + "_" + file.FileName ;// + extention;
                 var OrginalfileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
                 //Final Path and URl to store in db
@@ -93,7 +97,7 @@ namespace MET.API.Controllers
                     //Prepring response
                     var attachmentToCreate = new Attachment
                     {
-                        Url = "http://localhost:5000/" + dbPath,
+                        Url = "http://localhost/" + dbPath,
                         PublicId = guid,
                         Title = OrginalfileName
                     };
