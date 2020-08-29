@@ -155,7 +155,7 @@
                       name="startDate"
                       bsDatepicker
                       [minDate]="minstartDate"
-                      [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
                       [(ngModel)]="model.startDate"
                       #startDate="ngModel"
                       [ngClass]="{ 'is-invalid': uatForm.submitted && startDate.invalid }"
@@ -176,7 +176,7 @@
                       name="signOffDate"
                       bsDatepicker
                       [minDate]="minDate"
-                      [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
                       [(ngModel)]="model.signOffDate"
                       #signOffDate="ngModel"
                       [ngClass]="{ 'is-invalid': uatForm.submitted && signOffDate.invalid }"

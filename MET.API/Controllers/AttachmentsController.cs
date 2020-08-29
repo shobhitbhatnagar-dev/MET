@@ -79,7 +79,7 @@ namespace MET.API.Controllers
                 var fullPath = Path.Combine(pathToSave, fileName);
                 var dbPath = Path.Combine(folderName, fileName);
 
-                if (file.Length > 0)
+                if (file.Length < 0)
                 {
                     //Checking if this Directory Exsists
                     if (!Directory.Exists(pathToSave))
@@ -98,10 +98,15 @@ namespace MET.API.Controllers
                     var attachmentToCreate = new Attachment
                     {
                         Url = "https://nsdcit.azurewebsites.net/" + dbPath,
+                        //Url = "https://localhost:5000/" + dbPath,
                         PublicId = guid,
                         Title = OrginalfileName
                     };
                     return Ok(attachmentToCreate);
+                }
+                else
+                {
+                    return BadRequest("Blank File can not be upload");
                 }
             }
             catch (Exception ex)

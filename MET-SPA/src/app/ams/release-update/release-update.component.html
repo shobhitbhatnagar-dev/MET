@@ -177,7 +177,7 @@
                       name="plannedDate"
                       bsDatepicker
                       [minDate]="minDate"
-                      [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
                       [(ngModel)]="model.releaseDate"
                       #plannedDate="ngModel"
                       [ngClass]="{ 'is-invalid': releaseForm.submitted && plannedDate.invalid }"

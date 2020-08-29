@@ -30,7 +30,6 @@ import { ListRequestByuserComponent } from './requests/list-request-byuser/list-
 import { MonthlyDashboardComponent } from './it-panel/monthly-dashboard/monthly-dashboard.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { ResetpasswordComponent } from './admin/resetpassword/resetpassword.component';
-import { UserDetailsResolver } from './_resolvers/user-details.resolver';
 import { SearchRequestComponent } from './it-panel/search-request/search-request.component';
 
 

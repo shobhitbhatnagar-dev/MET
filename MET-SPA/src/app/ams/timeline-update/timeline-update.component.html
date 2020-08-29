@@ -127,7 +127,7 @@
                       name="plannedDate"
                       bsDatepicker
                       [minDate]="minDate"
-                      [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
                       [(ngModel)]="model.plannedDate"
                       #plannedDate="ngModel"
                       [ngClass]="{ 'is-invalid': timelineForm.submitted && plannedDate.invalid }"

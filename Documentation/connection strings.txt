@@ -1,3 +1,5 @@
+SQL lite
+
 "ConnectionStrings": {
     "DefaultConnection": "DataSource=MET.db"
   },
