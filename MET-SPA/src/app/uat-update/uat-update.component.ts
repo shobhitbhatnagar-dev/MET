@@ -19,12 +19,12 @@ export class UatUpdateComponent implements OnInit {
   requestProjectId: any = 0;
   minDate: Date;
   minstartDate: Date;
+  buttonDisable = false;
 
   constructor(
     private requestService: RequestService,
     private alertify: AlertifyService,
     private Activeroute: ActivatedRoute,
-    private router: Router,
     private spinner: NgxSpinnerService,
     private route: Router,
     private auth: AuthService
@@ -38,7 +38,7 @@ export class UatUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-
+    this.buttonDisable = false;
     this.Activeroute.data.subscribe((data) => {
       // tslint:disable-next-line: no-string-literal
       this.requestbyid = data['request'];
@@ -73,7 +73,7 @@ export class UatUpdateComponent implements OnInit {
   }
 
   updateUAT() {
-    console.log(this.model);
+    this.buttonDisable = true;
     this.spinner.show();
     this.requestService.ClearAttachment();
     if (this.fileSelected == null) {
@@ -87,6 +87,7 @@ export class UatUpdateComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
+          this.buttonDisable = false;
           this.alertify.error(error);
         },
         () => {
@@ -102,6 +103,7 @@ export class UatUpdateComponent implements OnInit {
                 this.route.navigate(['requests/status/uat']);
               },
               (error) => {
+                this.buttonDisable = false;
                 this.alertify.error(error);
               }
             );

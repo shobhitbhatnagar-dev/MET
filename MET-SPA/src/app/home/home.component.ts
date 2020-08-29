@@ -1,33 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-registerMode = false;
+  registerMode = false;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    public authservices: AuthService
+  ) {}
 
-  ngOnInit() {
- 
+  ngOnInit() {}
+
+  registerToggle() {
+    this.registerMode = true;
   }
 
-registerToggle() {
-  this.registerMode = true;
-}
+  cancelRegisterMode(registerMode: boolean) {
+    this.registerMode = registerMode;
+  }
 
+  goAddRequest() {
+    this.router.navigate(['newrequest']);
+  }
 
-cancelRegisterMode(registerMode: boolean) {
-  this.registerMode = registerMode;
-}
+  goToAbout() {
+    this.router.navigate(['about']);
+  }
 
-goAddRequest() {
- this.router.navigate(['newrequest']);
-}
-
-
+  loggedIn() {
+    return this.authservices.loggedIn();
+  }
 }

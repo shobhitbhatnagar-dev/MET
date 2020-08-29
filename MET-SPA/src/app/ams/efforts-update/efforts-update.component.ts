@@ -15,7 +15,7 @@ export class EffortsUpdateComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
   fileSelected: any = null;
-  requestInProgress: boolean;
+  buttonDisable = false;
   projectId: any;
   requestProjectId: any = 0;
 
@@ -29,6 +29,7 @@ export class EffortsUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.buttonDisable = false;
     this.spinner.show();
     this.activeRoute.data.subscribe((data) => {
       // tslint:disable-next-line: no-string-literal
@@ -62,10 +63,12 @@ export class EffortsUpdateComponent implements OnInit {
   }
 
   updateEfforts() {
+    this.buttonDisable = true;
     this.spinner.show();
     this.requestService.ClearAttachment();
     if (this.fileSelected == null) {
       this.alertify.error('WBS file is mandatory to submit efforts');
+      this.buttonDisable = false; 
       this.spinner.hide();
     } else {
       const formData: FormData = new FormData();
@@ -75,6 +78,7 @@ export class EffortsUpdateComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
+          this.buttonDisable = false;
           this.alertify.error(error);
         },
         () => {
@@ -90,6 +94,7 @@ export class EffortsUpdateComponent implements OnInit {
                 this.route.navigate(['requests/status/new']);
               },
               (error) => {
+                this.buttonDisable = false;
                 this.alertify.error(error);
               }
             );

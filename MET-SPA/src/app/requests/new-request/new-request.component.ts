@@ -20,7 +20,7 @@ export class NewRequestComponent implements OnInit {
   moduleActive = false; // To activate & deactivate module drop down
   requestUrl: any; // For your Request redirect
   fileSelected: File = null; // To Display and maintain file selected
-  requestInProgress: boolean; // To disable Submit button when request in progress
+  buttonDisable = false; // To disable Submit button when request in progress
   isJustification: boolean; // To make Justification visible and invisible
 
   constructor(
@@ -50,7 +50,7 @@ export class NewRequestComponent implements OnInit {
 
   addRequest() {
     this.spinner.show();
-    this.requestInProgress = false;
+    this.buttonDisable = true;
     this.requestService.ClearAttachment();
     this.model.userId = this.auth.getUserId();
     this.model.status = 'new';
@@ -61,10 +61,9 @@ export class NewRequestComponent implements OnInit {
       formData.append('fileRecived', this.fileSelected);
       this.requestService.UploadAttachment(formData).subscribe(
         () => {
-          console.log('attachment Upload sucessfull');
         },
         (error) => {
-          this.requestInProgress = true;
+          this.buttonDisable = false;
           this.alertify.error(error);
         },
         () => {
@@ -78,7 +77,7 @@ export class NewRequestComponent implements OnInit {
               this.alertify.success('Request Added Sucessfully');
             },
             (error) => {
-              this.requestInProgress = true;
+              this.buttonDisable = false;
               this.alertify.error(error);
             },
             () => {
@@ -88,25 +87,10 @@ export class NewRequestComponent implements OnInit {
         }
       );
     } else {
-      console.log(this.model);
-      this.model.attachmentId = 0;
-
-      // New Request Creation without Attachment
-      this.requestService.addRequest(this.model).subscribe(
-        () => {
-          this.alertify.success('Request Added Sucessfully');
-        },
-        (error) => {
-          this.requestInProgress = true;
-          this.alertify.error(error);
-        },
-        () => {
-          this.requestbyUser();
-        }
-      );
+      this.buttonDisable = false;
+      this.alertify.error('BRD is requierd to upload  to raise a Request');
     }
     this.requestService.ClearAttachment();
-    this.requestInProgress = true;
     setTimeout(() => {
       /** spinner ends after 4 seconds */
       this.spinner.hide();

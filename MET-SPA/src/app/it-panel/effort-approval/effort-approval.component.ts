@@ -15,7 +15,7 @@ export class EffortApprovalComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
   fileSelected: any = null;
-  requestInProgress: boolean;
+  buttonDisable = false;
   projectId: any;
   requestProjectId: any = 0;
 
@@ -30,6 +30,7 @@ export class EffortApprovalComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
+    this.buttonDisable = false;
     this.activeRoute.data.subscribe((data) => {
       // tslint:disable-next-line: no-string-literal
       this.requestbyid = data['request'];
@@ -65,6 +66,7 @@ export class EffortApprovalComponent implements OnInit {
 
   updateApproval() {
     this.spinner.show();
+    this.buttonDisable = true;
     this.requestService.ClearAttachment();
     if (this.fileSelected == null) {
       this.alertify.error('Approval mail is required to approve efforts');
@@ -77,6 +79,7 @@ export class EffortApprovalComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
+          this.buttonDisable = false;
           this.alertify.error(error);
         },
         () => {
@@ -94,6 +97,7 @@ export class EffortApprovalComponent implements OnInit {
                 this.route.navigate(['requests/status/effort']);
               },
               (error) => {
+                this.buttonDisable = false;
                 this.alertify.error(error);
               }
             );

@@ -30,7 +30,7 @@
                   [ngClass]="{ 'is-invalid': newRequestForm.submitted && projectId.invalid }"
                   required
                 >
-                  <option selected disabled value="">Select a Module</option>
+                  <option selected disabled value="">Select a Project</option>
                   <option *ngFor="let p of projects" value="{{ p.id }}">{{
                     p.projectName
                   }}</option>
@@ -170,7 +170,7 @@
               </div>
             </div>
             <button
-              [disabled]="requestInProgress"
+              [disabled]="buttonDisable"
               class="btn btn-success"
               type="submit"
             >

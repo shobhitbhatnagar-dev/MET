@@ -15,7 +15,7 @@ export class TimelineUpdateComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
   minDate: Date;
-  requestInProgress: boolean;
+  buttonDisable = false;
   projectId: any;
   requestProjectId: any = 0;
 
@@ -32,6 +32,7 @@ export class TimelineUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buttonDisable = false;
     this.spinner.show();
     this.activeRoute.data.subscribe((data) => {
       // tslint:disable-next-line: no-string-literal
@@ -68,7 +69,7 @@ export class TimelineUpdateComponent implements OnInit {
 
   updateTimelines() {
     this.spinner.show();
-    this.requestInProgress = false;
+    this.buttonDisable = true;
     console.log(this.model);
     this.requestService
       .UpdateTimeline(this.requestbyid.id, this.model)
@@ -79,11 +80,10 @@ export class TimelineUpdateComponent implements OnInit {
         },
         (error) => {
           this.spinner.hide();
-          this.requestInProgress = true;
+          this.buttonDisable = false;
           this.alertify.error(error);
         }
       );
-    this.requestInProgress = true;
     setTimeout(() => {
       /** spinner ends after 4 seconds */
       this.spinner.hide();

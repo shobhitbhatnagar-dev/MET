@@ -15,7 +15,7 @@ export class ReleaseUpdateComponent implements OnInit {
   requestbyid: Request;
   model: any = {};
   fileSelected: any = null;
-  requestInProgress: boolean;
+  buttonDisable = false;
   minDate: Date;
   projectId: any;
   requestProjectId: any = 0;
@@ -33,6 +33,7 @@ export class ReleaseUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.buttonDisable = false;
     this.spinner.show();
     this.Activeroute.data.subscribe((data) => {
       // tslint:disable-next-line: no-string-literal
@@ -68,6 +69,7 @@ export class ReleaseUpdateComponent implements OnInit {
 
   updateRelease() {
     this.spinner.show();
+    this.buttonDisable = true;
     this.requestService.ClearAttachment();
     if (this.fileSelected == null) {
       this.alertify.error('Release Note is required');
@@ -80,6 +82,7 @@ export class ReleaseUpdateComponent implements OnInit {
           console.log('attachment Upload sucessfull');
         },
         (error) => {
+          this.buttonDisable = false;
           this.alertify.error(error);
         },
         () => {
@@ -93,7 +96,7 @@ export class ReleaseUpdateComponent implements OnInit {
         });
     }
     this.requestService.ClearAttachment();
-    this.requestInProgress = true;
+    this.buttonDisable = false;
     setTimeout(() => {
       /** spinner ends after 4 seconds */
       this.spinner.hide();
