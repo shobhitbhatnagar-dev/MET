@@ -79,7 +79,7 @@ namespace MET.API.Controllers
                 var fullPath = Path.Combine(pathToSave, fileName);
                 var dbPath = Path.Combine(folderName, fileName);
 
-                if (file.Length < 0)
+                if (file.Length > 0)
                 {
                     //Checking if this Directory Exsists
                     if (!Directory.Exists(pathToSave))
