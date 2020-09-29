@@ -1,0 +1,24 @@
+Id,Name,Type
+1,CSR Team,dept
+2,Fee Based Team,dept
+3,Finance Team,dept
+4,IISC Team,dept
+5,Legal Team,dept
+6,LRT Team,dept
+7,Marketing Team,dept
+8,Non PMKVY Team,dept
+9,Standards Team,dept
+10,PMKVY STT Team,dept
+11,PMKVY RPL Team,dept
+12,PMKVY SP Team,dept
+13,PMKVY Monitoring Team,dept
+14,States Team,dept
+15,TOT & TOA Team,dept
+16,SSC Governance Team,dept
+17,IT Team,dept
+18,Technical Vendor,dept
+19,admin,role
+20,requester,role
+21,dev,role
+22,it,role
+23,uat,role

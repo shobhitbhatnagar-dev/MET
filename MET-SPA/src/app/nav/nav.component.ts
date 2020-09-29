@@ -20,7 +20,7 @@ requestUrl: any;
 
   login() {
     this.authservices.login(this.model).subscribe(next => {
-      this.alertify.success('Logged in sucessfully');
+      this.alertify.success('Logged in Successfully');
     }, error => {
       this.alertify.error(error);
     });

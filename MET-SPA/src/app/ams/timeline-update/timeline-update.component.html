@@ -126,7 +126,7 @@
                       #datepickerMDY="bsDatepicker"
                       name="plannedDate"
                       bsDatepicker
-                      [minDate]="minDate"
+                      [minDate]=requestbyid.effort.submittedDate
                       [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
                       [(ngModel)]="model.plannedDate"
                       #plannedDate="ngModel"

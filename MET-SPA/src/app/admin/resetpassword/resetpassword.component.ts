@@ -42,7 +42,7 @@ export class ResetpasswordComponent implements OnInit {
   changepassword(id: number) {
     this.auth.changePass(id, this.model).subscribe(
       () => {
-        this.alertify.success('Password Changed Sucessfully: UserId-' + id);
+        this.alertify.success('Password Reseted Successfully: UserId-' + id);
       },
       (error) => {
         this.alertify.error(error);

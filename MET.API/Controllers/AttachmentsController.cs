@@ -97,7 +97,7 @@ namespace MET.API.Controllers
                     //Prepring response
                     var attachmentToCreate = new Attachment
                     {
-                        Url = "https://nsdcit.azurewebsites.net/" + dbPath,
+                        Url = "http://met.test.nsdcindia.org/" + dbPath,
                         //Url = "https://localhost:5000/" + dbPath,
                         PublicId = guid,
                         Title = OrginalfileName
@@ -113,7 +113,7 @@ namespace MET.API.Controllers
             {
                 return BadRequest(ex.ToString());
             }
-            return BadRequest("Some Issue has occured");
+            //return BadRequest("Some Issue has occured");
         }
     }
 }

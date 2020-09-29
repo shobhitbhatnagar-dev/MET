@@ -22,3 +22,5 @@ MS SQL - Azure (working)
     "DefaultConnection": "Data Source=met1.database.windows.net; Initial Catalog=met; User ID=shobhit;Password=Showkey26#;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
   },
 
+@Q$LrCFixAy2
+
